@@ -167,16 +167,22 @@ Confusion matrices and ROC curves measure model accuracy and reliability.
 
 ### 3.5.1 Class Imbalance
 
-Imbalance (e.g., more healthy samples) skews results. Sampling (e.g., SMOTE), weighting, or threshold adjustments fix this.
+
+-   **Sampling**: Down-sample majority or up-sample minority (e.g., SMOTE).
+-   **Case Weights**: Assign higher weights to minority class.
+-   **Threshold Adjustment**: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.
 
 ### 3.5.2 Correlated Predictors
 
-Correlated genes cause multicollinearity. PCA, filtering, or regularization address it.
+Correlated predictors cause multicollinearity, increasing variance:
+
+-   **PCA**: Reduces correlation, though less interpretable.
+-   **Filtering**: Removes highly correlated variables.
+-   **Regularization**: Mitigates collinearity effects.
 
 ## 3.6 Overall Purpose
 
-Supervised learning predicts outcomes with labeled data, refining tools through preprocessing and validation for genomics.
-
+Unlike unsupervised learning's exploratory focus, supervised learning uses labeled data for prediction, transforming patterns into practical applications. Each step, from data splitting to regularization, enhances generalization, applicable to both classification and regression, offering robust tools for genomic research.
 ## References
 
 -   <https://compgenomr.github.io/book/supervisedLearning.html>

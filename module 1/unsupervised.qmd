@@ -27,7 +27,18 @@ K-means splits data into k clusters based on centroids, minimizing distances, an
 
 ### 2.2.3 Hierarchical Clustering vs. K-means
 
-Hierarchical clustering shines in exploration but is slow (O(n³)) for large data. K-means is fast and scalable, though it assumes even clusters and needs a set k.
+**Hierarchical Clustering**:
+
+-   **Strengths**: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.
+
+-   **Weaknesses**: High computational complexity (O(n3)), less practical for large datasets.
+
+**K-means**:
+
+-   **Strengths**: Fast computation, scalable to big data.
+
+-   **Weaknesses**: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.
+
 
 ### 2.2.4 Choosing k: Picking the Right Number of Groups
 
@@ -35,21 +46,27 @@ K-means requires k. Silhouette analysis checks fit, gap statistic compares to ra
 
 ## 2.3 Dimensionality Reduction: Seeing the Big Picture
 
-High-dimensional data (e.g., thousands of genes) is tough to see. Dimensionality reduction maps it to lower dimensions, revealing patterns and aiding clustering.
+Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.
 
 ### 2.3.1 Comparison of Techniques
 
--   *PCA*: Linear, fast, global variance, misses non-linear patterns.\
--   *NMF/ICA*: Linear, specific patterns (e.g., non-negative), less visual-focused.\
--   *MDS*: Linear, preserves distances, balances structure.\
--   *t-SNE*: Non-linear, local clusters, slow and stochastic.\
--   *UMAP*: Non-linear, local-global balance, efficient.
+-   **PCA**: Linear, global variance, fast, misses nonlinear patterns.
+-   **NMF/ICA**: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.
+-   **MDS**: Linear, distance-preserving, balances global structure, less variance-centric than PCA.
+-   **t-SNE**: Nonlinear, local focus, cluster-rich, slow and stochastic.
+-   **UMAP**: Nonlinear, local-global balance, fast and robust.
 
-For genomics, PCA fits bulk data, t-SNE/UMAP suits single-cell, and NMF helps with expression patterns.
+### 2.3.2 Selection Guidance
+
+-   **Scale**: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.
+-   **Goal**: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).
+-   **Genomics**: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.
+
+These methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments.
 
 ## 2.4 Overall Purpose
 
-Unsupervised learning sketches the data's natural layout, highlighting groups and structures for further study.
+Unsupervised learning maps the data's natural landscape, revealing groups and structures. It's like finding landmarks on a research map
 
 ## References
 
