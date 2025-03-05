@@ -181,7 +181,16 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="hierarchical-clustering-vs.-k-means" class="level3">
 <h3 class="anchored" data-anchor-id="hierarchical-clustering-vs.-k-means">2.2.3 Hierarchical Clustering vs.&nbsp;K-means</h3>
-<p>Hierarchical clustering shines in exploration but is slow (O(n³)) for large data. K-means is fast and scalable, though it assumes even clusters and needs a set k.</p>
+<p><strong>Hierarchical Clustering</strong>:</p>
+<ul>
+<li><p><strong>Strengths</strong>: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.</p></li>
+<li><p><strong>Weaknesses</strong>: High computational complexity (O(n3)), less practical for large datasets.</p></li>
+</ul>
+<p><strong>K-means</strong>:</p>
+<ul>
+<li><p><strong>Strengths</strong>: Fast computation, scalable to big data.</p></li>
+<li><p><strong>Weaknesses</strong>: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.</p></li>
+</ul>
 </section>
 <section id="choosing-k-picking-the-right-number-of-groups" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-k-picking-the-right-number-of-groups">2.2.4 Choosing k: Picking the Right Number of Groups</h3>
@@ -190,26 +199,30 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="dimensionality-reduction-seeing-the-big-picture" class="level2">
 <h2 class="anchored" data-anchor-id="dimensionality-reduction-seeing-the-big-picture">2.3 Dimensionality Reduction: Seeing the Big Picture</h2>
-<p>High-dimensional data (e.g., thousands of genes) is tough to see. Dimensionality reduction maps it to lower dimensions, revealing patterns and aiding clustering.</p>
+<p>Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.</p>
 <section id="comparison-of-techniques" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-of-techniques">2.3.1 Comparison of Techniques</h3>
 <ul>
-<li><em>PCA</em>: Linear, fast, global variance, misses non-linear patterns.<br>
-</li>
-<li><em>NMF/ICA</em>: Linear, specific patterns (e.g., non-negative), less visual-focused.<br>
-</li>
-<li><em>MDS</em>: Linear, preserves distances, balances structure.<br>
-</li>
-<li><em>t-SNE</em>: Non-linear, local clusters, slow and stochastic.<br>
-</li>
-<li><em>UMAP</em>: Non-linear, local-global balance, efficient.</li>
+<li><strong>PCA</strong>: Linear, global variance, fast, misses nonlinear patterns.</li>
+<li><strong>NMF/ICA</strong>: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.</li>
+<li><strong>MDS</strong>: Linear, distance-preserving, balances global structure, less variance-centric than PCA.</li>
+<li><strong>t-SNE</strong>: Nonlinear, local focus, cluster-rich, slow and stochastic.</li>
+<li><strong>UMAP</strong>: Nonlinear, local-global balance, fast and robust.</li>
 </ul>
-<p>For genomics, PCA fits bulk data, t-SNE/UMAP suits single-cell, and NMF helps with expression patterns.</p>
+</section>
+<section id="selection-guidance" class="level3">
+<h3 class="anchored" data-anchor-id="selection-guidance">2.3.2 Selection Guidance</h3>
+<ul>
+<li><strong>Scale</strong>: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.</li>
+<li><strong>Goal</strong>: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).</li>
+<li><strong>Genomics</strong>: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.</li>
+</ul>
+<p>These methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs.&nbsp;MDS) guide metric or k adjustments.</p>
 </section>
 </section>
 <section id="overall-purpose" class="level2">
 <h2 class="anchored" data-anchor-id="overall-purpose">2.4 Overall Purpose</h2>
-<p>Unsupervised learning sketches the data’s natural layout, highlighting groups and structures for further study.</p>
+<p>Unsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
