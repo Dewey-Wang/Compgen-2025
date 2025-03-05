@@ -1,5 +1,7 @@
 project:
   type: website
+  output-dir: docs
+
 
 website:
   title: "From Statistical Foundations to Machine Learning Applications in Genomics"
