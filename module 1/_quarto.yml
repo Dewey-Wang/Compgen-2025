@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  title: "From Statistical Foundations to Machine Learning Applications in Genomics"
+  navbar:
+    left:
+      - href: statistics.qmd
+        text: "1. Statistics"
+        id: "statistics"
+      - href: unsupervised.qmd
+        text: "2. Unsupervised Learning"
+        id: "unsupervised"
+      - href: supervised.qmd
+        text: "3. Supervised Learning"
+        id: "supervised"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    execute:
+      enabled: true
+      echo: false
