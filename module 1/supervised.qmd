@@ -1,0 +1,186 @@
+---
+title: "Supervised Learning"
+author: "Ding Yang Wang"
+date: "`r Sys.Date()`"
+---
+
+# 3. Supervised Learning: Developing Predictive Models
+
+With patterns identified, supervised learning uses labeled data to build models that predict outcomes, such as disease states or treatment responses, turning insights into practical applications.
+
+## 3.1 Data Preprocessing: Ensuring Quality
+
+Raw genomic data requires preprocessing. Techniques like normalize, log transformation, remove near-zero variance (NZV) genes, imputation for missing values, and noise filtering enhance data quality, ensuring models focus on relevant signals.
+
+## 3.2 Data Splitting: Testing Real Performance
+
+### 3.2.1 Holdout Test Dataset
+
+We split data (e.g., 70% training, 30% testing) to test on unseen samples.
+
+### 3.2.2 Cross-Validation (CV)
+
+For small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results.
+
+### 3.2.3 Bootstrap Resampling
+
+Bootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability.
+
+## 3.3 Predictive Models
+
+Algorithms vary by task:
+
+```{r, echo=FALSE}
+library(DT)
+
+supervised_table <- data.frame(
+  Category = c(
+    "Linear Regression Models", "", "", "",
+    "Non-Linear Regression Models", "",
+    "Tree-Based Methods", "", "",
+    "Distance-Based Methods", "",
+    "Non-Linear Advanced Methods"
+  ),
+  Algorithm = c(
+    "Logistic Regression", "Ridge Regression", "Lasso Regression", "Elastic Net",
+    "Polynomial Regression", "Generalized Additive Models (GAMs)",
+    "Decision Trees", "Random Forests", "Gradient Boosting (XGBoost)",
+    "k-Nearest Neighbors (k-NN)", "Support Vector Machines (SVM)",
+    "Neural Networks"
+  ),
+  Assumptions = c(
+    "Linear relationship between features and log-odds, assumes independence",
+    "Linear relationship, assumes multicollinearity needs regularization",
+    "Linear relationship, assumes sparse feature importance",
+    "Linear relationship, assumes a mix of sparse and correlated features",
+    "Non-linear relationship, assumes polynomial form captures data",
+    "Non-linear relationship, assumes additive non-linear effects",
+    "No strict distributional assumptions, handles categorical and numerical data",
+    "No strict distributional assumptions, benefits from randomness in data and features",
+    "No strict distributional assumptions, assumes sequential error correction",
+    "No strict assumptions, assumes similarity based on distance",
+    "Assumes data can be separated by a hyperplane (linear or non-linear with kernel)",
+    "No strict assumptions, assumes complex patterns can be learned with sufficient data"
+  ),
+  Use_Case = c(
+    "Disease risk prediction based on binary outcomes",
+    "Predicting outcomes with high-dimensional, correlated genomic data",
+    "Feature selection in high-dimensional datasets like genomics",
+    "Balanced feature selection and prediction in genomic studies",
+    "Modeling non-linear trends like gene expression over time",
+    "Capturing complex gene interactions in expression prediction",
+    "Medical diagnosis, simple classification or regression tasks",
+    "Gene expression classification, credit risk assessment",
+    "Customer churn prediction, competition-winning models",
+    "Small dataset classification, such as patient categorization",
+    "Image recognition, small dataset classification",
+    "Image and speech processing, complex genomic pattern recognition"
+  ),
+  Advantages = c(
+    "Simple and efficient, strong interpretability",
+    "Stabilizes predictions with correlated features",
+    "Performs feature selection by shrinking coefficients to zero",
+    "Combines Ridge and Lasso strengths for stability and selection",
+    "Simple extension of linear models, captures non-linear trends",
+    "Flexible modeling of multiple non-linear effects",
+    "Easy to understand and interpret, no data scaling needed",
+    "High accuracy, robust to noise, handles high-dimensional data",
+    "High accuracy, handles missing values, computationally efficient",
+    "Simple to implement, no model training required",
+    "Effective for small datasets, robust to noise with proper tuning",
+    "Learns complex patterns, flexible for large datasets"
+  ),
+  Disadvantages = c(
+    "Limited to linear relationships, sensitive to outliers",
+    "Does not perform feature selection",
+    "May randomly select among correlated features",
+    "Requires tuning of multiple parameters",
+    "Risk of overfitting with high-degree polynomials",
+    "Computationally intensive, model selection complex",
+    "Prone to overfitting, weak noise resistance",
+    "High computational cost, less interpretable",
+    "Complex parameter tuning, risk of overfitting",
+    "Slow with large datasets, sensitive to noise",
+    "Difficult parameter tuning, inefficient for large datasets",
+    "Requires large data, computationally intensive, hard to interpret"
+  )
+)
+
+datatable(supervised_table,
+          options = list(
+            ordering = FALSE,    # Disable sorting
+            searching = FALSE,   # Disable searching
+            paging = FALSE,      # Disable pagination
+            info = FALSE,        # Hide information
+            scrollY = FALSE,     # Disable vertical scrolling
+            scrollX = FALSE      # Disable horizontal scrolling
+          ),
+          class = 'quarto-table cell-border stripe',
+          caption = 'Supervised Learning Algorithms Including Non-Linear Regression',
+          rownames = FALSE) %>%
+  formatStyle(
+    'Category',
+    fontWeight = 'bold',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    'Algorithm',
+    fontWeight = 'bold',
+    color = '#003366',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    'Assumptions',
+    width = '25em',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    'Use_Case',
+    width = '25em',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    'Advantages',
+    width = '20em',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    'Disadvantages',
+    width = '20em',
+    textAlign = 'center'
+  ) %>%
+  formatStyle(
+    1:12,  # Set background colors for specific rows
+    backgroundColor = styleRow(1:12, c('#cce6ff', '#cce6ff', '#cce6ff', '#cce6ff', 
+                                       '#fff0f5', '#fff0f5', 
+                                       '#d9d9d9', '#d9d9d9', '#d9d9d9', 
+                                       '#f9e6d2', '#f9e6d2', 
+                                       '#e6ccff'))
+  )
+```
+
+## 3.4 Model Evaluation: Assessing Performance
+
+Confusion matrices and ROC curves measure model accuracy and reliability.
+
+## 3.5 Handling Challenges: Addressing Real-World Issues
+
+### 3.5.1 Class Imbalance
+
+Imbalance (e.g., more healthy samples) skews results. Sampling (e.g., SMOTE), weighting, or threshold adjustments fix this.
+
+### 3.5.2 Correlated Predictors
+
+Correlated genes cause multicollinearity. PCA, filtering, or regularization address it.
+
+## 3.6 Overall Purpose
+
+Supervised learning predicts outcomes with labeled data, refining tools through preprocessing and validation for genomics.
+
+## References
+
+-   <https://compgenomr.github.io/book/supervisedLearning.html>
+
+::: {style="text-align: left;"}
+[Previous](unsupervised.qmd)
+:::

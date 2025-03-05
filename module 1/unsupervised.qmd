@@ -1,0 +1,66 @@
+---
+title: "Unsupervised Learning"
+author: "Ding Yang Wang"
+date: "`r Sys.Date()`"
+---
+
+```{r, echo=FALSE}
+```
+
+# 2. Unsupervised Learning: Why Explore the Data?
+
+With a statistical foundation, we know our data's basics, but we're curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations.
+
+## 2.1 Distance Metrics: Defining Similarity
+
+To group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on **distance metrics**. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: **Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal.**
+
+## 2.2 Clustering: Spotting Natural Groups
+
+### 2.2.1 Hierarchical Clustering
+
+This builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.
+
+### 2.2.2 K-means Clustering
+
+K-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.
+
+### 2.2.3 Hierarchical Clustering vs. K-means
+
+Hierarchical clustering shines in exploration but is slow (O(n³)) for large data. K-means is fast and scalable, though it assumes even clusters and needs a set k.
+
+### 2.2.4 Choosing k: Picking the Right Number of Groups
+
+K-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number.
+
+## 2.3 Dimensionality Reduction: Seeing the Big Picture
+
+High-dimensional data (e.g., thousands of genes) is tough to see. Dimensionality reduction maps it to lower dimensions, revealing patterns and aiding clustering.
+
+### 2.3.1 Comparison of Techniques
+
+-   *PCA*: Linear, fast, global variance, misses non-linear patterns.\
+-   *NMF/ICA*: Linear, specific patterns (e.g., non-negative), less visual-focused.\
+-   *MDS*: Linear, preserves distances, balances structure.\
+-   *t-SNE*: Non-linear, local clusters, slow and stochastic.\
+-   *UMAP*: Non-linear, local-global balance, efficient.
+
+For genomics, PCA fits bulk data, t-SNE/UMAP suits single-cell, and NMF helps with expression patterns.
+
+## 2.4 Overall Purpose
+
+Unsupervised learning sketches the data's natural layout, highlighting groups and structures for further study.
+
+## References
+
+-   <https://compgenomr.github.io/book/unsupervisedLearning.html>
+
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+::: {style="text-align: left;"}
+[Previous](statistics.qmd)
+:::
+
+::: {style="text-align: right;"}
+[Next](supervised.qmd)
+:::
+:::

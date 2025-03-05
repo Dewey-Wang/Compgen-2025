@@ -1,0 +1,14 @@
+{
+  "supervised.qmd": {
+    "supervised.html": "7e797d30"
+  },
+  "unsupervised.qmd": {
+    "unsupervised.html": "e72cc34a"
+  },
+  "statistics.qmd": {
+    "statistics.html": "132e6184"
+  },
+  "index.qmd": {
+    "index.html": "ef31211b"
+  }
+}
