@@ -1,6 +1,7 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: ../docs  # Move docs to the root folder
+
 
 
 website:
