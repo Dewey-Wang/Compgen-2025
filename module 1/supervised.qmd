@@ -116,7 +116,7 @@ datatable(supervised_table,
             scrollX = FALSE      # Disable horizontal scrolling
           ),
           class = 'quarto-table cell-border stripe',
-          caption = 'Supervised Learning Algorithms Including Non-Linear Regression',
+          caption = 'Supervised Learning Algorithms',
           rownames = FALSE) %>%
   formatStyle(
     'Category',
