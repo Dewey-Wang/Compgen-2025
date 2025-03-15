@@ -19,9 +19,9 @@ website:
         menu:
           - href: module2/Introduction_of_Spatial_Transcriptomics.qmd
             text: "1. Spatial Transcriptomics"
-          - href: module2/Multimodal Image Registration.qmd
-            text: "2. Multimodal Image Registration"
-          - href: module2/Multiomics Integration.qmd
+          - href: module2/Spatial_Transcriptomics_Analysis.qmd
+            text: "2. Spatial Transcriptomics Analysis"
+          - href: module2/Multiomics_Integration.qmd
             text: "3. Multiomics Integration"
 
       - text: "Module 3: Neural Network for Genomics"

@@ -4,7 +4,7 @@
     "href": "module1/statistics.html",
     "title": "Statistics for Genomics",
     "section": "",
-    "text": "Genomic research begins with complex datasets, such as gene expression levels, which contain natural variation and experimental noise. Statistics provides a systematic way to process and interpret this data, ensuring a dependable foundation for further analysis. Below are the key statistical steps and their roles:\n\n\nGene expression data often varies significantly. We need a “typical” value to grasp the big picture. Measures like the mean and median summarize the central tendency. The mean uses all data but can be swayed by outliers; the median stays steady, perfect for uneven datasets. Variance and standard deviation quantify the data’s spread, indicating consistency or highlighting potential biological diversity or experimental errors.\n\n\n\nData frequently follows patterns, such as the normal distribution for continuous traits like gene expression or the Poisson distribution for discrete counts like mutations. Identifying these distributions guides the selection of appropriate analytical methods, many of which rely on specific assumptions about data shape.\n\n\n\nWe estimate population traits (e.g., average gene expression) from samples. Confidence intervals give a range (e.g., 95% likely to hold the true value), showing how much trust we can place in our estimate.\n\n\n\nWe compare groups, like healthy vs. diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives.\n\n\n\n\n\n\n\n\n\nStatistics turns raw data into a trustworthy base, revealing what’s happening and what’s worth investigating.\n\n\n\n\nhttps://compgenomr.github.io/book/stats.html\n\n\nNext"
+    "text": "Genomic research begins with complex datasets, such as gene expression levels, which contain natural variation and experimental noise. Statistics provides a systematic way to process and interpret this data, ensuring a dependable foundation for further analysis. Below are the key statistical steps and their roles:\n\n\nGene expression data often varies significantly. We need a “typical” value to grasp the big picture. Measures like the mean and median summarize the central tendency. The mean uses all data but can be swayed by outliers; the median stays steady, perfect for uneven datasets. Variance and standard deviation quantify the data’s spread, indicating consistency or highlighting potential biological diversity or experimental errors.\n\n\n\nData frequently follows patterns, such as the normal distribution for continuous traits like gene expression or the Poisson distribution for discrete counts like mutations. Identifying these distributions guides the selection of appropriate analytical methods, many of which rely on specific assumptions about data shape.\n\n\n\nWe estimate population traits (e.g., average gene expression) from samples. Confidence intervals give a range (e.g., 95% likely to hold the true value), showing how much trust we can place in our estimate.\n\n\n\nWe compare groups, like healthy vs. diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives."
   },
   {
     "objectID": "module1/statistics.html#summarizing-data-finding-typical-and-spread",
@@ -35,60 +35,81 @@
     "text": "We compare groups, like healthy vs. diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives."
   },
   {
-    "objectID": "module1/statistics.html#overall-purpose",
-    "href": "module1/statistics.html#overall-purpose",
-    "title": "Statistics for Genomics",
-    "section": "",
-    "text": "Statistics turns raw data into a trustworthy base, revealing what’s happening and what’s worth investigating."
-  },
-  {
-    "objectID": "module1/statistics.html#references",
-    "href": "module1/statistics.html#references",
-    "title": "Statistics for Genomics",
-    "section": "",
-    "text": "https://compgenomr.github.io/book/stats.html\n\n\nNext"
-  },
-  {
     "objectID": "module1/unsupervised.html",
     "href": "module1/unsupervised.html",
     "title": "Unsupervised Learning",
     "section": "",
-    "text": "With a statistical foundation, we know our data’s basics, but we’re curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations.\n\n\nTo group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal.\n\n\n\n\n\nThis builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number.\n\n\n\n\nClustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments.\n\n\n\n\nUnsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map\n\n\n\n\nhttps://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
+    "text": "With a statistical foundation, we know our data’s basics, but we’re curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations."
   },
   {
-    "objectID": "module1/unsupervised.html#distance-metrics-defining-similarity",
-    "href": "module1/unsupervised.html#distance-metrics-defining-similarity",
+    "objectID": "module1/unsupervised.html#hierarchical-clustering",
+    "href": "module1/unsupervised.html#hierarchical-clustering",
     "title": "Unsupervised Learning",
-    "section": "",
-    "text": "To group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal."
+    "section": "3.1. Hierarchical Clustering",
+    "text": "3.1. Hierarchical Clustering\nThis builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships."
   },
   {
-    "objectID": "module1/unsupervised.html#clustering-spotting-natural-groups",
-    "href": "module1/unsupervised.html#clustering-spotting-natural-groups",
+    "objectID": "module1/unsupervised.html#k-means-clustering",
+    "href": "module1/unsupervised.html#k-means-clustering",
     "title": "Unsupervised Learning",
-    "section": "",
-    "text": "This builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number."
+    "section": "3.2. K-means Clustering",
+    "text": "3.2. K-means Clustering\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets."
   },
   {
-    "objectID": "module1/unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
-    "href": "module1/unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
+    "objectID": "module1/unsupervised.html#hierarchical-clustering-vs.-k-means",
+    "href": "module1/unsupervised.html#hierarchical-clustering-vs.-k-means",
     "title": "Unsupervised Learning",
-    "section": "",
-    "text": "Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments."
+    "section": "3.3. Hierarchical Clustering vs. K-means",
+    "text": "3.3. Hierarchical Clustering vs. K-means\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes."
   },
   {
-    "objectID": "module1/unsupervised.html#overall-purpose",
-    "href": "module1/unsupervised.html#overall-purpose",
+    "objectID": "module1/unsupervised.html#choosing-k-picking-the-right-number-of-groups",
+    "href": "module1/unsupervised.html#choosing-k-picking-the-right-number-of-groups",
     "title": "Unsupervised Learning",
-    "section": "",
-    "text": "Unsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map"
+    "section": "3.4. Choosing k: Picking the Right Number of Groups",
+    "text": "3.4. Choosing k: Picking the Right Number of Groups\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number."
   },
   {
-    "objectID": "module1/unsupervised.html#references",
-    "href": "module1/unsupervised.html#references",
+    "objectID": "module1/unsupervised.html#comparison-of-techniques",
+    "href": "module1/unsupervised.html#comparison-of-techniques",
     "title": "Unsupervised Learning",
+    "section": "4.1. Comparison of Techniques",
+    "text": "4.1. Comparison of Techniques\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust."
+  },
+  {
+    "objectID": "module1/unsupervised.html#selection-guidance",
+    "href": "module1/unsupervised.html#selection-guidance",
+    "title": "Unsupervised Learning",
+    "section": "4.2. Selection Guidance",
+    "text": "4.2. Selection Guidance\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments."
+  },
+  {
+    "objectID": "module2/Multiomics_Integration.html",
+    "href": "module2/Multiomics_Integration.html",
+    "title": "Multiomics Integration",
     "section": "",
-    "text": "https://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
+    "text": "1. Quarto\n\n\nReferences\n\nhttps://www.youtube.com/watch?v=KdvnWZbMugU&list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT\n\n\nNext"
+  },
+  {
+    "objectID": "module2/Spatial_Transcriptomics_Analysis.html",
+    "href": "module2/Spatial_Transcriptomics_Analysis.html",
+    "title": "Spatial Omics Analysis",
+    "section": "",
+    "text": "Spatial omics data varies in resolution and scope, offering diverse perspectives on tissue biology:\n\nCells: Gene expression profiles of individual cells with spatial coordinates, providing single-cell resolution (e.g., Xenium, Merfish data).\nSpots: Predefined areas on a slide capturing gene expression, often encompassing multiple cells (e.g., Visium spots).\nRegions of Interest (ROIs): User-selected tissue areas for targeted analysis, typically larger than cells, based on morphological or functional significance.\nMolecules: Subcellular detection of individual RNA molecules, offering the highest resolution.(e.g., Xenium, Merfish data)\nImages: Visual data (e.g., H&E or DAPI-stained slides) providing morphological context for molecular data.\n\nEach spatial omics data could provide different point of view and allow us to answer different biological questions. According to the data type, the analysis progress could be vaires. Here, I will use Visium and Xenium to do some basic analysis. For the rest of them, they will be used in the next section.\n\n\n\n\n\n\n\n\n\nCells\n\n\n\n\n\n\n\nSpots\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMolecules\n\n\n\n\n\n\n\nROIs\n\n\n\n\n\n\n\nImages\n\n\n\n\n\n\n\n\nhttps://www.10xgenomics.com/products/xenium-in-situ/human-breast-dataset-explorer\nhttps://www.10xgenomics.com/\nhttps://www.biochain.com/nanostring-geomx-digital-spatial-profiling/\nhttps://www.10xgenomics.com/blog/your-introduction-to-visium-hd-spatial-biology-in-high-definition\nhttps://ostr.ccr.cancer.gov/emerging-technologies/spatial-biology/xenium/\nhttps://www.researchgate.net/figure/Classification-of-LAC-tumor-growth-patterns-in-digital-slides-Slides-classified-by-CNNs_fig3_330906505"
+  },
+  {
+    "objectID": "module2/Spatial_Transcriptomics_Analysis.html#spot-level-data-analysis",
+    "href": "module2/Spatial_Transcriptomics_Analysis.html#spot-level-data-analysis",
+    "title": "Spatial Omics Analysis",
+    "section": "2.1. Spot-level Data Analysis",
+    "text": "2.1. Spot-level Data Analysis\n\nData Preprocessing: Includes quality control (QC), normalization, and dimensionality reduction to prepare the data for downstream analysis.\nUnbiased Clustering: Clustering spots based on their gene expression profiles. Used for dimensionality reduction method and followed by the Leiden algorithm for clustering.\nSpot Deconvolution: Since each spot contains multiple cells, we use reference single-cell RNA-seq datasets (e.g., SpaceXR’s RCTD algorithm) to estimate the cell type composition within each spot.\nNormalization and Dimensionality Reduction of Deconvolution Results:\n\nAfter deconvolution, we normalize and reduce the dimensionality of the cell-type composition matrix.\nThis allows us to cluster spots based on their cell mixture profiles, revealing regions with similar cellular compositions.\n\nNiche Clustering of Spots:\n\nSpots with similar cell type compositions or gene expression profiles are grouped together to identify distinct tissue microenvironments.\nA heatmap can help visualize which cell types are spatially closer to each other within the tissue section, providing insights into cellular interactions and tissue organization.\n\n\n\n\n\n\n\n\n\n\n\nSpots after Niche Clustering\n\n\n\n\n\n\n\n\n\nHeatmap of clusters after Niche Clustering"
+  },
+  {
+    "objectID": "module2/Spatial_Transcriptomics_Analysis.html#cell-level-data-analysis",
+    "href": "module2/Spatial_Transcriptomics_Analysis.html#cell-level-data-analysis",
+    "title": "Spatial Omics Analysis",
+    "section": "2.2. Cell-level Data Analysis",
+    "text": "2.2. Cell-level Data Analysis\n\nData Preprocessing: Perform quality control (QC), normalization, and dimensionality reduction to prepare the data for downstream analysis.\nUnbiased Clustering: Cluster cells based on single-cell gene expression profiles, similar to Visium but at the single-cell level.\nMarker Analysis:\n\nIdentify cluster-specific marker genes to help annotate cell types (e.g., MS4A1 for B cells, CD3E for T cells).\nPerform differential expression analysis (DEA) between clusters to identify key gene expression patterns.\n\nNiche Clustering of Cells:\n\nGroup cells based on spatial proximity and gene expression similarity to define functional cell neighborhoods.\nThis method clusters cells with similar overall gene expression patterns, revealing distinct microenvironments within the tissue.\nIt helps identify spatially organized cell communities, such as immune cell infiltration zones, tumor-stroma interactions, or neuronal subregions.\nUnlike Hot Spot Analysis, Niche Clustering considers the entire gene expression profile of cells to classify functional regions, rather than focusing on specific gene enrichment.\n\nHot Spot Analysis:\n\nUse spatial statistical methods (e.g., Getis-Ord Gi* test) to identify regions of high gene expression activity.\nThis method detects localized high-expression zones (hot spots) and low-expression zones (cold spots) for targeted genes.\nIt is particularly useful for identifying biologically relevant hotspots, such as interferon signaling regions, hypoxia zones, or inflammatory niches.\nUnlike Niche Clustering, which considers global gene expression similarity, Hot Spot Analysis focuses on pinpointing spatial enrichment of individual genes.\n\n\n\n\n\n\n\n\n\n\n\nAnnotation base on Marker Analysis\n\n\n\n\n\n\n\nHeat map of Niche Clustering\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExample of Cluster 2 in Niche Clustering\n\n\n\n\n\n\n\nPGR Hot Spot Analysis. PGR expression can help locate specific regions of the tumor."
   },
   {
     "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html",
@@ -98,25 +119,18 @@
     "text": "Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.\nUnlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions."
   },
   {
-    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#introduction-to-spatial-omics",
-    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#introduction-to-spatial-omics",
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#area-resolution",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#area-resolution",
     "title": "Spatial Transcriptomics",
-    "section": "",
-    "text": "Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.\nUnlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions."
+    "section": "2.1. Area Resolution",
+    "text": "2.1. Area Resolution\n\nVisium: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas. Those spot often encompassing multiple cells.\nVisium HD: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.\nGeoMx DSP: It allows flexible, high-plex RNA or protein profiling from user-defined regions within tissue samples. This technique effectively captures spatially resolved bulk RNA or protein expression data, providing molecular insights from specific areas of interest within the tissue.\n\nFigure 1: Visium Workflow\n\n\n\nFigure 2: Visium v.s. Visium HD\n\n\n\nFigure 3: GeoMx DSP Workflow"
   },
   {
-    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#key-technologies-in-spatial-transcriptomics",
-    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#key-technologies-in-spatial-transcriptomics",
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#single-cell-resolution",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#single-cell-resolution",
     "title": "Spatial Transcriptomics",
-    "section": "2. Key Technologies in Spatial Transcriptomics",
-    "text": "2. Key Technologies in Spatial Transcriptomics\nSeveral technologies enable spatial transcriptomics, each with distinct mechanisms:\n\n2.1. area resolution:\n\nVisium: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas.\nVisium HD: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.\nGeoMx DSP: It generates flexible, high-plex RNA or protein profiles from user-defined regions, targeting specific tissue areas of interest. To easier to understand, this technique provide bulk-RNA of specific tissue areas of interest.\n\nFigure 1: Visium Workflow\n\n\n\nFigure 2: Visium v.s. Visium HD\n\n\n\nFigure 3: GeoMx DSP Workflow\n\n\n\n\n\n2.2. single-cell resolution:\n\nXenium: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.\nMERFISH: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.\n\nFigure 4: MERFISH v.s. Xenium\n\n\n\n\nComparison:\n\n\n\n\n\n\n\n\nFeature\nXenium\nMERFISH\n\n\n\n\nGene Coverage\n100–500 genes, targeted and predefined, ideal for focused studies\nUp to 10,000 genes, suitable for exploratory gene expression mapping\n\n\nSensitivity\nHigh, excels in detecting low-abundance transcripts due to fewer probes and rapid imaging\nHigh, but multiple probes and imaging rounds may reduce sensitivity for low-abundance transcripts\n\n\nImpact on Cell Detection\nCaptures more cells in visualizations because of low-abundance transcripts detected\nMay miss low-abundance transcripts, potentially reducing visualized cell count due to multi-step imaging\n\n\nBest Use Case\nTargeted analysis of specific genes\nComprehensive profiling for discovering new expression patterns"
-  },
-  {
-    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#references",
-    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#references",
-    "title": "Spatial Transcriptomics",
-    "section": "References",
-    "text": "References\nArticle:\n\nhttps://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf\nhttps://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full\n\nImage:\n\nhttps://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg\nhttps://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png\nhttps://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook\nhttps://www.researchgate.net/publication/361642967\n\n\nNext"
+    "section": "2.2. single-cell resolution",
+    "text": "2.2. single-cell resolution\n\nXenium: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.\nMERFISH: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.\n\nSpatial transcriptomics technologies like Xenium and MERFISH achieve single-cell resolution through their imaging mechanisms: both use probes that bind to target RNA molecules and DAPI staining to label cell nuclei to determine cell boundaries. They then count the number of probe-bound RNA molecules within these boundaries, enabling single-cell level analysis. Specifically, Xenium and MERFISH first use specific probes to detect RNA molecules in tissue sections, followed by imaging techniques to define cell boundaries. Xenium typically relies on DAPI staining and antibody staining (such as markers for cell membranes or cytoplasm) to segment cells, while MERFISH uses multiple rounds of fluorescence in situ hybridization (FISH) imaging, combined with DAPI staining and computational methods (such as RNA density-based cell segmentation algorithms) to precisely define cell boundaries. This statistical method of assigning RNA molecules within boundaries allows both to provide single-cell resolution gene expression data.\nHowever, Xenium and MERFISH can also provide uncounted molecule-level data (molecule assay) in addition to counting RNA within boundaries (cell assay). This means they retain all RNA molecule location information inside and outside of cells, not just transcripts within cells. This complete molecular data serves as an additional resource, particularly suitable for studying viral infections, as viral RNA may be distributed outside of cells (such as in intercellular spaces or exosomes). By analyzing these data, the spatial distribution of viral RNA and its relationship with host cells can be revealed, such as local clusters of infection or patterns of spread, thereby providing unique spatial insights in viral research.\nFigure 4: MERFISH v.s. Xenium\n\n\n\n\nComparison:\n\n\n\n\n\n\n\n\nFeature\nXenium\nMERFISH\n\n\n\n\nGene Coverage\n100–500 genes, targeted and predefined, ideal for focused studies\nUp to 10,000 genes, suitable for exploratory gene expression mapping\n\n\nSensitivity\nHigh, excels in detecting low-abundance transcripts due to fewer probes and rapid imaging\nHigh, but multiple probes and imaging rounds may reduce sensitivity for low-abundance transcripts\n\n\nImpact on Cell Detection\nCaptures more cells in visualizations because of low-abundance transcripts detected\nMay miss low-abundance transcripts, potentially reducing visualized cell count due to multi-step imaging\n\n\nBest Use Case\nTargeted analysis of specific genes\nComprehensive profiling for discovering new expression patterns"
   },
   {
     "objectID": "index.html",
@@ -137,48 +151,48 @@
     "href": "module1/supervised.html",
     "title": "Supervised Learning",
     "section": "",
-    "text": "With patterns identified, supervised learning uses labeled data to build models that predict outcomes, such as disease states or treatment responses, turning insights into practical applications.\n\n\nRaw genomic data requires preprocessing. Techniques like normalize, log transformation, remove near-zero variance (NZV) genes, imputation for missing values, and noise filtering enhance data quality, ensuring models focus on relevant signals.\n\n\n\n\n\nWe split data (e.g., 70% training, 30% testing) to test on unseen samples.\n\n\n\nFor small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results.\n\n\n\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability.\n\n\n\n\nAlgorithms vary by task:\n\n\n\n\n\n\n\n\n\nConfusion matrices and ROC curves measure model accuracy and reliability.\n\n\n\n\n\n\nSampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.\n\n\n\n\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects.\n\n\n\n\n\nUnlike unsupervised learning’s exploratory focus, supervised learning uses labeled data for prediction, transforming patterns into practical applications. Each step, from data splitting to regularization, enhances generalization, applicable to both classification and regression, offering robust tools for genomic research. ## References\n\nhttps://compgenomr.github.io/book/supervisedLearning.html\n\n\nPrevious"
+    "text": "With patterns identified, supervised learning uses labeled data to build models that predict outcomes, such as disease states or treatment responses, turning insights into practical applications."
   },
   {
-    "objectID": "module1/supervised.html#data-preprocessing-ensuring-quality",
-    "href": "module1/supervised.html#data-preprocessing-ensuring-quality",
+    "objectID": "module1/supervised.html#holdout-test-dataset",
+    "href": "module1/supervised.html#holdout-test-dataset",
     "title": "Supervised Learning",
-    "section": "",
-    "text": "Raw genomic data requires preprocessing. Techniques like normalize, log transformation, remove near-zero variance (NZV) genes, imputation for missing values, and noise filtering enhance data quality, ensuring models focus on relevant signals."
+    "section": "3.1. Holdout Test Dataset",
+    "text": "3.1. Holdout Test Dataset\nWe split data (e.g., 70% training, 30% testing) to test on unseen samples."
   },
   {
-    "objectID": "module1/supervised.html#data-splitting-testing-real-performance",
-    "href": "module1/supervised.html#data-splitting-testing-real-performance",
+    "objectID": "module1/supervised.html#cross-validation-cv",
+    "href": "module1/supervised.html#cross-validation-cv",
     "title": "Supervised Learning",
-    "section": "",
-    "text": "We split data (e.g., 70% training, 30% testing) to test on unseen samples.\n\n\n\nFor small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results.\n\n\n\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability."
+    "section": "3.2. Cross-Validation (CV)",
+    "text": "3.2. Cross-Validation (CV)\nFor small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results."
   },
   {
-    "objectID": "module1/supervised.html#predictive-models",
-    "href": "module1/supervised.html#predictive-models",
+    "objectID": "module1/supervised.html#bootstrap-resampling",
+    "href": "module1/supervised.html#bootstrap-resampling",
     "title": "Supervised Learning",
-    "section": "",
-    "text": "Algorithms vary by task:"
+    "section": "3.3. Bootstrap Resampling",
+    "text": "3.3. Bootstrap Resampling\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability."
   },
   {
-    "objectID": "module1/supervised.html#model-evaluation-assessing-performance",
-    "href": "module1/supervised.html#model-evaluation-assessing-performance",
+    "objectID": "module1/supervised.html#class-imbalance",
+    "href": "module1/supervised.html#class-imbalance",
     "title": "Supervised Learning",
-    "section": "",
-    "text": "Confusion matrices and ROC curves measure model accuracy and reliability."
+    "section": "5.1.1. Class Imbalance",
+    "text": "5.1.1. Class Imbalance\n\nSampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these."
+  },
+  {
+    "objectID": "module1/supervised.html#correlated-predictors",
+    "href": "module1/supervised.html#correlated-predictors",
+    "title": "Supervised Learning",
+    "section": "5.1.2. Correlated Predictors",
+    "text": "5.1.2. Correlated Predictors\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects."
   },
   {
     "objectID": "module1/supervised.html#handling-challenges-addressing-real-world-issues",
     "href": "module1/supervised.html#handling-challenges-addressing-real-world-issues",
     "title": "Supervised Learning",
-    "section": "",
-    "text": "Sampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.\n\n\n\n\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects."
-  },
-  {
-    "objectID": "module1/supervised.html#overall-purpose",
-    "href": "module1/supervised.html#overall-purpose",
-    "title": "Supervised Learning",
-    "section": "",
-    "text": "Unlike unsupervised learning’s exploratory focus, supervised learning uses labeled data for prediction, transforming patterns into practical applications. Each step, from data splitting to regularization, enhances generalization, applicable to both classification and regression, offering robust tools for genomic research. ## References\n\nhttps://compgenomr.github.io/book/supervisedLearning.html\n\n\nPrevious"
+    "section": "5.1. Handling Challenges: Addressing Real-World Issues",
+    "text": "5.1. Handling Challenges: Addressing Real-World Issues\n\n5.1.1. Class Imbalance\n\nSampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.\n\n\n\n5.1.2. Correlated Predictors\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects."
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ding Yang Wang">
-<meta name="dcterms.date" content="2025-03-15">
+<meta name="dcterms.date" content="2025-03-16">
 
 <title>Spatial Transcriptomics – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
@@ -119,11 +119,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">1. Spatial Transcriptomics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module2/Multimodal Image Registration.qmd">
- <span class="dropdown-text">2. Multimodal Image Registration</span></a>
+    <a class="dropdown-item" href="../module2/Spatial_Transcriptomics_Analysis.html">
+ <span class="dropdown-text">2. Spatial Transcriptomics Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module2/Multiomics Integration.qmd">
+    <a class="dropdown-item" href="../module2/Multiomics_Integration.html">
  <span class="dropdown-text">3. Multiomics Integration</span></a>
   </li>  
     </ul>
@@ -164,7 +164,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
   <li><a href="#introduction-to-spatial-omics" id="toc-introduction-to-spatial-omics" class="nav-link active" data-scroll-target="#introduction-to-spatial-omics">1. Introduction to Spatial Omics</a></li>
-  <li><a href="#key-technologies-in-spatial-transcriptomics" id="toc-key-technologies-in-spatial-transcriptomics" class="nav-link" data-scroll-target="#key-technologies-in-spatial-transcriptomics">2. Key Technologies in Spatial Transcriptomics</a></li>
+  <li><a href="#key-technologies-in-spatial-transcriptomics" id="toc-key-technologies-in-spatial-transcriptomics" class="nav-link" data-scroll-target="#key-technologies-in-spatial-transcriptomics">2. Key Technologies in Spatial Transcriptomics</a>
+  <ul class="collapse">
+  <li><a href="#area-resolution" id="toc-area-resolution" class="nav-link" data-scroll-target="#area-resolution">2.1. Area Resolution</a></li>
+  <li><a href="#single-cell-resolution" id="toc-single-cell-resolution" class="nav-link" data-scroll-target="#single-cell-resolution">2.2. single-cell resolution</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -191,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 15, 2025</p>
+      <p class="date">March 16, 2025</p>
     </div>
   </div>
   
@@ -203,20 +207,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction-to-spatial-omics" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-spatial-omics">1. Introduction to Spatial Omics</h2>
+<section id="introduction-to-spatial-omics" class="level1">
+<h1>1. Introduction to Spatial Omics</h1>
 <p>Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.</p>
 <p>Unlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions.</p>
 </section>
-<section id="key-technologies-in-spatial-transcriptomics" class="level2">
-<h2 class="anchored" data-anchor-id="key-technologies-in-spatial-transcriptomics">2. Key Technologies in Spatial Transcriptomics</h2>
+<section id="key-technologies-in-spatial-transcriptomics" class="level1">
+<h1>2. Key Technologies in Spatial Transcriptomics</h1>
 <p>Several technologies enable spatial transcriptomics, each with distinct mechanisms:</p>
-<section id="area-resolution" class="level3">
-<h3 class="anchored" data-anchor-id="area-resolution">2.1. area resolution:</h3>
+<section id="area-resolution" class="level2">
+<h2 class="anchored" data-anchor-id="area-resolution">2.1. Area Resolution</h2>
 <ul>
-<li><p><strong>Visium</strong>: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas.</p></li>
+<li><p><strong>Visium</strong>: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas. Those spot often encompassing multiple cells.</p></li>
 <li><p><strong>Visium HD</strong>: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.</p></li>
-<li><p><strong>GeoMx DSP</strong>: It generates flexible, high-plex RNA or protein profiles from user-defined regions, targeting specific tissue areas of interest. To easier to understand, this technique provide bulk-RNA of specific tissue areas of interest.</p></li>
+<li><p><strong>GeoMx DSP</strong>: It allows flexible, high-plex RNA or protein profiling from user-defined regions within tissue samples. This technique effectively captures spatially resolved bulk RNA or protein expression data, providing molecular insights from specific areas of interest within the tissue.</p></li>
 </ul>
 <p><strong>Figure 1: Visium Workflow</strong></p>
 <div style="text-align: center;">
@@ -231,18 +235,20 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="https://www.researchgate.net/publication/361642967/figure/fig1/AS:11431281237101628@1713455617922/DSP-assay-workflow-Schematic-picture-showing-the-workflow-of-profiling-using-the-Geomx.tif" class="img-fluid"></p>
 </div>
 </section>
-<section id="single-cell-resolution" class="level3">
-<h3 class="anchored" data-anchor-id="single-cell-resolution">2.2. single-cell resolution:</h3>
+<section id="single-cell-resolution" class="level2">
+<h2 class="anchored" data-anchor-id="single-cell-resolution">2.2. single-cell resolution</h2>
 <ul>
 <li><p><strong>Xenium</strong>: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.</p></li>
 <li><p><strong>MERFISH</strong>: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.</p></li>
 </ul>
+<p>Spatial transcriptomics technologies like Xenium and MERFISH achieve single-cell resolution through their imaging mechanisms: both use probes that bind to target RNA molecules and DAPI staining to label cell nuclei to determine cell boundaries. They then count the number of probe-bound RNA molecules within these boundaries, enabling single-cell level analysis. Specifically, Xenium and MERFISH first use specific probes to detect RNA molecules in tissue sections, followed by imaging techniques to define cell boundaries. Xenium typically relies on DAPI staining and antibody staining (such as markers for cell membranes or cytoplasm) to segment cells, while MERFISH uses multiple rounds of fluorescence in situ hybridization (FISH) imaging, combined with DAPI staining and computational methods (such as RNA density-based cell segmentation algorithms) to precisely define cell boundaries. This statistical method of assigning RNA molecules within boundaries allows both to provide single-cell resolution gene expression data.</p>
+<p>However, Xenium and MERFISH can also provide uncounted molecule-level data (molecule assay) in addition to counting RNA within boundaries (cell assay). This means they retain all RNA molecule location information inside and outside of cells, not just transcripts within cells. This complete molecular data serves as an additional resource, particularly suitable for studying viral infections, as viral RNA may be distributed outside of cells (such as in intercellular spaces or exosomes). By analyzing these data, the spatial distribution of viral RNA and its relationship with host cells can be revealed, such as local clusters of infection or patterns of spread, thereby providing unique spatial insights in viral research.</p>
 <p><strong>Figure 4: MERFISH v.s. Xenium</strong></p>
 <div style="text-align: center;">
 <p><img src="images/截圖 2025-03-15 下午4.00.13.png" class="img-fluid"></p>
 </div>
-<section id="comparison" class="level4">
-<h4 class="anchored" data-anchor-id="comparison"><strong>Comparison</strong>:</h4>
+<section id="comparison" class="level3">
+<h3 class="anchored" data-anchor-id="comparison">Comparison:</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -282,8 +288,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=KdvnWZbMugU&amp;list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT" class="uri">https://www.youtube.com/watch?v=KdvnWZbMugU&amp;list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT</a></li>
+</ul>
 <p>Article:</p>
 <ul>
 <li><a href="https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf" class="uri">https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf</a></li>
@@ -291,13 +300,13 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Image:</p>
 <ul>
-<li><p>https://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg</p></li>
-<li><p>https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png</p></li>
-<li><p>https://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook</p></li>
-<li><p>https://www.researchgate.net/publication/361642967</p></li>
+<li>https://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg</li>
+<li>https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png</li>
+<li>https://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook</li>
+<li>https://www.researchgate.net/publication/361642967</li>
 </ul>
 <div class="right-align">
-<p><a href="unsupervised.qmd">Next</a></p>
+<p><a href="../module2/Spatial_Transcriptomics_Analysis.html">Next</a></p>
 </div>
 
 

@@ -2,7 +2,10 @@
 p {
     text-align: justify;
 }
-
+/* Apply justify to list items */
+li {
+    text-align: justify !important;
+}
 /* Center images explicitly, overriding any parent p */
 img {
     display: block;
@@ -22,4 +25,37 @@ img {
 /* Ensure p inside .right-align or .left-align keeps justification unless overridden */
 .right-align p, .left-align p {
     text-align: inherit; /* Only apply parent's alignment (right/left) to p inside these classes */
+}
+
+/* Center images and captions in layout-ncol blocks */
+.center-images {
+    display: flex;
+    justify-content: center; /* Center the entire row */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+.center-images > div {
+    text-align: center;
+    flex: 0 0 auto; /* Allow natural width based on image */
+    box-sizing: border-box;
+    padding: -5px;
+}
+
+/* Ensure captions are centered */
+.center-images figcaption {
+    text-align: center;
+    margin-top: 5px;
+    font-style: italic;
+    color: #555;
+}
+
+/* Style for Source section bullet points */
+#source ul {
+    margin: 0; /* Remove default margin */
+    padding-left: 20px; /* Keep indentation */
+}
+
+#source li {
+    margin-bottom: 2px; /* Reduce space between bullet points */
+    padding-bottom: 0; /* Remove extra padding */
 }

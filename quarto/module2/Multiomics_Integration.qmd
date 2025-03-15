@@ -1,0 +1,21 @@
+---
+title: "Multiomics Integration"
+author: "Ding Yang Wang"
+date: "`r Sys.Date()`"
+format:
+  html:
+    css: ../styles.css
+---
+
+```{r, echo=FALSE}
+```
+
+# 1. Quarto
+
+# References
+
+-   <https://www.youtube.com/watch?v=KdvnWZbMugU&list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT>
+
+::: left-align
+[Next](Spatial_Transcriptomics_Analysis.qmd)
+:::

@@ -100,11 +100,11 @@ formatStyle(
   )
 ```
 
-## 1.5 Overall Purpose
+# 2. Overall Purpose
 
 Statistics turns raw data into a trustworthy base, revealing what's happening and what's worth investigating.
 
-## References
+# References
 
 -   <https://compgenomr.github.io/book/stats.html>
 

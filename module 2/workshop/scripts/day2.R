@@ -13,7 +13,7 @@ library(VoltRon)
 if(!requireNamespace("rhdf5"))
   BiocManager::install("rhdf5")
 library(rhdf5)
-
+setwd("workdir/module 2/workshop/scripts/")
 # import Visium data
 Ant_Sec1 <- importVisium("../data/Mouse Brain/Sagittal_Anterior/Section1/",
                          sample_name = "Anterior1")

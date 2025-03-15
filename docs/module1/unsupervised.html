@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ding Yang Wang">
-<meta name="dcterms.date" content="2025-03-15">
+<meta name="dcterms.date" content="2025-03-16">
 
 <title>Unsupervised Learning – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
@@ -119,11 +119,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">1. Spatial Transcriptomics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module2/Multimodal Image Registration.qmd">
- <span class="dropdown-text">2. Multimodal Image Registration</span></a>
+    <a class="dropdown-item" href="../module2/Spatial_Transcriptomics_Analysis.html">
+ <span class="dropdown-text">2. Spatial Transcriptomics Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module2/Multiomics Integration.qmd">
+    <a class="dropdown-item" href="../module2/Multiomics_Integration.html">
  <span class="dropdown-text">3. Multiomics Integration</span></a>
   </li>  
     </ul>
@@ -163,14 +163,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#unsupervised-learning-why-explore-the-data" id="toc-unsupervised-learning-why-explore-the-data" class="nav-link active" data-scroll-target="#unsupervised-learning-why-explore-the-data">2. Unsupervised Learning: Why Explore the Data?</a>
+  <li><a href="#unsupervised-learning-why-explore-the-data" id="toc-unsupervised-learning-why-explore-the-data" class="nav-link active" data-scroll-target="#unsupervised-learning-why-explore-the-data">1. Unsupervised Learning: Why Explore the Data?</a></li>
+  <li><a href="#distance-metrics-defining-similarity" id="toc-distance-metrics-defining-similarity" class="nav-link" data-scroll-target="#distance-metrics-defining-similarity">2 Distance Metrics: Defining Similarity</a></li>
+  <li><a href="#clustering-spotting-natural-groups" id="toc-clustering-spotting-natural-groups" class="nav-link" data-scroll-target="#clustering-spotting-natural-groups">3 Clustering: Spotting Natural Groups</a>
   <ul class="collapse">
-  <li><a href="#distance-metrics-defining-similarity" id="toc-distance-metrics-defining-similarity" class="nav-link" data-scroll-target="#distance-metrics-defining-similarity">2.1 Distance Metrics: Defining Similarity</a></li>
-  <li><a href="#clustering-spotting-natural-groups" id="toc-clustering-spotting-natural-groups" class="nav-link" data-scroll-target="#clustering-spotting-natural-groups">2.2 Clustering: Spotting Natural Groups</a></li>
-  <li><a href="#dimensionality-reduction-seeing-the-big-picture" id="toc-dimensionality-reduction-seeing-the-big-picture" class="nav-link" data-scroll-target="#dimensionality-reduction-seeing-the-big-picture">2.3 Dimensionality Reduction: Seeing the Big Picture</a></li>
-  <li><a href="#overall-purpose" id="toc-overall-purpose" class="nav-link" data-scroll-target="#overall-purpose">2.4 Overall Purpose</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#hierarchical-clustering" id="toc-hierarchical-clustering" class="nav-link" data-scroll-target="#hierarchical-clustering">3.1. Hierarchical Clustering</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">3.2. K-means Clustering</a></li>
+  <li><a href="#hierarchical-clustering-vs.-k-means" id="toc-hierarchical-clustering-vs.-k-means" class="nav-link" data-scroll-target="#hierarchical-clustering-vs.-k-means">3.3. Hierarchical Clustering vs.&nbsp;K-means</a></li>
+  <li><a href="#choosing-k-picking-the-right-number-of-groups" id="toc-choosing-k-picking-the-right-number-of-groups" class="nav-link" data-scroll-target="#choosing-k-picking-the-right-number-of-groups">3.4. Choosing k: Picking the Right Number of Groups</a></li>
   </ul></li>
+  <li><a href="#dimensionality-reduction-seeing-the-big-picture" id="toc-dimensionality-reduction-seeing-the-big-picture" class="nav-link" data-scroll-target="#dimensionality-reduction-seeing-the-big-picture">4. Dimensionality Reduction: Seeing the Big Picture</a>
+  <ul class="collapse">
+  <li><a href="#comparison-of-techniques" id="toc-comparison-of-techniques" class="nav-link" data-scroll-target="#comparison-of-techniques">4.1. Comparison of Techniques</a></li>
+  <li><a href="#selection-guidance" id="toc-selection-guidance" class="nav-link" data-scroll-target="#selection-guidance">4.2. Selection Guidance</a></li>
+  </ul></li>
+  <li><a href="#overall-purpose" id="toc-overall-purpose" class="nav-link" data-scroll-target="#overall-purpose">5. Overall Purpose</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -196,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 15, 2025</p>
+      <p class="date">March 16, 2025</p>
     </div>
   </div>
   
@@ -209,24 +217,25 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="unsupervised-learning-why-explore-the-data" class="level1">
-<h1>2. Unsupervised Learning: Why Explore the Data?</h1>
+<h1>1. Unsupervised Learning: Why Explore the Data?</h1>
 <p>With a statistical foundation, we know our data’s basics, but we’re curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations.</p>
-<section id="distance-metrics-defining-similarity" class="level2">
-<h2 class="anchored" data-anchor-id="distance-metrics-defining-similarity">2.1 Distance Metrics: Defining Similarity</h2>
+</section>
+<section id="distance-metrics-defining-similarity" class="level1">
+<h1>2 Distance Metrics: Defining Similarity</h1>
 <p>To group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on <strong>distance metrics</strong>. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: <strong>Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal.</strong></p>
 </section>
-<section id="clustering-spotting-natural-groups" class="level2">
-<h2 class="anchored" data-anchor-id="clustering-spotting-natural-groups">2.2 Clustering: Spotting Natural Groups</h2>
-<section id="hierarchical-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="hierarchical-clustering">2.2.1 Hierarchical Clustering</h3>
+<section id="clustering-spotting-natural-groups" class="level1">
+<h1>3 Clustering: Spotting Natural Groups</h1>
+<section id="hierarchical-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering">3.1. Hierarchical Clustering</h2>
 <p>This builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.</p>
 </section>
-<section id="k-means-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="k-means-clustering">2.2.2 K-means Clustering</h3>
+<section id="k-means-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering">3.2. K-means Clustering</h2>
 <p>K-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.</p>
 </section>
-<section id="hierarchical-clustering-vs.-k-means" class="level3">
-<h3 class="anchored" data-anchor-id="hierarchical-clustering-vs.-k-means">2.2.3 Hierarchical Clustering vs.&nbsp;K-means</h3>
+<section id="hierarchical-clustering-vs.-k-means" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering-vs.-k-means">3.3. Hierarchical Clustering vs.&nbsp;K-means</h2>
 <p><strong>Hierarchical Clustering</strong>:</p>
 <ul>
 <li><p><strong>Strengths</strong>: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.</p></li>
@@ -238,16 +247,16 @@ ul.task-list li input[type="checkbox"] {
 <li><p><strong>Weaknesses</strong>: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.</p></li>
 </ul>
 </section>
-<section id="choosing-k-picking-the-right-number-of-groups" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-k-picking-the-right-number-of-groups">2.2.4 Choosing k: Picking the Right Number of Groups</h3>
+<section id="choosing-k-picking-the-right-number-of-groups" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-k-picking-the-right-number-of-groups">3.4. Choosing k: Picking the Right Number of Groups</h2>
 <p>K-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number.</p>
 </section>
 </section>
-<section id="dimensionality-reduction-seeing-the-big-picture" class="level2">
-<h2 class="anchored" data-anchor-id="dimensionality-reduction-seeing-the-big-picture">2.3 Dimensionality Reduction: Seeing the Big Picture</h2>
+<section id="dimensionality-reduction-seeing-the-big-picture" class="level1">
+<h1>4. Dimensionality Reduction: Seeing the Big Picture</h1>
 <p>Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.</p>
-<section id="comparison-of-techniques" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-of-techniques">2.3.1 Comparison of Techniques</h3>
+<section id="comparison-of-techniques" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-techniques">4.1. Comparison of Techniques</h2>
 <ul>
 <li><strong>PCA</strong>: Linear, global variance, fast, misses nonlinear patterns.</li>
 <li><strong>NMF/ICA</strong>: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.</li>
@@ -256,8 +265,8 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>UMAP</strong>: Nonlinear, local-global balance, fast and robust.</li>
 </ul>
 </section>
-<section id="selection-guidance" class="level3">
-<h3 class="anchored" data-anchor-id="selection-guidance">2.3.2 Selection Guidance</h3>
+<section id="selection-guidance" class="level2">
+<h2 class="anchored" data-anchor-id="selection-guidance">4.2. Selection Guidance</h2>
 <ul>
 <li><strong>Scale</strong>: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.</li>
 <li><strong>Goal</strong>: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).</li>
@@ -266,12 +275,12 @@ ul.task-list li input[type="checkbox"] {
 <p>These methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs.&nbsp;MDS) guide metric or k adjustments.</p>
 </section>
 </section>
-<section id="overall-purpose" class="level2">
-<h2 class="anchored" data-anchor-id="overall-purpose">2.4 Overall Purpose</h2>
+<section id="overall-purpose" class="level1">
+<h1>5. Overall Purpose</h1>
 <p>Unsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map</p>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="references" class="level1">
+<h1>References</h1>
 <ul>
 <li><a href="https://compgenomr.github.io/book/unsupervisedLearning.html" class="uri">https://compgenomr.github.io/book/unsupervisedLearning.html</a></li>
 </ul>
@@ -285,7 +294,6 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
