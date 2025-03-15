@@ -2,6 +2,9 @@
 title: "Welcome to Genomic Insights"
 author: "Ding Yang Wang"
 date: "`r Sys.Date()`"
+format:
+  html:
+    css: styles.css
 ---
 
 ```{r, echo=FALSE}
@@ -42,7 +45,7 @@ First of all, I would like to express my heartfelt gratitude to the Scientific O
 Here are some related course resources for easy access to lecture record, code, and reference books.
 
 |         Course          |                                                       **Playlist**                                                       |                                                          **Code**                                                           |                              **Reference**                              |
-|:-------------:|:--------------------:|:--------------------:|:-------------:|
-| Statistics for Genomics |              [Stats for Genomics](https://www.youtube.com/playlist?list=PL7WXGPJM2P8b3f_8QvUIlrO3t_bJpAXxc)              | [GitHub Link](https://www.dropbox.com/scl/fi/kq8pwk1abo8i813yqa769/statsForGenomics.R?rlkey=1l8pdp92w9ghw2eyurxv2p60w&dl=0) |         [Book Link](http://compgenomr.github.io/book/stats.html)         |
+|:----------------:|:----------------:|:----------------:|:----------------:|
+| Statistics for Genomics |              [Stats for Genomics](https://www.youtube.com/playlist?list=PL7WXGPJM2P8b3f_8QvUIlrO3t_bJpAXxc)              | [GitHub Link](https://www.dropbox.com/scl/fi/kq8pwk1abo8i813yqa769/statsForGenomics.R?rlkey=1l8pdp92w9ghw2eyurxv2p60w&dl=0) |        [Book Link](http://compgenomr.github.io/book/stats.html)         |
 |  Unsupervised Learning  |      [Unsupervised Learning for Genomics](https://www.youtube.com/playlist?list=PL7WXGPJM2P8Y-l6Vm3kpC9emTtk4HkNcT)      |                    [GitHub Link](https://www.dropbox.com/s/e5e4qiadj2tubz0/unsupervisedLearning.R?dl=0)                     | [Book Link](http://compgenomr.github.io/book/unsupervisedLearning.html) |
 |   Supervised Learning   | [Predictive Modeling with Supervised Learning](https://www.youtube.com/playlist?list=PL7WXGPJM2P8YgHQeTqIC1eFcrchpBvA8g) |                     [GitHub Link](https://www.dropbox.com/s/wxy57u3xe1k9o8a/supervisedLearning.R?dl=0)                      |  [Book Link](http://compgenomr.github.io/book/supervisedLearning.html)  |

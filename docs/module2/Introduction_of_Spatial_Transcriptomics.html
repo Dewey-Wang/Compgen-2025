@@ -9,7 +9,7 @@
 <meta name="author" content="Ding Yang Wang">
 <meta name="dcterms.date" content="2025-03-15">
 
-<title>Statistics for Genomics – From Statistical Foundations to Machine Learning Applications in Genomics</title>
+<title>Spatial Transcriptomics – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,16 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
-<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -173,15 +163,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#statistics-for-genomics-establishing-a-reliable-base" id="toc-statistics-for-genomics-establishing-a-reliable-base" class="nav-link active" data-scroll-target="#statistics-for-genomics-establishing-a-reliable-base">1. Statistics for Genomics: Establishing a Reliable Base</a>
-  <ul class="collapse">
-  <li><a href="#summarizing-data-finding-typical-and-spread" id="toc-summarizing-data-finding-typical-and-spread" class="nav-link" data-scroll-target="#summarizing-data-finding-typical-and-spread">1.1 Summarizing Data: Finding “Typical” and “Spread”</a></li>
-  <li><a href="#distribution-models-understanding-data-shape" id="toc-distribution-models-understanding-data-shape" class="nav-link" data-scroll-target="#distribution-models-understanding-data-shape">1.2 Distribution Models: Understanding Data Shape</a></li>
-  <li><a href="#confidence-intervals-measuring-uncertainty" id="toc-confidence-intervals-measuring-uncertainty" class="nav-link" data-scroll-target="#confidence-intervals-measuring-uncertainty">1.3 Confidence Intervals: Measuring Uncertainty</a></li>
-  <li><a href="#hypothesis-testing-confirming-real-differences" id="toc-hypothesis-testing-confirming-real-differences" class="nav-link" data-scroll-target="#hypothesis-testing-confirming-real-differences">1.4 Hypothesis Testing: Confirming Real Differences</a></li>
-  <li><a href="#overall-purpose" id="toc-overall-purpose" class="nav-link" data-scroll-target="#overall-purpose">1.5 Overall Purpose</a></li>
+  <li><a href="#introduction-to-spatial-omics" id="toc-introduction-to-spatial-omics" class="nav-link active" data-scroll-target="#introduction-to-spatial-omics">1. Introduction to Spatial Omics</a></li>
+  <li><a href="#key-technologies-in-spatial-transcriptomics" id="toc-key-technologies-in-spatial-transcriptomics" class="nav-link" data-scroll-target="#key-technologies-in-spatial-transcriptomics">2. Key Technologies in Spatial Transcriptomics</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -190,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics for Genomics</h1>
+<h1 class="title">Spatial Transcriptomics</h1>
 </div>
 
 
@@ -219,46 +203,104 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="statistics-for-genomics-establishing-a-reliable-base" class="level1">
-<h1>1. Statistics for Genomics: Establishing a Reliable Base</h1>
-<p>Genomic research begins with complex datasets, such as gene expression levels, which contain natural variation and experimental noise. Statistics provides a systematic way to process and interpret this data, ensuring a dependable foundation for further analysis. Below are the key statistical steps and their roles:</p>
-<section id="summarizing-data-finding-typical-and-spread" class="level2">
-<h2 class="anchored" data-anchor-id="summarizing-data-finding-typical-and-spread">1.1 Summarizing Data: Finding “Typical” and “Spread”</h2>
-<p>Gene expression data often varies significantly. We need a “typical” value to grasp the big picture. Measures like the mean and median summarize the central tendency. The mean uses all data but can be swayed by outliers; the median stays steady, perfect for uneven datasets. Variance and standard deviation quantify the data’s spread, indicating consistency or highlighting potential biological diversity or experimental errors.</p>
+<section id="introduction-to-spatial-omics" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-spatial-omics">1. Introduction to Spatial Omics</h2>
+<p>Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.</p>
+<p>Unlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions.</p>
 </section>
-<section id="distribution-models-understanding-data-shape" class="level2">
-<h2 class="anchored" data-anchor-id="distribution-models-understanding-data-shape">1.2 Distribution Models: Understanding Data Shape</h2>
-<p>Data frequently follows patterns, such as the normal distribution for continuous traits like gene expression or the Poisson distribution for discrete counts like mutations. Identifying these distributions guides the selection of appropriate analytical methods, many of which rely on specific assumptions about data shape.</p>
-</section>
-<section id="confidence-intervals-measuring-uncertainty" class="level2">
-<h2 class="anchored" data-anchor-id="confidence-intervals-measuring-uncertainty">1.3 Confidence Intervals: Measuring Uncertainty</h2>
-<p>We estimate population traits (e.g., average gene expression) from samples. Confidence intervals give a range (e.g., 95% likely to hold the true value), showing how much trust we can place in our estimate.</p>
-</section>
-<section id="hypothesis-testing-confirming-real-differences" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-confirming-real-differences">1.4 Hypothesis Testing: Confirming Real Differences</h2>
-<p>We compare groups, like healthy vs.&nbsp;diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-936358f3020744879ea9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-936358f3020744879ea9">{"x":{"filter":"none","vertical":false,"caption":"<caption>Hypothesis Testing Methods<\/caption>","data":[["Mean Comparison","","","Categorical Data","","ANOVA (Multiple Groups)","","Non-Parametric Tests",""],["Independent t-test","Paired t-test","Moderated t-test","Chi-square test","Fisher’s Exact Test","ANOVA","Repeated Measures ANOVA","Mann-Whitney U Test","Wilcoxon Signed-Rank Test"],["Normal distribution, equal variances, independent samples","Normal distribution, paired (dependent) samples","Small sample size, stabilizes variance using information from multiple comparisons","No normality required, categorical data, expected frequency per cell ≥ 5","No normality required, categorical data, suitable for small sample sizes","Normal distribution, equal variances, independent groups","Normal distribution, repeated measures (same subjects tested multiple times)","No normality required, independent samples","No normality required, paired (dependent) samples"],["Compare means between two independent groups","Compare means for paired data (e.g., before vs. after treatment)","Enhances t-test for small-sample data (e.g., microarray analysis)","Compare proportions between categorical groups","Like chi-square, but works better for small samples","Compare means of 3+ independent groups","Compare means when the same subjects are measured multiple times","Compare two independent groups (data non-normal)","Compare two paired groups (non-parametric alternative to paired t-test)"]],"container":"<table class=\"quarto-table cell-border stripe\">\n  <thead>\n    <tr>\n      <th>Category<\/th>\n      <th>Test<\/th>\n      <th>Assumptions<\/th>\n      <th>Use_Case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"ordering":false,"searching":false,"paging":false,"info":false,"scrollY":false,"scrollX":false,"columnDefs":[{"name":"Category","targets":0},{"name":"Test","targets":1},{"name":"Assumptions","targets":2},{"name":"Use_Case","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-weight':'bold','text-align':'center'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-weight':'bold','color':'#003366','text-align':'center'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'width':'30em','text-align':'center'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'width':'30em','text-align':'center'});\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\nvar value=data[8]; $(this.api().cell(row, 8).node()).css({'background-color':$.inArray(dataIndex + 1, [1]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [2]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [3]) >= 0 ? \"#d9d9d9\" : $.inArray(dataIndex + 1, [4]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [5]) >= 0 ? \"#cce6ff\" : $.inArray(dataIndex + 1, [6]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [7]) >= 0 ? \"#f9e6d2\" : $.inArray(dataIndex + 1, [8]) >= 0 ? \"#e6ccff\" : $.inArray(dataIndex + 1, [9]) >= 0 ? \"#e6ccff\" : null});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<section id="key-technologies-in-spatial-transcriptomics" class="level2">
+<h2 class="anchored" data-anchor-id="key-technologies-in-spatial-transcriptomics">2. Key Technologies in Spatial Transcriptomics</h2>
+<p>Several technologies enable spatial transcriptomics, each with distinct mechanisms:</p>
+<section id="area-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="area-resolution">2.1. area resolution:</h3>
+<ul>
+<li><p><strong>Visium</strong>: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas.</p></li>
+<li><p><strong>Visium HD</strong>: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.</p></li>
+<li><p><strong>GeoMx DSP</strong>: It generates flexible, high-plex RNA or protein profiles from user-defined regions, targeting specific tissue areas of interest. To easier to understand, this technique provide bulk-RNA of specific tissue areas of interest.</p></li>
+</ul>
+<p><strong>Figure 1: Visium Workflow</strong></p>
+<div style="text-align: center;">
+<p><img src="https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png" class="img-fluid"></p>
 </div>
+<p><strong>Figure 2: Visium v.s. Visium HD</strong></p>
+<div style="text-align: center;">
+<p><img src="images/截圖 2025-03-15 下午4.30.00.png" class="img-fluid"></p>
+</div>
+<p><strong>Figure 3: GeoMx DSP Workflow</strong></p>
+<div style="text-align: center;">
+<p><img src="https://www.researchgate.net/publication/361642967/figure/fig1/AS:11431281237101628@1713455617922/DSP-assay-workflow-Schematic-picture-showing-the-workflow-of-profiling-using-the-Geomx.tif" class="img-fluid"></p>
 </div>
 </section>
-<section id="overall-purpose" class="level2">
-<h2 class="anchored" data-anchor-id="overall-purpose">1.5 Overall Purpose</h2>
-<p>Statistics turns raw data into a trustworthy base, revealing what’s happening and what’s worth investigating.</p>
+<section id="single-cell-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="single-cell-resolution">2.2. single-cell resolution:</h3>
+<ul>
+<li><p><strong>Xenium</strong>: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.</p></li>
+<li><p><strong>MERFISH</strong>: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.</p></li>
+</ul>
+<p><strong>Figure 4: MERFISH v.s. Xenium</strong></p>
+<div style="text-align: center;">
+<p><img src="images/截圖 2025-03-15 下午4.00.13.png" class="img-fluid"></p>
+</div>
+<section id="comparison" class="level4">
+<h4 class="anchored" data-anchor-id="comparison"><strong>Comparison</strong>:</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 31%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Feature</th>
+<th style="text-align: center;">Xenium</th>
+<th style="text-align: center;"><strong>MERFISH</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Gene Coverage</td>
+<td style="text-align: center;">100–500 genes, targeted and predefined, ideal for focused studies</td>
+<td style="text-align: center;">Up to 10,000 genes, suitable for exploratory gene expression mapping</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Sensitivity</td>
+<td style="text-align: center;">High, excels in detecting low-abundance transcripts due to fewer probes and rapid imaging</td>
+<td style="text-align: center;">High, but multiple probes and imaging rounds may reduce sensitivity for low-abundance transcripts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Impact on Cell Detection</td>
+<td style="text-align: center;">Captures more cells in visualizations because of low-abundance transcripts detected</td>
+<td style="text-align: center;">May miss low-abundance transcripts, potentially reducing visualized cell count due to multi-step imaging</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Best Use Case</td>
+<td style="text-align: center;">Targeted analysis of specific genes</td>
+<td style="text-align: center;">Comprehensive profiling for discovering new expression patterns</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Article:</p>
 <ul>
-<li><a href="https://compgenomr.github.io/book/stats.html" class="uri">https://compgenomr.github.io/book/stats.html</a></li>
+<li><a href="https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf" class="uri">https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf</a></li>
+<li><a href="https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full" class="uri">https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full</a></li>
+</ul>
+<p>Image:</p>
+<ul>
+<li><p>https://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg</p></li>
+<li><p>https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png</p></li>
+<li><p>https://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook</p></li>
+<li><p>https://www.researchgate.net/publication/361642967</p></li>
 </ul>
 <div class="right-align">
-<p><a href="../module1/unsupervised.html">Next</a></p>
+<p><a href="unsupervised.qmd">Next</a></p>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

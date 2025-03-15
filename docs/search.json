@@ -91,6 +91,34 @@
     "text": "https://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
   },
   {
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html",
+    "title": "Spatial Transcriptomics",
+    "section": "",
+    "text": "Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.\nUnlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions."
+  },
+  {
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#introduction-to-spatial-omics",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#introduction-to-spatial-omics",
+    "title": "Spatial Transcriptomics",
+    "section": "",
+    "text": "Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.\nUnlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions."
+  },
+  {
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#key-technologies-in-spatial-transcriptomics",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#key-technologies-in-spatial-transcriptomics",
+    "title": "Spatial Transcriptomics",
+    "section": "2. Key Technologies in Spatial Transcriptomics",
+    "text": "2. Key Technologies in Spatial Transcriptomics\nSeveral technologies enable spatial transcriptomics, each with distinct mechanisms:\n\n2.1. area resolution:\n\nVisium: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas.\nVisium HD: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.\nGeoMx DSP: It generates flexible, high-plex RNA or protein profiles from user-defined regions, targeting specific tissue areas of interest. To easier to understand, this technique provide bulk-RNA of specific tissue areas of interest.\n\nFigure 1: Visium Workflow\n\n\n\nFigure 2: Visium v.s. Visium HD\n\n\n\nFigure 3: GeoMx DSP Workflow\n\n\n\n\n\n2.2. single-cell resolution:\n\nXenium: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.\nMERFISH: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.\n\nFigure 4: MERFISH v.s. Xenium\n\n\n\n\nComparison:\n\n\n\n\n\n\n\n\nFeature\nXenium\nMERFISH\n\n\n\n\nGene Coverage\n100–500 genes, targeted and predefined, ideal for focused studies\nUp to 10,000 genes, suitable for exploratory gene expression mapping\n\n\nSensitivity\nHigh, excels in detecting low-abundance transcripts due to fewer probes and rapid imaging\nHigh, but multiple probes and imaging rounds may reduce sensitivity for low-abundance transcripts\n\n\nImpact on Cell Detection\nCaptures more cells in visualizations because of low-abundance transcripts detected\nMay miss low-abundance transcripts, potentially reducing visualized cell count due to multi-step imaging\n\n\nBest Use Case\nTargeted analysis of specific genes\nComprehensive profiling for discovering new expression patterns"
+  },
+  {
+    "objectID": "module2/Introduction_of_Spatial_Transcriptomics.html#references",
+    "href": "module2/Introduction_of_Spatial_Transcriptomics.html#references",
+    "title": "Spatial Transcriptomics",
+    "section": "References",
+    "text": "References\nArticle:\n\nhttps://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf\nhttps://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full\n\nImage:\n\nhttps://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg\nhttps://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png\nhttps://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook\nhttps://www.researchgate.net/publication/361642967\n\n\nNext"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Welcome to Genomic Insights",

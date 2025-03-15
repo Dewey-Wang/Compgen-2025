@@ -1,0 +1,88 @@
+---
+title: "Spatial Transcriptomics"
+author: "Ding Yang Wang"
+date: "`r Sys.Date()`"
+format:
+  html:
+    css: ../styles.css
+---
+
+```{r, echo=FALSE}
+```
+## 1. Introduction to Spatial Omics
+
+Spatial transcriptomics, often extended to the broader field of spatial omics, integrates molecular features (e.g., transcriptomics, proteomics) with spatial information to study gene expression or other molecular profiles within their positional context in biological samples. This approach captures not only the features of cells or molecules (such as gene expression levels) but also their two-dimensional (2D) or emerging three-dimensional (3D) locations within tissue sections. The significance lies in its ability to link biological processes to spatial organization, as proximity between cells often influences tissue function or disease progression.
+
+Unlike traditional transcriptomics, spatial transcriptomics adds a spatial dimension, enabling researchers to explore how molecular profiles correlate with tissue structure. This opens new possibilities in translational medicine, such as deciphering how diseases alter tissue morphology or designing therapies targeting specific tissue regions.
+
+## 2. Key Technologies in Spatial Transcriptomics
+
+Several technologies enable spatial transcriptomics, each with distinct mechanisms:
+
+### 2.1. area resolution:
+
+-   **Visium**: It excels in whole-transcriptome profiling at spot-level resolution, capturing gene expression across predefined tissue areas.
+
+-   **Visium HD**: An enhanced Visium platform with smaller spots. It delivers high-definition whole-transcriptome data with fine-scale spot resolution, enabling cellular or subcellular insights from tissue sections.
+
+-   **GeoMx DSP**: It generates flexible, high-plex RNA or protein profiles from user-defined regions, targeting specific tissue areas of interest. To easier to understand, this technique provide bulk-RNA of specific tissue areas of interest.
+
+**Figure 1: Visium Workflow**
+
+::: {style="text-align: center;"}
+![](https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png)
+:::
+
+**Figure 2: Visium v.s. Visium HD**
+
+::: {style="text-align: center;"}
+![](images/截圖%202025-03-15%20下午4.30.00.png)
+:::
+
+**Figure 3: GeoMx DSP Workflow**
+
+::: {style="text-align: center;"}
+![](https://www.researchgate.net/publication/361642967/figure/fig1/AS:11431281237101628@1713455617922/DSP-assay-workflow-Schematic-picture-showing-the-workflow-of-profiling-using-the-Geomx.tif)
+:::
+
+### 2.2. single-cell resolution:
+
+-   **Xenium**: It provides targeted RNA profiles at single-cell resolution with subcellular precision, ideal for precise transcript localization, though limited to a predefined panel of hundreds of genes.
+
+-   **MERFISH**: It produces detailed RNA expression maps at single-cell resolution, profiling thousands of transcripts across tissue samples with high multiplexing capacity, but requires longer imaging times and complex data processing compared to Xenium.
+
+**Figure 4: MERFISH v.s. Xenium**
+
+::: {style="text-align: center;"}
+![](images/截圖%202025-03-15%20下午4.00.13.png)
+:::
+
+#### **Comparison**:
+
+|         Feature          |                                          Xenium                                           |                                               **MERFISH**                                                |
+|:----------------:|:---------------------:|:-----------------------------:|
+|      Gene Coverage       |            100--500 genes, targeted and predefined, ideal for focused studies             |                   Up to 10,000 genes, suitable for exploratory gene expression mapping                   |
+|       Sensitivity        | High, excels in detecting low-abundance transcripts due to fewer probes and rapid imaging |    High, but multiple probes and imaging rounds may reduce sensitivity for low-abundance transcripts     |
+| Impact on Cell Detection |    Captures more cells in visualizations because of low-abundance transcripts detected    | May miss low-abundance transcripts, potentially reducing visualized cell count due to multi-step imaging |
+|      Best Use Case       |                            Targeted analysis of specific genes                            |                     Comprehensive profiling for discovering new expression patterns                      |
+
+## References
+
+Article:
+
+-   <https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf>
+-   <https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full>
+
+Image:
+
+-   https://pbs.twimg.com/media/GKdV-i-W8AE1mRw.jpg
+
+-   https://ngisweden.scilifelab.se/wp-content/uploads/2021/02/Visium-gene-expression-slide-1024x390.png
+
+-   https://mma.prnewswire.com/media/2371262/Visium_data_and_Visium_HD_data.jpg?p=facebook
+
+-   https://www.researchgate.net/publication/361642967
+
+::: right-align
+[Next](unsupervised.qmd)
+:::

@@ -2,6 +2,9 @@
 title: "Supervised Learning"
 author: "Ding Yang Wang"
 date: "`r Sys.Date()`"
+format:
+  html:
+    css: ../styles.css
 ---
 
 # 3. Supervised Learning: Developing Predictive Models
@@ -187,6 +190,6 @@ Unlike unsupervised learning's exploratory focus, supervised learning uses label
 
 -   <https://compgenomr.github.io/book/supervisedLearning.html>
 
-::: {style="text-align: left;"}
+::: {.left-align}
 [Previous](unsupervised.qmd)
 :::

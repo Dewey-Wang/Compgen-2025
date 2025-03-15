@@ -2,6 +2,9 @@
 title: "Unsupervised Learning"
 author: "Ding Yang Wang"
 date: "`r Sys.Date()`"
+format:
+  html:
+    css: ../styles.css
 ---
 
 ```{r, echo=FALSE}
@@ -73,11 +76,11 @@ Unsupervised learning maps the data's natural landscape, revealing groups and st
 -   <https://compgenomr.github.io/book/unsupervisedLearning.html>
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-::: {style="text-align: left;"}
+::: {.left-align}
 [Previous](statistics.qmd)
 :::
 
-::: {style="text-align: right;"}
+::: {.right-align}
 [Next](supervised.qmd)
 :::
 :::

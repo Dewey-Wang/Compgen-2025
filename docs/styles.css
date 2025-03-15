@@ -1,0 +1,25 @@
+/* Default paragraph text justified globally */
+p {
+    text-align: justify;
+}
+
+/* Center images explicitly, overriding any parent p */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Specific classes for alignment overrides */
+.right-align {
+    text-align: right !important; /* Override p justification */
+}
+
+.left-align {
+    text-align: left !important; /* Override p justification */
+}
+
+/* Ensure p inside .right-align or .left-align keeps justification unless overridden */
+.right-align p, .left-align p {
+    text-align: inherit; /* Only apply parent's alignment (right/left) to p inside these classes */
+}

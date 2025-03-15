@@ -106,8 +106,8 @@ Statistics turns raw data into a trustworthy base, revealing what's happening an
 
 ## References
 
-- [https://compgenomr.github.io/book/stats.html](https://compgenomr.github.io/book/stats.html)
+-   <https://compgenomr.github.io/book/stats.html>
 
-::: {style="text-align: right;"}
+::: right-align
 [Next](unsupervised.qmd)
 :::
