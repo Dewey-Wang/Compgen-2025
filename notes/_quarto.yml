@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: ../docs  # 輸出到 root/docs 目錄
+  execute-dir: project  # 保持在專案根目錄執行
+
+website:
+  title: "From Statistical Foundations to Machine Learning Applications in Genomics"
+  navbar:
+    right:
+      - text: "Module 1: Statistical & Machine Learning"
+        menu:
+          - href: module1/statistics.qmd
+            text: "1. Statistics"
+          - href: module1/unsupervised.qmd
+            text: "2. Unsupervised Learning"
+          - href: module1/supervised.qmd
+            text: "3. Supervised Learning"
+
+      - text: "Module 2: Spatial Transcriptomics"
+        menu:
+          - href: module2/Spatial Transcriptomics.qmd
+            text: "1. Spatial Transcriptomics"
+          - href: module2/Multimodal Image Registration.qmd
+            text: "2. Multimodal Image Registration"
+          - href: module2/Multiomics Integration.qmd
+            text: "3. Multiomics Integration"
+
+      - text: "Module 3: Neural Network for Genomics"
+        menu:
+          - href: module3/Breast Cancer Subtype Prediction.qmd
+            text: "1. Breast Cancer Subtype Prediction"
+          - href: module3/Survival Analysis.qmd
+            text: "2. Survival Analysis"
+          - href: module3/Drug Response Prediction.qmd
+            text: "3. Drug Response Prediction"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    execute:
+      enabled: true
+      echo: false

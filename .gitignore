@@ -1,2 +1,12 @@
-module 2/
 .DS_Store
+module\ 2/subtitle
+module\ 2/workshop/data/Mouse\ Brain
+module\ 2/workshop/data/BreastCancer
+module\ 2/workshop/data/ondisk
+module\ 2/workshop/data/COVID19
+module\ 2/slides/Day\ 3.pptx
+module\ 2/slides/Day\ 2.pptx
+module\ 2/slides/Day\ 1.pptx
+module\ 3/hw/docker/
+
+/.quarto/

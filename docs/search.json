@@ -1,52 +1,94 @@
 [
   {
-    "objectID": "statistics.html",
-    "href": "statistics.html",
+    "objectID": "module1/statistics.html",
+    "href": "module1/statistics.html",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "Genomic research begins with complex datasets, such as gene expression levels, which contain natural variation and experimental noise. Statistics provides a systematic way to process and interpret this data, ensuring a dependable foundation for further analysis. Below are the key statistical steps and their roles:\n\n\nGene expression data often varies significantly. We need a “typical” value to grasp the big picture. Measures like the mean and median summarize the central tendency. The mean uses all data but can be swayed by outliers; the median stays steady, perfect for uneven datasets. Variance and standard deviation quantify the data’s spread, indicating consistency or highlighting potential biological diversity or experimental errors.\n\n\n\nData frequently follows patterns, such as the normal distribution for continuous traits like gene expression or the Poisson distribution for discrete counts like mutations. Identifying these distributions guides the selection of appropriate analytical methods, many of which rely on specific assumptions about data shape.\n\n\n\nWe estimate population traits (e.g., average gene expression) from samples. Confidence intervals give a range (e.g., 95% likely to hold the true value), showing how much trust we can place in our estimate.\n\n\n\nWe compare groups, like healthy vs. diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives.\n\n\n\n\n\n\n\n\n\nStatistics turns raw data into a trustworthy base, revealing what’s happening and what’s worth investigating.\n\n\n\n\nhttps://compgenomr.github.io/book/stats.html\n\n\nNext"
   },
   {
-    "objectID": "statistics.html#summarizing-data-finding-typical-and-spread",
-    "href": "statistics.html#summarizing-data-finding-typical-and-spread",
+    "objectID": "module1/statistics.html#summarizing-data-finding-typical-and-spread",
+    "href": "module1/statistics.html#summarizing-data-finding-typical-and-spread",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "Gene expression data often varies significantly. We need a “typical” value to grasp the big picture. Measures like the mean and median summarize the central tendency. The mean uses all data but can be swayed by outliers; the median stays steady, perfect for uneven datasets. Variance and standard deviation quantify the data’s spread, indicating consistency or highlighting potential biological diversity or experimental errors."
   },
   {
-    "objectID": "statistics.html#distribution-models-understanding-data-shape",
-    "href": "statistics.html#distribution-models-understanding-data-shape",
+    "objectID": "module1/statistics.html#distribution-models-understanding-data-shape",
+    "href": "module1/statistics.html#distribution-models-understanding-data-shape",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "Data frequently follows patterns, such as the normal distribution for continuous traits like gene expression or the Poisson distribution for discrete counts like mutations. Identifying these distributions guides the selection of appropriate analytical methods, many of which rely on specific assumptions about data shape."
   },
   {
-    "objectID": "statistics.html#confidence-intervals-measuring-uncertainty",
-    "href": "statistics.html#confidence-intervals-measuring-uncertainty",
+    "objectID": "module1/statistics.html#confidence-intervals-measuring-uncertainty",
+    "href": "module1/statistics.html#confidence-intervals-measuring-uncertainty",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "We estimate population traits (e.g., average gene expression) from samples. Confidence intervals give a range (e.g., 95% likely to hold the true value), showing how much trust we can place in our estimate."
   },
   {
-    "objectID": "statistics.html#hypothesis-testing-confirming-real-differences",
-    "href": "statistics.html#hypothesis-testing-confirming-real-differences",
+    "objectID": "module1/statistics.html#hypothesis-testing-confirming-real-differences",
+    "href": "module1/statistics.html#hypothesis-testing-confirming-real-differences",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "We compare groups, like healthy vs. diseased cells. Hypothesis testing (e.g., t-tests, Moderated t-test, ANOVA, Wilcoxon Signed-Rank Test, Mann-Whitney U Test) uses p-values to check if differences are random. Small p-values (&lt; 0.05) suggest real effects. With thousands of genes, multiple testing corrections (e.g., Bonferroni, FDR) curb false positives."
   },
   {
-    "objectID": "statistics.html#overall-purpose",
-    "href": "statistics.html#overall-purpose",
+    "objectID": "module1/statistics.html#overall-purpose",
+    "href": "module1/statistics.html#overall-purpose",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "Statistics turns raw data into a trustworthy base, revealing what’s happening and what’s worth investigating."
   },
   {
-    "objectID": "statistics.html#references",
-    "href": "statistics.html#references",
+    "objectID": "module1/statistics.html#references",
+    "href": "module1/statistics.html#references",
     "title": "Statistics for Genomics",
     "section": "",
     "text": "https://compgenomr.github.io/book/stats.html\n\n\nNext"
+  },
+  {
+    "objectID": "module1/unsupervised.html",
+    "href": "module1/unsupervised.html",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "With a statistical foundation, we know our data’s basics, but we’re curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations.\n\n\nTo group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal.\n\n\n\n\n\nThis builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number.\n\n\n\n\nClustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments.\n\n\n\n\nUnsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map\n\n\n\n\nhttps://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
+  },
+  {
+    "objectID": "module1/unsupervised.html#distance-metrics-defining-similarity",
+    "href": "module1/unsupervised.html#distance-metrics-defining-similarity",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "To group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal."
+  },
+  {
+    "objectID": "module1/unsupervised.html#clustering-spotting-natural-groups",
+    "href": "module1/unsupervised.html#clustering-spotting-natural-groups",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "This builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number."
+  },
+  {
+    "objectID": "module1/unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
+    "href": "module1/unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments."
+  },
+  {
+    "objectID": "module1/unsupervised.html#overall-purpose",
+    "href": "module1/unsupervised.html#overall-purpose",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "Unsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map"
+  },
+  {
+    "objectID": "module1/unsupervised.html#references",
+    "href": "module1/unsupervised.html#references",
+    "title": "Unsupervised Learning",
+    "section": "",
+    "text": "https://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
   },
   {
     "objectID": "index.html",
@@ -63,92 +105,50 @@
     "text": "Course Modules:\n\nModule 1: AI-assisted data analysis (This note only cover this module right now)\nModule 2: Spatial omics data analysis\nModule 3: Multi-omics data integration\n\n🔗 More details about the course here"
   },
   {
-    "objectID": "unsupervised.html",
-    "href": "unsupervised.html",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "With a statistical foundation, we know our data’s basics, but we’re curious: Are there hidden patterns? For example, do some genes cluster together, hinting at shared roles? Unsupervised learning explores it further by detecting inherent patterns without predefined labels. This step bridges initial data understanding to more focused investigations.\n\n\nTo group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal.\n\n\n\n\n\nThis builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number.\n\n\n\n\nClustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments.\n\n\n\n\nUnsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map\n\n\n\n\nhttps://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
-  },
-  {
-    "objectID": "unsupervised.html#distance-metrics-defining-similarity",
-    "href": "unsupervised.html#distance-metrics-defining-similarity",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "To group data, we need a similarity rule. Clustering hinges on measuring similarity or dissimilarity between data points, which relies on distance metrics. The choice of metric shapes the clustering outcome, making it a critical decision. Common distance metrics include: Euclidean Distance, Manhattan Distance, Correlation Distance, Cosine Distance, and Jaccard Distance. You can choose a proper metrics base on your data type, data characteristics, and goal."
-  },
-  {
-    "objectID": "unsupervised.html#clustering-spotting-natural-groups",
-    "href": "unsupervised.html#clustering-spotting-natural-groups",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "This builds a tree structure (dendrogram), like patient subtypes, great for exploring relationships.\n\n\n\nK-means splits data into k clusters based on centroids, minimizing distances, and works well for big datasets.\n\n\n\nHierarchical Clustering:\n\nStrengths: Ideal for exploratory analysis, provides a full hierarchical structure without needing to specify k, revealing nested relationships.\nWeaknesses: High computational complexity (O(n3)), less practical for large datasets.\n\nK-means:\n\nStrengths: Fast computation, scalable to big data.\nWeaknesses: Requires predefining k, sensitive to initialization, and assumes uniform cluster shapes.\n\n\n\n\nK-means requires k. Silhouette analysis checks fit, gap statistic compares to random data, and NbClust tools find the best number."
-  },
-  {
-    "objectID": "unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
-    "href": "unsupervised.html#dimensionality-reduction-seeing-the-big-picture",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "Clustering groups data based on similarity, but high-dimensional datasets (e.g., gene expression with thousands of features) pose a visualization challenge. Dimensionality reduction techniques bridge this gap by mapping high-dimensional data into lower dimensions as part of unsupervised learning. These methods reveal underlying structures, enhancing our ability to interpret clustering results or discover patterns not immediately apparent in high-dimensional space.\n\n\n\nPCA: Linear, global variance, fast, misses nonlinear patterns.\nNMF/ICA: Linear, specific patterns (non-negative/independent), biologically interpretable, less visualization-focused.\nMDS: Linear, distance-preserving, balances global structure, less variance-centric than PCA.\nt-SNE: Nonlinear, local focus, cluster-rich, slow and stochastic.\nUMAP: Nonlinear, local-global balance, fast and robust.\n\n\n\n\n\nScale: PCA for small data; t-SNE/UMAP for larger sets; NMF for interpretability.\nGoal: Variance (PCA), distances (MDS), local clusters (t-SNE), comprehensive view (UMAP).\nGenomics: Bulk data suits PCA/MDS, single-cell prefers t-SNE/UMAP, expression patterns favor NMF.\n\nThese methods enhance clustering: PCA/MDS offer broad views, NMF interprets components, t-SNE/UMAP refine local/global structures. Discrepancies with clustering (e.g., K-means vs. MDS) guide metric or k adjustments."
-  },
-  {
-    "objectID": "unsupervised.html#overall-purpose",
-    "href": "unsupervised.html#overall-purpose",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "Unsupervised learning maps the data’s natural landscape, revealing groups and structures. It’s like finding landmarks on a research map"
-  },
-  {
-    "objectID": "unsupervised.html#references",
-    "href": "unsupervised.html#references",
-    "title": "Unsupervised Learning",
-    "section": "",
-    "text": "https://compgenomr.github.io/book/unsupervisedLearning.html\n\n\n\nPrevious\n\n\nNext"
-  },
-  {
-    "objectID": "supervised.html",
-    "href": "supervised.html",
+    "objectID": "module1/supervised.html",
+    "href": "module1/supervised.html",
     "title": "Supervised Learning",
     "section": "",
     "text": "With patterns identified, supervised learning uses labeled data to build models that predict outcomes, such as disease states or treatment responses, turning insights into practical applications.\n\n\nRaw genomic data requires preprocessing. Techniques like normalize, log transformation, remove near-zero variance (NZV) genes, imputation for missing values, and noise filtering enhance data quality, ensuring models focus on relevant signals.\n\n\n\n\n\nWe split data (e.g., 70% training, 30% testing) to test on unseen samples.\n\n\n\nFor small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results.\n\n\n\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability.\n\n\n\n\nAlgorithms vary by task:\n\n\n\n\n\n\n\n\n\nConfusion matrices and ROC curves measure model accuracy and reliability.\n\n\n\n\n\n\nSampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.\n\n\n\n\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects.\n\n\n\n\n\nUnlike unsupervised learning’s exploratory focus, supervised learning uses labeled data for prediction, transforming patterns into practical applications. Each step, from data splitting to regularization, enhances generalization, applicable to both classification and regression, offering robust tools for genomic research. ## References\n\nhttps://compgenomr.github.io/book/supervisedLearning.html\n\n\nPrevious"
   },
   {
-    "objectID": "supervised.html#data-preprocessing-ensuring-quality",
-    "href": "supervised.html#data-preprocessing-ensuring-quality",
+    "objectID": "module1/supervised.html#data-preprocessing-ensuring-quality",
+    "href": "module1/supervised.html#data-preprocessing-ensuring-quality",
     "title": "Supervised Learning",
     "section": "",
     "text": "Raw genomic data requires preprocessing. Techniques like normalize, log transformation, remove near-zero variance (NZV) genes, imputation for missing values, and noise filtering enhance data quality, ensuring models focus on relevant signals."
   },
   {
-    "objectID": "supervised.html#data-splitting-testing-real-performance",
-    "href": "supervised.html#data-splitting-testing-real-performance",
+    "objectID": "module1/supervised.html#data-splitting-testing-real-performance",
+    "href": "module1/supervised.html#data-splitting-testing-real-performance",
     "title": "Supervised Learning",
     "section": "",
     "text": "We split data (e.g., 70% training, 30% testing) to test on unseen samples.\n\n\n\nFor small datasets, k-fold CV (e.g., 5-fold) trains and validates repeatedly, averaging results.\n\n\n\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability."
   },
   {
-    "objectID": "supervised.html#predictive-models",
-    "href": "supervised.html#predictive-models",
+    "objectID": "module1/supervised.html#predictive-models",
+    "href": "module1/supervised.html#predictive-models",
     "title": "Supervised Learning",
     "section": "",
     "text": "Algorithms vary by task:"
   },
   {
-    "objectID": "supervised.html#model-evaluation-assessing-performance",
-    "href": "supervised.html#model-evaluation-assessing-performance",
+    "objectID": "module1/supervised.html#model-evaluation-assessing-performance",
+    "href": "module1/supervised.html#model-evaluation-assessing-performance",
     "title": "Supervised Learning",
     "section": "",
     "text": "Confusion matrices and ROC curves measure model accuracy and reliability."
   },
   {
-    "objectID": "supervised.html#handling-challenges-addressing-real-world-issues",
-    "href": "supervised.html#handling-challenges-addressing-real-world-issues",
+    "objectID": "module1/supervised.html#handling-challenges-addressing-real-world-issues",
+    "href": "module1/supervised.html#handling-challenges-addressing-real-world-issues",
     "title": "Supervised Learning",
     "section": "",
     "text": "Sampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these.\n\n\n\n\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects."
   },
   {
-    "objectID": "supervised.html#overall-purpose",
-    "href": "supervised.html#overall-purpose",
+    "objectID": "module1/supervised.html#overall-purpose",
+    "href": "module1/supervised.html#overall-purpose",
     "title": "Supervised Learning",
     "section": "",
     "text": "Unlike unsupervised learning’s exploratory focus, supervised learning uses labeled data for prediction, transforming patterns into practical applications. Each step, from data splitting to regularization, enhances generalization, applicable to both classification and regression, offering robust tools for genomic research. ## References\n\nhttps://compgenomr.github.io/book/supervisedLearning.html\n\n\nPrevious"
