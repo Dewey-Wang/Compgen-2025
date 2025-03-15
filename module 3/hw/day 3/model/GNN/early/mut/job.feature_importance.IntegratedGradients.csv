@@ -1,0 +1,16 @@
+target_variable,target_class,target_class_label,layer,name,importance,explainer
+Erlotinib,0,,mutation,FBXW7,0.0034897942238933093,IntegratedGradients
+Erlotinib,0,,mutation,NF1,0.004061998757821366,IntegratedGradients
+Erlotinib,0,,mutation,MSH6,0.001292237263793652,IntegratedGradients
+Erlotinib,0,,mutation,TP53,0.004424975205656328,IntegratedGradients
+Erlotinib,0,,mutation,APC,0.003408155522313532,IntegratedGradients
+Erlotinib,0,,mutation,BRCA2,0.0030082238866137394,IntegratedGradients
+Erlotinib,0,,mutation,PIK3CA,0.0036878474901264236,IntegratedGradients
+Erlotinib,0,,mutation,KRAS,0.0059727662161023955,IntegratedGradients
+Erlotinib,0,,mutation,CDKN2A,0.001143121398639349,IntegratedGradients
+Erlotinib,0,,mutation,TET2,0.0015742232791193076,IntegratedGradients
+Erlotinib,0,,mutation,BRAF,0.008208278751738142,IntegratedGradients
+Erlotinib,0,,mutation,SMARCA4,0.0020006131141305375,IntegratedGradients
+Erlotinib,0,,mutation,PTEN,0.0037291742214624842,IntegratedGradients
+Erlotinib,0,,mutation,GNAS,0.0035446966598304394,IntegratedGradients
+Erlotinib,0,,mutation,PIK3R1,0.0010259837298229283,IntegratedGradients

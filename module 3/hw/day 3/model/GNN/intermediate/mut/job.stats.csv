@@ -1,0 +1,4 @@
+method,var,variable_type,metric,value
+GNN,Erlotinib,numerical,mse,0.005243789870291948
+GNN,Erlotinib,numerical,r2,0.00029272069249519845
+GNN,Erlotinib,numerical,pearson_corr,0.017109082164020326
