@@ -18,7 +18,7 @@ Spatial omics data varies in resolution and scope, offering diverse perspectives
 -   Spots: Predefined areas on a slide capturing gene expression, often encompassing multiple cells (e.g., Visium spots).
 -   Regions of Interest (ROIs): User-selected tissue areas for targeted analysis, typically larger than cells, based on morphological or functional significance.
 -   Molecules: Subcellular detection of individual RNA molecules, offering the highest resolution.(e.g., Xenium, Merfish data)
--   Images: Visual data (e.g., H&E or DAPI-stained slides) providing morphological context for molecular data.
+-   Histology Images: Visual data (e.g., H&E or DAPI-stained slides) providing morphological context for molecular data.
 
 Each spatial omics data could provide different point of view and allow us to answer different biological questions. According to the data type, the analysis progress could be vaires. Here, I will use Visium and Xenium to do some basic analysis. For the rest of them, they will be used in the next section.
 
@@ -117,10 +117,6 @@ The workflow of Spatial Transcriptomics Analysis will different on the techology
 In this section, I have only covered the key steps in spatial transcriptomics analysis, but in practice, there are many additional details and methodological choices that require careful consideration. For example, selecting the appropriate dimensionality reduction method (e.g., PCA vs. UMAP), choosing the best clustering algorithm (e.g., Leiden vs. Louvain), and optimizing the parameters for different algorithms are all critical decisions that can significantly impact the results. Additionally, a strong foundation in statistics and computational biology is essential for correctly interpreting spatial transcriptomics data.
 
 If you are interested in exploring these topics further, I may compile a more detailed guide in the future when I have time. However, most of these concepts have already been covered in [Module 1](statistics.qmd), so I encourage you to refer back to that for a more in-depth discussion.
-
-# References
-
--   <https://www.youtube.com/live/3EZk4-2464E>
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
 ::: left-align

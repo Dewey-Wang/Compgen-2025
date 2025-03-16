@@ -88,14 +88,28 @@
     "href": "module2/Multiomics_Integration.html",
     "title": "Multiomics Integration",
     "section": "",
-    "text": "1. Quarto\n\n\nReferences\n\nhttps://www.youtube.com/watch?v=KdvnWZbMugU&list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT\n\n\nNext"
+    "text": "In the previous notes, I mentioned that there are different types of spatial omics data, including spatial transcriptomics and histology images. Through image registration, spatial transcriptomics data can be aligned with histology images, enabling multi-modal integration by linking molecular and morphological features.\nThis process helps interpret transcriptomics data in the context of tissue structure and supports automated region segmentation and pathology-guided analysis."
+  },
+  {
+    "objectID": "module2/Multiomics_Integration.html#automated-registration",
+    "href": "module2/Multiomics_Integration.html#automated-registration",
+    "title": "Multiomics Integration",
+    "section": "2.1. Automated Registration",
+    "text": "2.1. Automated Registration\nStep 1. Keypoint detection/selection (e.g., SIFT)\nStep 2. Descriptor Matching (e.g., FLANN-based matching)\nStep 3. Homography transformation (e.g., RANSC)\nEfficient for large-scale datasets but may require fine-tuning."
+  },
+  {
+    "objectID": "module2/Multiomics_Integration.html#manual-alignment",
+    "href": "module2/Multiomics_Integration.html#manual-alignment",
+    "title": "Multiomics Integration",
+    "section": "2.2. Manual Alignment",
+    "text": "2.2. Manual Alignment\nStep 1. Manually Keypoint selection\nStep 2. Homography transformation (e.g., TPS)\nEnsures accurate alignment when automated methods fail.\n\nExsamples\n\n\n\n\n\n\n\n\n\nXenium DAPI image (negative-stained)\n\n\n\n\n\n\n\nH&E image\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlign Both images\n\n\n\n\n\n\n\nOverlay Xenium clusters with H&E as the background for spatial comparison"
   },
   {
     "objectID": "module2/Spatial_Transcriptomics_Analysis.html",
     "href": "module2/Spatial_Transcriptomics_Analysis.html",
     "title": "Spatial Omics Analysis",
     "section": "",
-    "text": "Spatial omics data varies in resolution and scope, offering diverse perspectives on tissue biology:\n\nCells: Gene expression profiles of individual cells with spatial coordinates, providing single-cell resolution (e.g., Xenium, Merfish data).\nSpots: Predefined areas on a slide capturing gene expression, often encompassing multiple cells (e.g., Visium spots).\nRegions of Interest (ROIs): User-selected tissue areas for targeted analysis, typically larger than cells, based on morphological or functional significance.\nMolecules: Subcellular detection of individual RNA molecules, offering the highest resolution.(e.g., Xenium, Merfish data)\nImages: Visual data (e.g., H&E or DAPI-stained slides) providing morphological context for molecular data.\n\nEach spatial omics data could provide different point of view and allow us to answer different biological questions. According to the data type, the analysis progress could be vaires. Here, I will use Visium and Xenium to do some basic analysis. For the rest of them, they will be used in the next section.\n\n\n\n\n\n\n\n\n\nCells\n\n\n\n\n\n\n\nSpots\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMolecules\n\n\n\n\n\n\n\nROIs\n\n\n\n\n\n\n\nImages\n\n\n\n\n\n\n\n\nhttps://www.10xgenomics.com/products/xenium-in-situ/human-breast-dataset-explorer\nhttps://www.10xgenomics.com/\nhttps://www.biochain.com/nanostring-geomx-digital-spatial-profiling/\nhttps://www.10xgenomics.com/blog/your-introduction-to-visium-hd-spatial-biology-in-high-definition\nhttps://ostr.ccr.cancer.gov/emerging-technologies/spatial-biology/xenium/\nhttps://www.researchgate.net/figure/Classification-of-LAC-tumor-growth-patterns-in-digital-slides-Slides-classified-by-CNNs_fig3_330906505"
+    "text": "Spatial omics data varies in resolution and scope, offering diverse perspectives on tissue biology:\n\nCells: Gene expression profiles of individual cells with spatial coordinates, providing single-cell resolution (e.g., Xenium, Merfish data).\nSpots: Predefined areas on a slide capturing gene expression, often encompassing multiple cells (e.g., Visium spots).\nRegions of Interest (ROIs): User-selected tissue areas for targeted analysis, typically larger than cells, based on morphological or functional significance.\nMolecules: Subcellular detection of individual RNA molecules, offering the highest resolution.(e.g., Xenium, Merfish data)\nHistology Images: Visual data (e.g., H&E or DAPI-stained slides) providing morphological context for molecular data.\n\nEach spatial omics data could provide different point of view and allow us to answer different biological questions. According to the data type, the analysis progress could be vaires. Here, I will use Visium and Xenium to do some basic analysis. For the rest of them, they will be used in the next section.\n\n\n\n\n\n\n\n\n\nCells\n\n\n\n\n\n\n\nSpots\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMolecules\n\n\n\n\n\n\n\nROIs\n\n\n\n\n\n\n\nImages\n\n\n\n\n\n\n\n\nhttps://www.10xgenomics.com/products/xenium-in-situ/human-breast-dataset-explorer\nhttps://www.10xgenomics.com/\nhttps://www.biochain.com/nanostring-geomx-digital-spatial-profiling/\nhttps://www.10xgenomics.com/blog/your-introduction-to-visium-hd-spatial-biology-in-high-definition\nhttps://ostr.ccr.cancer.gov/emerging-technologies/spatial-biology/xenium/\nhttps://www.researchgate.net/figure/Classification-of-LAC-tumor-growth-patterns-in-digital-slides-Slides-classified-by-CNNs_fig3_330906505"
   },
   {
     "objectID": "module2/Spatial_Transcriptomics_Analysis.html#spot-level-data-analysis",
@@ -137,14 +151,7 @@
     "href": "index.html",
     "title": "Welcome to Genomic Insights",
     "section": "",
-    "text": "This website is my personal note compilation, based on the Compgen2025 – Module 1: AI-assisted Data Analysis course. The course content primarily covers statistical foundations and machine learning applications in genomics. If you are interested in the application of ML in bioinformatics, you may find this resource helpful!\nThe course consists of a series of theoretical lectures and programming exercises, with a primary focus on analysis using R. However, in my notes, I will mainly cover fundamental theoretical concepts and explain the reasoning behind each step rather than focusing on code implementation."
-  },
-  {
-    "objectID": "index.html#course-modules",
-    "href": "index.html#course-modules",
-    "title": "Welcome to Genomic Insights",
-    "section": "Course Modules:",
-    "text": "Course Modules:\n\nModule 1: AI-assisted data analysis (This note only cover this module right now)\nModule 2: Spatial omics data analysis\nModule 3: Multi-omics data integration\n\n🔗 More details about the course here"
+    "text": "Welcome to Genomic Insights\nThis website is my personal note compilation, based on the statistical foundations and machine learning applications in genomics course. If you are interested in the application of statistic, spatial omics, multi omics, ML/DL in bioinformatics, you may find this resource helpful!\nThe course consists of a series of theoretical lectures and programming exercises, with a primary focus on analysis using R and Python. However, in my notes, I will mainly cover fundamental theoretical concepts and explain the reasoning behind each step rather than focusing on code implementation.\n\n\nAbout the Course\nThe Compgen2025 course is organized by the Max Delbrück Center at the Berlin Institute for Medical Systems Biology. It is designed for computational biology PhD students, experimental biologists, and medical scientists who want to enhance their skills in data analysis.\n🔗 More details about the course here\n\n\nCourse Notes\n\nModule 1: AI-assisted data analysis\n\nStatistics for Genomics - Notes, Course record, Book Link\nUnsupervised Learning - Notes, Course record, Book Link\nSupervised Learning - Notes, Course record, Book Link\n\nModule 2: Spatial omics data analysis\n\nIntroduction of Spatial Transcriptomics - Notes\nSpatial Transcriptomics Analysis - Notes\nSpatial Multiomics Integration - Notes\n\n\nGitHub Link\n\nModule 3: Multi-omics data integration (Haven’t finished)\n\nBreast Cancer Subtype Prediction - Notes, Course record, Slides\nSurvival Analysis - Notes, Course record, Slides\nDrug Response Prediction - Notes, Course record, Slides\n\n\nGitHub Link\n\n\n\n\nAcknowledgments\nFirst of all, I would like to express my heartfelt gratitude to the Scientific Organization, especially to Dr. Altuna Akalın from the Max Delbrück Center, for organizing this course. I am also deeply thankful to Dr. Artür Manukyan, Dr. Bora Uyar, and all the other instructors for their valuable contributions. This course is highly beneficial for those interested in machine learning and bioinformatics, providing a strong foundation in these fields."
   },
   {
     "objectID": "module1/supervised.html",
@@ -173,20 +180,6 @@
     "title": "Supervised Learning",
     "section": "3.3. Bootstrap Resampling",
     "text": "3.3. Bootstrap Resampling\nBootstrap samples with replacement, using out-of-bag data for error checks, repeated for reliability."
-  },
-  {
-    "objectID": "module1/supervised.html#class-imbalance",
-    "href": "module1/supervised.html#class-imbalance",
-    "title": "Supervised Learning",
-    "section": "5.1.1. Class Imbalance",
-    "text": "5.1.1. Class Imbalance\n\nSampling: Down-sample majority or up-sample minority (e.g., SMOTE).\nCase Weights: Assign higher weights to minority class.\nThreshold Adjustment: Optimize ROC thresholds. Genomic data often has class imbalance (e.g., more healthy samples) or correlated predictors (e.g., gene pathways). Sampling, weighting, or PCA fixes these."
-  },
-  {
-    "objectID": "module1/supervised.html#correlated-predictors",
-    "href": "module1/supervised.html#correlated-predictors",
-    "title": "Supervised Learning",
-    "section": "5.1.2. Correlated Predictors",
-    "text": "5.1.2. Correlated Predictors\nCorrelated predictors cause multicollinearity, increasing variance:\n\nPCA: Reduces correlation, though less interpretable.\nFiltering: Removes highly correlated variables.\nRegularization: Mitigates collinearity effects."
   },
   {
     "objectID": "module1/supervised.html#handling-challenges-addressing-real-world-issues",

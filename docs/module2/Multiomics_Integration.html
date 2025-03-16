@@ -116,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-module-2-spatial-transcriptomics">    
         <li>
     <a class="dropdown-item" href="../module2/Introduction_of_Spatial_Transcriptomics.html">
- <span class="dropdown-text">1. Spatial Transcriptomics</span></a>
+ <span class="dropdown-text">1. Introduction of Spatial Transcriptomics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../module2/Spatial_Transcriptomics_Analysis.html">
@@ -124,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../module2/Multiomics_Integration.html">
- <span class="dropdown-text">3. Multiomics Integration</span></a>
+ <span class="dropdown-text">3. Spatial Multiomics Integration</span></a>
   </li>  
     </ul>
   </li>
@@ -134,15 +134,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-module-3-neural-network-for-genomics">    
         <li>
-    <a class="dropdown-item" href="../module3/Breast Cancer Subtype Prediction.qmd">
+    <a class="dropdown-item" href="../module3/BRC_Subtype_Prediction.qmd">
  <span class="dropdown-text">1. Breast Cancer Subtype Prediction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module3/Survival Analysis.qmd">
+    <a class="dropdown-item" href="../module3/Survival_Analysis.qmd">
  <span class="dropdown-text">2. Survival Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../module3/Drug Response Prediction.qmd">
+    <a class="dropdown-item" href="../module3/Drug_Response_Prediction.qmd">
  <span class="dropdown-text">3. Drug Response Prediction</span></a>
   </li>  
     </ul>
@@ -163,8 +163,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">1. Quarto</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#image-registration" id="toc-image-registration" class="nav-link active" data-scroll-target="#image-registration">1. Image Registration</a></li>
+  <li><a href="#methods-of-image-registration" id="toc-methods-of-image-registration" class="nav-link" data-scroll-target="#methods-of-image-registration">2. Methods of Image Registration</a>
+  <ul class="collapse">
+  <li><a href="#automated-registration" id="toc-automated-registration" class="nav-link" data-scroll-target="#automated-registration">2.1. Automated Registration</a></li>
+  <li><a href="#manual-alignment" id="toc-manual-alignment" class="nav-link" data-scroll-target="#manual-alignment">2.2. Manual Alignment</a></li>
+  </ul></li>
+  <li><a href="#spatial-multiomics-integration" id="toc-spatial-multiomics-integration" class="nav-link" data-scroll-target="#spatial-multiomics-integration">3. Spatial Multiomics Integration</a></li>
+  <li><a href="#supplementary-notes" id="toc-supplementary-notes" class="nav-link" data-scroll-target="#supplementary-notes">Supplementary Notes</a></li>
   </ul>
 </nav>
     </div>
@@ -202,16 +208,127 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="quarto" class="level1">
-<h1>1. Quarto</h1>
+<section id="image-registration" class="level1">
+<h1>1. Image Registration</h1>
+<p>In the previous notes, I mentioned that there are different types of spatial omics data, including spatial transcriptomics and histology images. Through image registration, spatial transcriptomics data can be aligned with histology images, enabling multi-modal integration by linking molecular and morphological features.</p>
+<p>This process helps interpret transcriptomics data in the context of tissue structure and supports automated region segmentation and pathology-guided analysis.</p>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=KdvnWZbMugU&amp;list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT" class="uri">https://www.youtube.com/watch?v=KdvnWZbMugU&amp;list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT</a></li>
-</ul>
+<section id="methods-of-image-registration" class="level1">
+<h1>2. Methods of Image Registration</h1>
+<section id="automated-registration" class="level2">
+<h2 class="anchored" data-anchor-id="automated-registration">2.1. Automated Registration</h2>
+<p>Step 1. Keypoint detection/selection (e.g., SIFT)</p>
+<p>Step 2. Descriptor Matching (e.g., FLANN-based matching)</p>
+<p>Step 3. Homography transformation (e.g., RANSC)</p>
+<p>Efficient for large-scale datasets but may require fine-tuning.</p>
+</section>
+<section id="manual-alignment" class="level2">
+<h2 class="anchored" data-anchor-id="manual-alignment">2.2. Manual Alignment</h2>
+<p>Step 1. Manually Keypoint selection</p>
+<p>Step 2. Homography transformation (e.g., TPS)</p>
+<p>Ensures accurate alignment when automated methods fail.</p>
+<section id="exsamples" class="level3">
+<h3 class="anchored" data-anchor-id="exsamples">Exsamples</h3>
+<div>
+
+</div>
+<div class="center-images quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/截圖 2025-03-16 上午3.58.41.png" class="img-fluid figure-img" width="296"></p>
+<figcaption>Xenium DAPI image (negative-stained)</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/截圖 2025-03-16 上午3.52.50.png" class="img-fluid figure-img" width="292"></p>
+<figcaption>H&amp;E image</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div>
+
+</div>
+<div class="center-images quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/2025-03-164.00.32-ezgif.com-video-to-gif-converter.gif" class="img-fluid figure-img" width="277"></p>
+<figcaption>Align Both images</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Rplot08.png" class="img-fluid figure-img" width="322"></p>
+<figcaption>Overlay Xenium clusters with H&amp;E as the background for spatial comparison</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="spatial-multiomics-integration" class="level1">
+<h1>3. Spatial Multiomics Integration</h1>
+<p>In the previous notes, I mentioned that Xenium captures not only transcripts within cells but also those outside the cells. This allows Xenium to provide Cell assay and Molecule assay. This feature provides a more comprehensive understanding of spatial transcriptomics.</p>
+<p>However, while we can detect molecules outside the cells, we do not know what they are interacting with. To address this, we need tissue morphology information. Here, we use COVID-19-infected lung tissue as an example.</p>
+<div>
+
+</div>
+<div class="center-images quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Rplot07.png" class="img-fluid figure-img" width="461"></p>
+<figcaption>Integrate cell assay and molecule assay</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>In the sample, the ORF1AB gene is present in template viral RNA, while the N gene is found in replicating viral RNA. By analyzing the N/ORF1AB gene ratio, we can determine whether the virus is actively replicating.</p>
+<p>To incorporate tissue morphology, we use H&amp;E images, where pathologists annotate healing membrane regions. By integrating healing membrane annotations with the molecule assay, we can study whether the virus is active in these regions.</p>
+<div>
+
+</div>
+<div class="center-images quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Rplot09.png" class="img-fluid figure-img" width="412"></p>
+<figcaption>H&amp;E with Annotation</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Rplot10.png" class="img-fluid figure-img" width="457"></p>
+<figcaption>Integrate H&amp;E and molecule assay</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="supplementary-notes" class="level1">
+<h1>Supplementary Notes</h1>
+<p>To extract more information from images, interactive exploration tools can be used.</p>
+<p>For example: Convert Anndata into Zarr format and use VoltRon for an interactive visualization system</p>
 <div class="left-align">
-<p><a href="../module2/Spatial_Transcriptomics_Analysis.html">Next</a></p>
+<p><a href="../module2/Spatial_Transcriptomics_Analysis.html">Previous</a></p>
 </div>
 
 

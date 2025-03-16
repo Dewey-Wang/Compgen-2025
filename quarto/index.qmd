@@ -12,40 +12,46 @@ format:
 
 # Welcome to Genomic Insights
 
-This website is my personal note compilation, based on the **Compgen2025 -- Module 1: AI-assisted Data Analysis** course. The course content primarily covers **statistical foundations and machine learning applications in genomics**. If you are interested in the application of **ML in bioinformatics**, you may find this resource helpful!
+This website is my personal note compilation, based on the **statistical foundations and machine learning applications in genomics** course. If you are interested in the application of **statistic**, **spatial omics**, **multi omics**, **ML/DL in bioinformatics**, you may find this resource helpful!
 
-The course consists of a series of **theoretical lectures and programming exercises**, with a primary focus on analysis using **R**. However, in my notes, I will mainly cover **fundamental theoretical concepts** and explain **the reasoning behind each step** rather than focusing on code implementation.
+The course consists of a series of **theoretical lectures and programming exercises**, with a primary focus on analysis using **R** and **Python**. However, in my notes, I will mainly cover **fundamental theoretical concepts** and explain **the reasoning behind each step** rather than focusing on code implementation.
 
-# Notes
-
--   [1. Statistics for Genomics: Establishing a Reliable Base](statistics.qmd)
--   [2. Unsupervised Learning: Identifying Data Structures](unsupervised.qmd)
--   [3. Supervised Learning: Building Predictive Tools](supervised.qmd)
-
-# **About the Course**
+# About the Course
 
 The **Compgen2025** course is organized by the **Max Delbrück Center** at the **Berlin Institute for Medical Systems Biology**. It is designed for **computational biology PhD students**, **experimental biologists**, and **medical scientists** who want to enhance their skills in data analysis.
 
-## **Course Modules:**
+🔗 [**More details about the course here**](https://compgen.mdc-berlin.de/)
 
--   **Module 1**: AI-assisted data analysis (This note only cover this module right now)
+# Course Notes
+
+-   **Module 1**: AI-assisted data analysis
+
+    1.  Statistics for Genomics - [Notes](module1/statistics.qmd), [Course record](https://www.youtube.com/playlist?list=PL7WXGPJM2P8b3f_8QvUIlrO3t_bJpAXxc), [Book Link](http://compgenomr.github.io/book/stats.html)
+
+    2.  Unsupervised Learning - [Notes](module1/unsupervised.qmd), [Course record](https://www.youtube.com/playlist?list=PL7WXGPJM2P8Y-l6Vm3kpC9emTtk4HkNcT), [Book Link](http://compgenomr.github.io/book/unsupervisedLearning.html)
+
+    3.  Supervised Learning - [Notes](module1/supervised.qmd), [Course record](https://www.youtube.com/playlist?list=PL7WXGPJM2P8YgHQeTqIC1eFcrchpBvA8g), [Book Link](http://compgenomr.github.io/book/supervisedLearning.html)
 
 -   **Module 2**: Spatial omics data analysis
 
--   **Module 3**: Multi-omics data integration
+    1.  Introduction of Spatial Transcriptomics - [Notes](module2/Introduction_of_Spatial_Transcriptomics.qmd)
 
-🔗 [**More details about the course here**](https://compgen.mdc-berlin.de/)
+    2.  Spatial Transcriptomics Analysis - [Notes](module2/Spatial_Transcriptomics_Analysis.qmd)
 
-# **Acknowledgments**
+    3.  Spatial Multiomics Integration - [Notes](module2/Multiomics_Integration.qmd)
+
+    -   [GitHub Link](https://github.com/BIMSBbioinfo/VoltRon?tab=readme-ov-file#installation)
+
+-   **Module 3**: Multi-omics data integration (Haven't finished)
+
+    1.  Breast Cancer Subtype Prediction - [Notes](BRC_Subtype_Prediction.qmd), [Course record](?https://mdc-berlin.zoom-x.de/rec/share/mwPUXQDlepKi-foqC8e8YOSFE0wtXHni4W7-eEfxKSoG-T7ulEU39O5EK2Y2Gd_L.eVNkL19TcCsgdrbb), [Slides](?https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit?usp=sharing)
+
+    2.  Survival Analysis - [Notes](BRC_Subtype_Prediction.qmd), [Course record](?https://mdc-berlin.zoom-x.de/rec/share/hiiu2aoeIAKtB2_keZ39IfN1mHkkYWX8kkrXNk5HtKtmlvh7JPQZJCZynVlTemOV.O3pii4-3ajELunfq), [Slides](?https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit?usp=sharing)
+
+    3.  Drug Response Prediction - [Notes](Drug_Response_Prediction.qmd), [Course record](?https://mdc-berlin.zoom-x.de/rec/share/2UDTpXxouLl0nCZClQPQgYn8-dQ-8F3ywgATWMmknAjAL-Tx9P3I2yWqdHVFIw74.NXlAgtmAzyqNUNsM), [Slides](?https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit?usp=sharing)
+
+    -   [GitHub Link](https://github.com/BIMSBbioinfo/compgen_course_2025_module3)
+
+# Acknowledgments
 
 First of all, I would like to express my heartfelt gratitude to the Scientific Organization, especially to **Dr. Altuna Akalın** from the **Max Delbrück Center**, for organizing this course. I am also deeply thankful to **Dr. Artür Manukyan, Dr. Bora Uyar**, and all the other instructors for their valuable contributions. This course is highly beneficial for those interested in **machine learning and bioinformatics**, providing a strong foundation in these fields.
-
-# Resources
-
-Here are some related course resources for easy access to lecture record, code, and reference books.
-
-|         Course          |                                                       **Playlist**                                                       |                                                          **Code**                                                           |                              **Reference**                              |
-|:----------------:|:----------------:|:----------------:|:----------------:|
-| Statistics for Genomics |              [Stats for Genomics](https://www.youtube.com/playlist?list=PL7WXGPJM2P8b3f_8QvUIlrO3t_bJpAXxc)              | [GitHub Link](https://www.dropbox.com/scl/fi/kq8pwk1abo8i813yqa769/statsForGenomics.R?rlkey=1l8pdp92w9ghw2eyurxv2p60w&dl=0) |        [Book Link](http://compgenomr.github.io/book/stats.html)         |
-|  Unsupervised Learning  |      [Unsupervised Learning for Genomics](https://www.youtube.com/playlist?list=PL7WXGPJM2P8Y-l6Vm3kpC9emTtk4HkNcT)      |                    [GitHub Link](https://www.dropbox.com/s/e5e4qiadj2tubz0/unsupervisedLearning.R?dl=0)                     | [Book Link](http://compgenomr.github.io/book/unsupervisedLearning.html) |
-|   Supervised Learning   | [Predictive Modeling with Supervised Learning](https://www.youtube.com/playlist?list=PL7WXGPJM2P8YgHQeTqIC1eFcrchpBvA8g) |                     [GitHub Link](https://www.dropbox.com/s/wxy57u3xe1k9o8a/supervisedLearning.R?dl=0)                      |  [Book Link](http://compgenomr.github.io/book/supervisedLearning.html)  |

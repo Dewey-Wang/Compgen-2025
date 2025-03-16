@@ -73,12 +73,10 @@ However, Xenium and MERFISH can also provide uncounted molecule-level data (mole
 
 # References
 
--   <https://www.youtube.com/watch?v=KdvnWZbMugU&list=PL7WXGPJM2P8YT-DHW0ntRieNTb8SkWyqT>
-
 Article:
 
--   <https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf>
--   <https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full>
+-   https://www.biorxiv.org/content/biorxiv/early/2024/05/21/2024.05.21.593407.full.pdf
+-   https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full
 
 Image:
 

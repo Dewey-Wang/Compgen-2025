@@ -13,6 +13,11 @@ img {
     margin-right: auto;
 }
 
+ul {
+    padding-left: 40px;  /* 設定合適的縮排 */
+    word-wrap: break-word; /* 允許長網址換行 */
+}
+
 /* Specific classes for alignment overrides */
 .right-align {
     text-align: right !important; /* Override p justification */
@@ -32,6 +37,10 @@ img {
     display: flex;
     justify-content: center; /* Center the entire row */
     flex-wrap: wrap; /* Allow wrapping if needed */
+}
+img {
+    display: block;
+    margin: 0 auto; /* 確保圖片置中且不留額外間距 */
 }
 
 .center-images > div {
