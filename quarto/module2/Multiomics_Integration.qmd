@@ -48,7 +48,7 @@ Ensures accurate alignment when automated methods fail.
 ::: {.center-images layout-ncol="2"}
 ![Align Both images](images/2025-03-164.00.32-ezgif.com-video-to-gif-converter.gif){width="277"}
 
-![Overlay Xenium clusters with H&E as the background for spatial comparison](images/Rplot08.png){width="322"}
+![Overlay Xenium clusters with H&E](images/Rplot08.png){width="322"}
 :::
 
 # 3. Spatial Multiomics Integration

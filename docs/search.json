@@ -102,7 +102,7 @@
     "href": "module2/Multiomics_Integration.html#manual-alignment",
     "title": "Multiomics Integration",
     "section": "2.2. Manual Alignment",
-    "text": "2.2. Manual Alignment\nStep 1. Manually Keypoint selection\nStep 2. Homography transformation (e.g., TPS)\nEnsures accurate alignment when automated methods fail.\n\nExsamples\n\n\n\n\n\n\n\n\n\nXenium DAPI image (negative-stained)\n\n\n\n\n\n\n\nH&E image\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlign Both images\n\n\n\n\n\n\n\nOverlay Xenium clusters with H&E as the background for spatial comparison"
+    "text": "2.2. Manual Alignment\nStep 1. Manually Keypoint selection\nStep 2. Homography transformation (e.g., TPS)\nEnsures accurate alignment when automated methods fail.\n\nExsamples\n\n\n\n\n\n\n\n\n\nXenium DAPI image (negative-stained)\n\n\n\n\n\n\n\nH&E image\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlign Both images\n\n\n\n\n\n\n\nOverlay Xenium clusters with H&E"
   },
   {
     "objectID": "module2/Spatial_Transcriptomics_Analysis.html",
