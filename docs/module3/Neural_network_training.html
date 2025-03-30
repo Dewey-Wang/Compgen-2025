@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ding Yang Wang">
-<meta name="dcterms.date" content="2025-03-30">
+<meta name="dcterms.date" content="2025-03-31">
 
 <title>Neural network training – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
@@ -166,32 +166,27 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#introduction-to-the-process-of-training-neural-network" id="toc-introduction-to-the-process-of-training-neural-network" class="nav-link active" data-scroll-target="#introduction-to-the-process-of-training-neural-network">1. Introduction to the process of training neural network</a></li>
-  <li><a href="#data-preperation" id="toc-data-preperation" class="nav-link" data-scroll-target="#data-preperation">2. Data Preperation</a></li>
-  <li><a href="#components-of-a-neural-network" id="toc-components-of-a-neural-network" class="nav-link" data-scroll-target="#components-of-a-neural-network">3. Components of a Neural Network</a></li>
+  <li><a href="#data-preperation" id="toc-data-preperation" class="nav-link" data-scroll-target="#data-preperation">2. Data Preperation</a>
+  <ul class="collapse">
+  <li><a href="#data-cleanup" id="toc-data-cleanup" class="nav-link" data-scroll-target="#data-cleanup">2.1. Data Cleanup</a></li>
+  <li><a href="#harmonize-training-and-testing-datasets" id="toc-harmonize-training-and-testing-datasets" class="nav-link" data-scroll-target="#harmonize-training-and-testing-datasets">2.2. Harmonize Training and Testing Datasets</a></li>
+  </ul></li>
+  <li><a href="#components-of-a-neural-network" id="toc-components-of-a-neural-network" class="nav-link" data-scroll-target="#components-of-a-neural-network">3. Components of a Neural Network</a>
+  <ul class="collapse">
+  <li><a href="#basic-structure" id="toc-basic-structure" class="nav-link" data-scroll-target="#basic-structure">3.1. Basic Structure</a></li>
+  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">3.2. Key Components</a>
+  <ul class="collapse">
+  <li><a href="#neuronsnodes" id="toc-neuronsnodes" class="nav-link" data-scroll-target="#neuronsnodes">Neurons/Nodes</a></li>
+  <li><a href="#weights" id="toc-weights" class="nav-link" data-scroll-target="#weights">Weights</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions">Activation Functions</a></li>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions">Loss Functions</a></li>
+  <li><a href="#optimizer" id="toc-optimizer" class="nav-link" data-scroll-target="#optimizer">Optimizer</a></li>
+  <li><a href="#hyperparameters" id="toc-hyperparameters" class="nav-link" data-scroll-target="#hyperparameters">Hyperparameters</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#neural-network-training-process" id="toc-neural-network-training-process" class="nav-link" data-scroll-target="#neural-network-training-process">4. Neural Network Training Process</a></li>
-  <li><a href="#sources-of-multiomics-data" id="toc-sources-of-multiomics-data" class="nav-link" data-scroll-target="#sources-of-multiomics-data">2. Sources of Multiomics Data</a></li>
-  <li><a href="#multiomics-application" id="toc-multiomics-application" class="nav-link" data-scroll-target="#multiomics-application">3. Multiomics Application</a>
-  <ul class="collapse">
-  <li><a href="#precision-medicine" id="toc-precision-medicine" class="nav-link" data-scroll-target="#precision-medicine">3.1. Precision Medicine</a></li>
-  <li><a href="#survival" id="toc-survival" class="nav-link" data-scroll-target="#survival">3.2. Survival</a></li>
-  <li><a href="#subtyping" id="toc-subtyping" class="nav-link" data-scroll-target="#subtyping">3.3. Subtyping</a></li>
-  <li><a href="#metastasis" id="toc-metastasis" class="nav-link" data-scroll-target="#metastasis">3.4. Metastasis</a></li>
-  </ul></li>
-  <li><a href="#multiomics-integration-methods" id="toc-multiomics-integration-methods" class="nav-link" data-scroll-target="#multiomics-integration-methods">4. Multiomics Integration Methods</a>
-  <ul class="collapse">
-  <li><a href="#early-fusion" id="toc-early-fusion" class="nav-link" data-scroll-target="#early-fusion">4.1. Early Fusion</a></li>
-  <li><a href="#intermediate-fusion" id="toc-intermediate-fusion" class="nav-link" data-scroll-target="#intermediate-fusion">4.2. Intermediate Fusion</a></li>
-  <li><a href="#late-fusion" id="toc-late-fusion" class="nav-link" data-scroll-target="#late-fusion">4.3. Late Fusion</a></li>
-  </ul></li>
-  <li><a href="#comparison-of-multiomics-integration-methods" id="toc-comparison-of-multiomics-integration-methods" class="nav-link" data-scroll-target="#comparison-of-multiomics-integration-methods">5. Comparison of Multiomics Integration Methods</a>
-  <ul class="collapse">
-  <li><a href="#hauptmann-and-kramer-arxiv-2022-paper" id="toc-hauptmann-and-kramer-arxiv-2022-paper" class="nav-link" data-scroll-target="#hauptmann-and-kramer-arxiv-2022-paper">5.1. Hauptmann and Kramer (Arxiv, 2022) paper</a></li>
-  <li><a href="#genome-biology-study-2022-paper" id="toc-genome-biology-study-2022-paper" class="nav-link" data-scroll-target="#genome-biology-study-2022-paper">5.2. Genome Biology Study (2022) paper</a></li>
-  <li><a href="#oxford-review-2022-paper" id="toc-oxford-review-2022-paper" class="nav-link" data-scroll-target="#oxford-review-2022-paper">5.3. Oxford Review (2022) paper</a></li>
-  <li><a href="#summary-of-trends" id="toc-summary-of-trends" class="nav-link" data-scroll-target="#summary-of-trends">5.4. Summary of Trends:</a></li>
-  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -218,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 30, 2025</p>
+      <p class="date">March 31, 2025</p>
     </div>
   </div>
   
@@ -232,197 +227,201 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction-to-the-process-of-training-neural-network" class="level1">
 <h1>1. Introduction to the process of training neural network</h1>
+<p>In order to train a good nerual network model, you need to do the data preprocessing and understand the struture of the model. There are several different models available and the struture is slightly different. Here, we would just focus on the basic component of the neural network model.</p>
 </section>
 <section id="data-preperation" class="level1">
 <h1>2. Data Preperation</h1>
+<p>For any kind of Neural network model, you need to remember that garbage in garbage out. Raw omics data often contains noise, missing values, and irrelevant features that can degrade model performance. Proper data preparation ensures that the input data is clean, consistent, and informative, allowing the neural network to learn meaningful patterns effectively.</p>
+<section id="data-cleanup" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleanup">2.1. Data Cleanup</h2>
+<p>Here is the basic step for you to do the cleanup in Multi-modal omic data:</p>
+<ol type="1">
+<li><strong>Remove Low-Variation Features and Samples</strong>:
+<ul>
+<li>Features or samples with very low variation (e.g., constant values across samples) or too many missing values (NAs) are removed.</li>
+<li><strong>Reason</strong>: Low-variation features provide little information for distinguishing between samples, while samples with excessive missing data are unreliable for training.</li>
+</ul></li>
+<li><strong>Impute Missing Values</strong>:
+<ul>
+<li>Remaining missing values (NAs) are imputed using the median value of the feature across samples.</li>
+<li><strong>Reason</strong>: Imputation ensures that the dataset is complete, avoiding the need to discard potentially useful features or samples with a small number of missing values.</li>
+</ul></li>
+<li><strong>Rank Features Using Laplacian Scores</strong>:
+<ul>
+<li>Features are ranked based on their Laplacian Scores, a method that evaluates feature importance by considering relationships between samples in a network structure (not just variance).</li>
+<li><strong>Reason</strong>: Unlike variance-based methods, Laplacian Scores account for the global structure of the data, identifying features that are more likely to be biologically relevant.</li>
+</ul></li>
+<li><strong>Remove Highly Correlated Features (Optional)</strong>:
+<ul>
+<li>Highly correlated features are identified, and the feature with the lower Laplacian Score is removed.</li>
+<li><strong>Reason</strong>: Redundant features add unnecessary complexity to the model without providing additional information, so removing them reduces dimensionality and prevents multicollinearity issues. However, remember to Log Removed Features for potential biological interpretation.</li>
+</ul></li>
+<li><strong>Select Top Features</strong>:
+<ul>
+<li>Retain the top percentile of features (normally 20%) based on Laplacian Scores.</li>
+<li><strong>Reason</strong>: Focusing on the most informative features reduces the dimensionality of the data (mitigating the curse of dimensionality) and ensures the model learns from the most relevant signals.</li>
+</ul></li>
+</ol>
+<p><strong>Additional Notes</strong>:</p>
+<ul>
+<li><strong>Biological Context</strong>: High-variance features may not always be meaningful (e.g., non-coding RNAs might show high variance due to noise). Laplacian Scores help mitigate this by focusing on sample relationships rather than just variance.</li>
+<li><strong>Batch Effects</strong>: High variance in omics data may stem from batch effects (systematic biases). Applying batch correction before cleanup can address this issue.</li>
+</ul>
+<p><img src="images/截圖 2025-03-30 下午10.37.36.png" class="img-fluid"></p>
+</section>
+<section id="harmonize-training-and-testing-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="harmonize-training-and-testing-datasets">2.2. Harmonize Training and Testing Datasets</h2>
+<p>After the data cleanup, the dataset need to be seprate into training group and testing group. In [Note 1: Supervising Learning](module1/supervised.html) section 3, you could see how to seperate dataset. In addition to the seperation, the training and testing datasets must be consistent in terms of features and scaling to ensure fair evaluation. If the training and testing datasets have different feature sets or scaling, the model may fail to generalize. This step is critical for reliable model evaluation and for ensuring that predictions are meaningful in a clinical context.</p>
+<p>Followings are the common steps of Harmonizing:</p>
+<ol type="1">
+<li><p><strong>Feature Intersection</strong> :</p>
+<ul>
+<li><p>Ensure that the training and testing datasets share the same features by taking the intersection of their feature sets.</p></li>
+<li><p>Example: If the training data includes Genes A, B, C, D, E, but the testing data only has Genes A, B, C, the model uses only Genes A, B, C for both datasets.</p></li>
+<li><p><strong>Reason</strong>: Using different feature sets for training and testing would make the model incompatible with the testing data, leading to poor performance and unreliable predictions.</p></li>
+</ul></li>
+<li><p><strong>Standardization</strong>:</p>
+<ul>
+<li><p>Compute scaling factors (mean and standard deviation) from the training data only.</p></li>
+<li><p>Apply these scaling factors to both the training and testing data to standardize them (e.g., subtract the mean and divide by the standard deviation).</p></li>
+<li><p><strong>Reason</strong>: Standardizing ensures that features are on the same scale, which is essential for neural networks to learn effectively. Using training data to compute scaling factors prevents data leakage, as the testing data remains unseen during this process.</p></li>
+</ul></li>
+<li><p><strong>Transform Testing Data</strong>:</p>
+<ul>
+<li><p>The testing data is transformed by using the scaling factors (Mean and standard deviation) learned from the training data in Standardization step.</p></li>
+<li><p><strong>Reason</strong>: Using the training data’s scaling factors ensures that the testing data is processed in the same way as the training data, maintaining consistency in scale and distribution. This mimics real-world scenarios where the model only has access to training data during training and must apply learned parameters to new, unseen data.</p></li>
+<li><p><strong>Example</strong>:</p>
+<ul>
+<li><p>Training data for a feature (e.g., Gene A): [10, 20, 30, 40, 50].</p>
+<ul>
+<li><p>Mean = 30, Standard Deviation ≈ 14.14.</p></li>
+<li><p>Standardized training data: [-1.41, -0.71, 0, 0.71, 1.41].</p></li>
+</ul></li>
+<li><p>Testing data for the same feature: [15, 45].</p>
+<ul>
+<li><p>Using training data’s ( Mean = 30) and ( Standard Deviation = 14.14), standardize the testing data:</p>
+<ul>
+<li><p>15 → ((15 - 30) / 14.14 ≈ -1.06)</p></li>
+<li><p>45 → ((45 - 30) / 14.14 ≈ 1.06)</p></li>
+</ul></li>
+<li><p>Standardized testing data: [-1.06, 1.06].</p></li>
+</ul></li>
+<li><p>Both datasets are now on the same scale, ensuring the model can process them consistently.</p></li>
+</ul></li>
+</ul></li>
+</ol>
+<ul>
+<li><p><strong>Additional Notes</strong>:</p>
+<ul>
+<li><p><strong>Avoiding Data Leakage</strong>: Standardizing both datasets using parameters from the training data ensures that the model does not inadvertently learn from the testing data, which would inflate performance metrics and lead to overly optimistic results.</p></li>
+<li><p><strong>Feature Consistency</strong>: The feature intersection is crucial for multi-modal data, as different modalities (e.g., gene expression, mutations) may have varying feature availability across datasets.</p></li>
+<li><p><strong>Practical Tip</strong>: When working with biological data, always verify that the features retained after intersection are biologically relevant to the task (e.g., cancer-related genes for oncology applications).</p></li>
+</ul></li>
+</ul>
+<p><img src="images/截圖 2025-03-30 下午11.15.13.png" class="img-fluid"></p>
+</section>
 </section>
 <section id="components-of-a-neural-network" class="level1">
 <h1>3. Components of a Neural Network</h1>
+<p>There are several different kinds of Neural Network Structure. Here, I will introduce a basic structure and Key Components of Neural Network. And this is the video about the background of the neural network.</p>
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+<div style="max-width: 560px;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aircAruvnKk" title="What is a Neural Network" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+</div>
+</div>
+<section id="basic-structure" class="level2">
+<h2 class="anchored" data-anchor-id="basic-structure">3.1. Basic Structure</h2>
+<p><img src="https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?ssl=1&amp;w=800&amp;resize=800&amp;ssl=1" class="img-fluid"></p>
+<ol type="1">
+<li><strong>Input Layer</strong>:
+<ul>
+<li><p>Receives raw data (e.g., features like gene expression values).</p></li>
+<li><p>Number of nodes equals the number of input features.</p></li>
+</ul></li>
+<li><strong>Hidden Layers</strong>:
+<ul>
+<li><p>Process the input data through weighted connections and activation functions.</p></li>
+<li><p>Number of hidden layers and nodes per layer are hyperparameters to be tuned.</p></li>
+</ul></li>
+<li><strong>Output Layer</strong>:
+<ul>
+<li><p>Produces the final prediction.</p></li>
+<li><p>Number of nodes depends on the task (e.g., 1 node for binary classification, multiple nodes for multi-class classification).</p></li>
+</ul></li>
+</ol>
+</section>
+<section id="key-components" class="level2">
+<h2 class="anchored" data-anchor-id="key-components">3.2. Key Components</h2>
+<section id="neuronsnodes" class="level3">
+<h3 class="anchored" data-anchor-id="neuronsnodes">Neurons/Nodes</h3>
+<p>Basic units that receive inputs, apply weights, and pass the result through an activation function.</p>
+</section>
+<section id="weights" class="level3">
+<h3 class="anchored" data-anchor-id="weights">Weights</h3>
+<p>Parameters that determine the importance of each input, adjusted during training.</p>
+</section>
+<section id="activation-functions" class="level3">
+<h3 class="anchored" data-anchor-id="activation-functions">Activation Functions</h3>
+<p>Introduce non-linearity (e.g., ReLU, sigmoid) to allow the network to learn complex patterns. Without this, neural networks couldn’t make the magic. <a href="https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9">Example1</a></p>
+<p><img src="images/ActivationFunctionsVisuallyExplained-ezgif.com-speed.gif" class="img-fluid"></p>
+</section>
+<section id="loss-functions" class="level3">
+<h3 class="anchored" data-anchor-id="loss-functions">Loss Functions</h3>
+<p>Measure the error between predictions and true values, guiding weight updates.</p>
+<div style="display: flex; gap: 20px; align-items: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/v_ueBW_5dLg" title="Loss Function Explanation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IVVVjBSk9N0" title="Neural Network Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+</div>
+</section>
+<section id="optimizer" class="level3">
+<h3 class="anchored" data-anchor-id="optimizer">Optimizer</h3>
+<ul>
+<li><strong>Why This Is Necessary</strong>: In neural network training, the model generates predictions via forward propagation and computes the error using a loss function. To minimize this error, the model’s parameters (weights and biases) need to be adjusted. However, finding the optimal solution in a high-dimensional, complex loss function is challenging without a systematic approach. The optimizer provides a method to iteratively update parameters based on gradients, ensuring efficient convergence to a minimum loss.</li>
+<li><strong>What It Achieves</strong>: The optimizer enables the model to efficiently and stably converge to a low-loss state, improving prediction accuracy. Different optimizers adapt to various data characteristics and network architectures, helping to overcome issues like slow convergence, instability due to high learning rates, or getting trapped in local minima.</li>
+<li><strong>Common Types</strong>:</li>
+<li><strong>Stochastic Gradient Descent (SGD)</strong>: Updates parameters using gradients from a single sample or small batch, simple but may converge slowly or oscillate. - <strong>Momentum</strong>: Adds a momentum term to SGD, accelerating updates and helping escape local minima. - <strong>Adam (Adaptive Moment Estimation)</strong>: Combines momentum and RMSProp, adaptively adjusts learning rates, widely used for its fast and stable convergence. - <strong>RMSProp</strong>: Adjusts learning rates based on the moving average of squared gradients, suitable for non-stationary objective functions.</li>
+<li><strong>Notes</strong>: The choice of optimizer and its hyperparameters (e.g., learning rate) is often tuned via hyperparameter optimization (HPO) to suit specific tasks.</li>
+</ul>
+</section>
+<section id="hyperparameters" class="level3">
+<h3 class="anchored" data-anchor-id="hyperparameters">Hyperparameters</h3>
+<ul>
+<li><p><strong>Gradient Descent</strong>: Iteratively adjusts weights in the direction that reduces the loss. Step size is determined by the learning rate. <a href="https://pub.towardsai.net/deep-learning-from-scratch-in-modern-c-gradient-descent-670bc5889112">Article</a></p></li>
+<li><p><strong>Learning Rate</strong>: Step size for weight updates. Here are some articles about how to set up the learning rate: <a href="https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e">Article 1</a>, <a href="https://www.jeremyjordan.me/nn-learning-rate/">Article 2</a></p></li>
+</ul>
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif" class="img-fluid"></p>
+<ul>
+<li><strong>Batch Size</strong>: Number of samples processed before updating weights.</li>
+</ul>
+<p><img src="images/截圖 2025-03-31 上午12.44.32.png" class="img-fluid"></p>
+<ul>
+<li><p><strong>Epochs</strong>: Number of complete passes through the training data.</p></li>
+<li><p><strong>Hidden Units</strong>: Number of nodes in hidden layers.</p></li>
+</ul>
+<p>(Here is the article explain what is Batch Size, Epochs, and Hidden Units. <a href="https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations">Article</a>)</p>
+</section>
+</section>
 </section>
 <section id="neural-network-training-process" class="level1">
 <h1>4. Neural Network Training Process</h1>
-<p>Multiomics refers to the integration of multiple biological data types (omics) to study complex diseases. Disease is influenced by multiple layers (e.g., genetics, environment), and a single data type (e.g., genomics) is insufficient for a complete understanding. Integrating multidimensional data is essential for deeper insights.</p>
-<p>There are different Data Layers:</p>
-<ul>
-<li><strong>Genomics</strong>: DNA sequence, e.g., EGFR mutations in lung cancer.</li>
-<li><strong>Epigenomics</strong>: Regulation of gene accessibility, e.g., methylation changes in Alzheimer’s disease.</li>
-<li><strong>Transcriptomics</strong>: RNA expression levels, e.g., altered gene expression in diabetes.</li>
-<li><strong>Proteomics</strong>: Protein functions, e.g., inflammatory proteins in rheumatoid arthritis.</li>
-<li><strong>Metabolomics</strong>: Cellular metabolic states, e.g., lipid profiles in cardiovascular disease.</li>
-<li><strong>Microbiome</strong>: Microbes impacting health, e.g., gut bacteria influencing inflammatory bowel disease.</li>
-<li><strong>Exposome</strong>: Environmental factors, e.g., pollutant exposure affecting asthma.</li>
-<li><strong>Imaging and Sensors</strong>: Physical monitoring, e.g., wearables tracking heart rate in hypertension.</li>
-<li><strong>Social Graph</strong>: Cultural and social influences, e.g., social stress impacting mental health.</li>
-</ul>
-<p><img src="images/截圖 2025-03-30 下午5.14.29.png" class="img-fluid"></p>
-</section>
-<section id="sources-of-multiomics-data" class="level1">
-<h1>2. Sources of Multiomics Data</h1>
-<ul>
-<li><strong>TCGA</strong>: Covers 33 cancer types, 11,000 tumors, offering multilayered data—e.g., used to subtype breast cancer.</li>
-<li><strong>CCLE</strong><em>/</em><strong>GDSC</strong>: Over 1,000 cancer cell lines tested for drug responses—great for drug screening, but limited by in vitro evolution.</li>
-<li><strong>cBioPortal</strong>: Integrates multiomics and clinical data—e.g., visualizing survival trends.</li>
-<li><strong>ICGC</strong>: Global collaboration covering 50 cancer types, complementing TCGA with non-Western data—e.g., Asian-specific mutations.</li>
-<li><strong>GEO</strong>: Public transcriptomics database, often integrated with TCGA—e.g., for cross-study validation.</li>
-<li><strong>DepMap</strong>: Combines CRISPR screening with multiomics—e.g., finding druggable targets.<br>
-</li>
-</ul>
-<p><strong>Emerging Trends:</strong></p>
-<ul>
-<li><em>Single-Cell Multiomics</em>: Techniques like CITE-seq (RNA + protein) dissect tumor microenvironments</li>
-<li><em>Spatial Omics</em>: Combines imaging and molecular data to map cellular distributions (e.g., Visium)</li>
-</ul>
-</section>
-<section id="multiomics-application" class="level1">
-<h1>3. Multiomics Application</h1>
-<p>Multiomics provides powerful tools to tackle disease by integrating diverse data layers, offering insights into treatment, prognosis, disease mechanisms, and progression.</p>
-<section id="precision-medicine" class="level2">
-<h2 class="anchored" data-anchor-id="precision-medicine">3.1. Precision Medicine</h2>
-<p>Through multiomics, doctors can deliver the right treatment to the right patient at the right time, based on their unique biological profile. It creates a more complete picture of a patient’s disease, enabling finer stratification, better predictions, and more effective therapies.</p>
-<ul>
-<li><strong>Example</strong>: Two EGFR-mutated lung cancer patients might respond differently due to proteomic (e.g., EGFR protein activity) or metabolic (e.g., glutamine reliance) differences detectable by multiomics.</li>
-<li><strong>Impact</strong>: Precision medicine moves from “mutation X = drug Y” to “patient X’s full profile = therapy Z,” capturing variations genomics misses.</li>
-</ul>
-</section>
-<section id="survival" class="level2">
-<h2 class="anchored" data-anchor-id="survival">3.2. Survival</h2>
-<p>Multiomics predicts how long patients might survive with a given cancer, guiding treatment intensity and follow-up care.</p>
-<ul>
-<li><strong>Example</strong>: In breast cancer, combining genomics (e.g., BRCA mutations) with transcriptomics (e.g., RNA expression of survival genes) and proteomics (e.g., apoptosis protein levels) can estimate 5-year survival more accurately than genomics alone.</li>
-<li><strong>Impact</strong>: Identifies high-risk patients needing aggressive therapy vs.&nbsp;low-risk ones who might avoid overtreatment, personalizing prognosis.</li>
-</ul>
-</section>
-<section id="subtyping" class="level2">
-<h2 class="anchored" data-anchor-id="subtyping">3.3. Subtyping</h2>
-<p>Multiomics uncovers the potential underlying molecular mechanisms driving a patient’s cancer, enabling precise disease classification.</p>
-<ul>
-<li><strong>Example</strong>: In prostate cancer, subtyping might reveal high mutation burden (genomics), structural aberrations (e.g., chromosomal rearrangements), or high expression of hormone receptors (transcriptomics), each suggesting different origins—like DNA repair defects or hormonal triggers.</li>
-<li><strong>Impact</strong>: Links specific molecular profiles to tailored therapies, e.g., PARP inhibitors for mutation-heavy subtypes or hormone blockers for receptor-driven ones.</li>
-</ul>
-</section>
-<section id="metastasis" class="level2">
-<h2 class="anchored" data-anchor-id="metastasis">3.4. Metastasis</h2>
-<p>Multiomics assesses how likely a tumor is to metastasize to other organs, aiding early intervention and monitoring.</p>
-<ul>
-<li><strong>Example</strong>: In melanoma, genomics (e.g., BRAF mutations) paired with proteomics (e.g., adhesion protein loss) and metabolomics (e.g., energy shifts for invasion) predicts metastasis risk to lungs or brain.</li>
-<li><strong>Impact</strong>: Highlights patients needing closer surveillance or preventive treatments, like metastasis-blocking drugs, based on multiomics risk scores.</li>
-</ul>
-</section>
-</section>
-<section id="multiomics-integration-methods" class="level1">
-<h1>4. Multiomics Integration Methods</h1>
-<p>Multiomics integration methods can be classified into three categories: Early Fusion, Intermediate Fusion, and Late Fusion. These methods are typically used within machine learning pipelines to combine omics data for analysis.</p>
-<p><img src="images/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png" class="img-fluid"></p>
-<section id="early-fusion" class="level2">
-<h2 class="anchored" data-anchor-id="early-fusion">4.1. Early Fusion</h2>
-<ul>
-<li><strong>How It Works</strong>: Concatenates all raw data from different omics (e.g., gene mutation counts, protein expression values) into a single, wide dataset. This is often done by aligning features (e.g., genes) across layers and stacking them into a matrix—e.g., a table where each row is a patient and columns include genomic, proteomic, etc., values.</li>
-<li><strong>Techniques</strong>: Simple concatenation or normalization (e.g., scaling all values to 0-1) to handle differing scales (e.g., mutations as binary vs.&nbsp;protein levels as continuous).</li>
-<li><strong>Next Steps</strong>: The combined dataset is typically fed directly into a machine learning model or processed further (e.g., feature selection to reduce noise) before modeling.</li>
-<li><strong>Pros</strong>: Simple, captures all possible interactions between layers.</li>
-<li><strong>Cons</strong>: Noisy (e.g., irrelevant features), computationally heavy due to high dimensionality.</li>
-</ul>
-</section>
-<section id="intermediate-fusion" class="level2">
-<h2 class="anchored" data-anchor-id="intermediate-fusion">4.2. Intermediate Fusion</h2>
-<ul>
-<li><strong>How It Works</strong>: Transforms each omics layer into a shared, lower-dimensional representation (e.g., latent factors) before combining them. This uses methods like matrix factorization or neural networks to extract key patterns, then merges these into a unified dataset.</li>
-<li><strong>Techniques</strong>: Tools like MOFA (Multi-Omics Factor Analysis) or autoencoders compress genomics (e.g., mutations) and epigenomics (e.g., methylation) into factors capturing shared variation, then concatenate these for analysis.</li>
-<li><strong>Example</strong>: MOFA reduces genomics and epigenomics from TCGA into a few key factors (e.g., 10-20 numbers per patient) to subtype tumors, reflecting shared biological signals.</li>
-<li><strong>Next Steps</strong>: The fused representation is fed into a neural network or clustering algorithm for tasks like patient stratification.</li>
-<li><strong>Pros</strong>: Balances complexity and insight by focusing on meaningful patterns.</li>
-<li><strong>Cons</strong>: Requires advanced tools and expertise (e.g., tuning MOFA or training autoencoders).</li>
-</ul>
-</section>
-<section id="late-fusion" class="level2">
-<h2 class="anchored" data-anchor-id="late-fusion">4.3. Late Fusion</h2>
-<ul>
-<li><strong>How It Works</strong>: Analyzes each omics layer independently first with separate models, then combines their outputs (e.g., predictions or features) at the end. Combination might use averaging, voting, or a secondary model.</li>
-<li><strong>Techniques</strong>: Train individual models (e.g., random forests for genomics, SVMs for proteomics), then integrate results via weighted averages or a small neural network.</li>
-<li><strong>Example</strong>: “In breast cancer, a random forest on genomics predicts survival risk, an SVM on proteomics assesses protein activity, and their predictions are averaged to estimate overall prognosis.”</li>
-<li><strong>Next Steps</strong>: Outputs are combined and used for final predictions.</li>
-<li><strong>Pros</strong>: Flexible, reduces noise by focusing on layer-specific signals.</li>
-<li><strong>Cons</strong>: Misses early cross-layer interactions (e.g., how mutations affect metabolites directly).</li>
-</ul>
-</section>
-</section>
-<section id="comparison-of-multiomics-integration-methods" class="level1">
-<h1>5. Comparison of Multiomics Integration Methods</h1>
-<p>Studies comparing multiomics integration methods and neural network models show that no single approach is best for all scenarios, but certain strategies and tools perform better depending on the task, data, and techniques used. Here’s a summary of key findings from recent benchmarks.</p>
-<section id="hauptmann-and-kramer-arxiv-2022-paper" class="level2">
-<h2 class="anchored" data-anchor-id="hauptmann-and-kramer-arxiv-2022-paper">5.1. Hauptmann and Kramer (Arxiv, 2022) <a href="https://arxiv.org/pdf/2208.14822.pdf">paper</a></h2>
-<ul>
-<li><p><em>What They Tested</em>: Compared 6 tools for multiomics integration: 1. Simple Early Integration Classifier, 2. Super.FELT, 3. MOLI, 4. Omics-Stacking, 5. OmiEmbed, 6. MOMA</p></li>
-<li><p><em>Key Findings</em>:</p>
-<ul>
-<li>Early integration (combining all data upfront) performed significantly worse—likely due to noise and high dimensionality.</li>
-<li>No tool consistently outperformed others; performance varied by dataset.</li>
-<li>Tools using <em>triplet loss</em> (a method to train models by comparing data triplets for better separation) generally did better than those that didn’t.</li>
-<li>OmiEmbed (a supervised Variational Autoencoder) performed worst on holdout (unseen) data, possibly due to overfitting.</li>
-</ul></li>
-</ul>
-</section>
-<section id="genome-biology-study-2022-paper" class="level2">
-<h2 class="anchored" data-anchor-id="genome-biology-study-2022-paper">5.2. Genome Biology Study (2022) <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2">paper</a></h2>
-<ul>
-<li><em>What They Tested</em>: Evaluated deep learning methods for multiomics integration in cancer, focusing on:
-<ul>
-<li>Integration sequence: Early vs.&nbsp;Late Fusion.</li>
-<li>Encoding methods:
-<ul>
-<li>Fully Connected Networks (FCNs).</li>
-<li>Autoencoders (Basic and Variational).</li>
-<li>Loss functions for autoencoders: MMD (Maximum Mean Discrepancy) vs.&nbsp;KL (Kullback-Leibler divergence).</li>
-</ul></li>
-<li>Network architectures:
-<ul>
-<li>Graph Attention Network (GAT).</li>
-<li>Graph Convolutional Network (GCN).</li>
-<li>1D Convolutional Neural Network (CNN).</li>
-</ul></li>
-</ul></li>
-<li><em>Key Findings</em>:
-<ul>
-<li>No single approach excelled in all cases—performance depended on the cancer type and task.</li>
-<li>Graph Attention Networks (GATs) performed best overall for classification tasks, likely because they model relationships between omics features as a graph.</li>
-<li>CNNs (1D) didn’t work well, possibly because omics data lacks the spatial patterns CNNs are designed for (e.g., images).</li>
-<li>For autoencoders, using MMD loss (which aligns data distributions) often outperformed KL loss (which enforces a specific distribution), improving generalization.</li>
-</ul></li>
-</ul>
-<p><img src="images/截圖 2025-03-30 下午8.11.07.png" class="img-fluid"></p>
-</section>
-<section id="oxford-review-2022-paper" class="level2">
-<h2 class="anchored" data-anchor-id="oxford-review-2022-paper">5.3. Oxford Review (2022) <a href="https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true">paper</a></h2>
-<ul>
-<li>A comprehensive review analyzed 70 deep learning multiomics papers.</li>
-</ul>
-<p><img src="images/截圖 2025-03-30 下午8.12.54.png" class="img-fluid"></p>
-</section>
-<section id="summary-of-trends" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-trends">5.4. Summary of Trends:</h2>
-<ul>
-<li>Early integration often underperforms due to noise; Late or Intermediate Fusion tends to be more effective.</li>
-<li>Graph-based methods (e.g., GAT) are promising for classification, while CNNs struggle with omics data.</li>
-<li>Loss functions matter—triplet loss and MMD can improve model performance over alternatives like KL.</li>
-<li>Tool choice depends on the task: no one-size-fits-all solution exists.</li>
-</ul>
-</section>
+<p><img src="https://api.wandb.ai/files/mostafaibrahim17/images/projects/37042936/274d6d90.png" class="img-fluid"></p>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
 <p>Article:</p>
 <ul>
-<li>https://www.researchgate.net/publication/358074725_Machine_learning_for_multi-omics_data_integration_in_cancer</li>
-<li>https://arxiv.org/pdf/2208.14822</li>
-<li>https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full</li>
-<li>https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true</li>
+<li>https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9</li>
+<li>https://awesomeneuron.substack.com/p/activation-functions-the-secret-sauce</li>
+<li>https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations</li>
 </ul>
 <p>Image:</p>
 <ul>
-<li>https://www.cell.com/cms/10.1016/j.cell.2014.02.012/asset/7d7ee80d-6b6c-45c7-96b8-615ad93f1c68/main.assets/gr1_lrg.jpg</li>
-<li>https://www.researchgate.net/publication/358074725/figure/fig2/AS:1124506185809921@1645114575952/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png</li>
-<li>https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2/figures/1</li>
-<li>https://academic.oup.com/view-large/338428798</li>
+<li><p>https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?s sl=1&amp;w=800&amp;resize=800&amp;ssl=1</p></li>
+<li><p>https://www.youtube.com/watch?v =1npWKwGaq9Q&amp;ab_channel=AwesomeNeuron</p></li>
+<li><p>https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif</p></li>
 </ul>
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="left-align">

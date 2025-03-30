@@ -15,186 +15,220 @@ editor:
 
 # 1. Introduction to the process of training neural network
 
+In order to train a good nerual network model, you need to do the data preprocessing and understand the struture of the model.
+There are several different models available and the struture is slightly different.
+Here, we would just focus on the basic component of the neural network model.
 
 # 2. Data Preperation
 
+For any kind of Neural network model, you need to remember that garbage in garbage out.
+Raw omics data often contains noise, missing values, and irrelevant features that can degrade model performance.
+Proper data preparation ensures that the input data is clean, consistent, and informative, allowing the neural network to learn meaningful patterns effectively.
+
+## 2.1. Data Cleanup
+
+Here is the basic step for you to do the cleanup in Multi-modal omic data:
+
+1.  **Remove Low-Variation Features and Samples**:
+    -   Features or samples with very low variation (e.g., constant values across samples) or too many missing values (NAs) are removed.
+    -   **Reason**: Low-variation features provide little information for distinguishing between samples, while samples with excessive missing data are unreliable for training.
+2.  **Impute Missing Values**:
+    -   Remaining missing values (NAs) are imputed using the median value of the feature across samples.
+    -   **Reason**: Imputation ensures that the dataset is complete, avoiding the need to discard potentially useful features or samples with a small number of missing values.
+3.  **Rank Features Using Laplacian Scores**:
+    -   Features are ranked based on their Laplacian Scores, a method that evaluates feature importance by considering relationships between samples in a network structure (not just variance).
+    -   **Reason**: Unlike variance-based methods, Laplacian Scores account for the global structure of the data, identifying features that are more likely to be biologically relevant.
+4.  **Remove Highly Correlated Features (Optional)**:
+    -   Highly correlated features are identified, and the feature with the lower Laplacian Score is removed.
+    -   **Reason**: Redundant features add unnecessary complexity to the model without providing additional information, so removing them reduces dimensionality and prevents multicollinearity issues. However, remember to Log Removed Features for potential biological interpretation.
+5.  **Select Top Features**:
+    -   Retain the top percentile of features (normally 20%) based on Laplacian Scores.
+    -   **Reason**: Focusing on the most informative features reduces the dimensionality of the data (mitigating the curse of dimensionality) and ensures the model learns from the most relevant signals.
+
+**Additional Notes**:
+
+-   **Biological Context**: High-variance features may not always be meaningful (e.g., non-coding RNAs might show high variance due to noise). Laplacian Scores help mitigate this by focusing on sample relationships rather than just variance.
+-   **Batch Effects**: High variance in omics data may stem from batch effects (systematic biases). Applying batch correction before cleanup can address this issue.
+
+![](images/截圖%202025-03-30%20下午10.37.36.png)
+
+## 2.2. Harmonize Training and Testing Datasets
+
+After the data cleanup, the dataset need to be seprate into training group and testing group.
+In \[Note 1: Supervising Learning\](module1/supervised.html) section 3, you could see how to seperate dataset.
+In addition to the seperation, the training and testing datasets must be consistent in terms of features and scaling to ensure fair evaluation.
+If the training and testing datasets have different feature sets or scaling, the model may fail to generalize.
+This step is critical for reliable model evaluation and for ensuring that predictions are meaningful in a clinical context.
+
+Followings are the common steps of Harmonizing:
+
+1.  **Feature Intersection** :
+
+    -   Ensure that the training and testing datasets share the same features by taking the intersection of their feature sets.
+
+    -   Example: If the training data includes Genes A, B, C, D, E, but the testing data only has Genes A, B, C, the model uses only Genes A, B, C for both datasets.
+
+    -   **Reason**: Using different feature sets for training and testing would make the model incompatible with the testing data, leading to poor performance and unreliable predictions.
+
+2.  **Standardization**:
+
+    -   Compute scaling factors (mean and standard deviation) from the training data only.
+
+    -   Apply these scaling factors to both the training and testing data to standardize them (e.g., subtract the mean and divide by the standard deviation).
+
+    -   **Reason**: Standardizing ensures that features are on the same scale, which is essential for neural networks to learn effectively.
+        Using training data to compute scaling factors prevents data leakage, as the testing data remains unseen during this process.
+
+3.  **Transform Testing Data**:
+
+    -   The testing data is transformed by using the scaling factors (Mean and standard deviation) learned from the training data in Standardization step.
+
+    -   **Reason**: Using the training data's scaling factors ensures that the testing data is processed in the same way as the training data, maintaining consistency in scale and distribution.
+        This mimics real-world scenarios where the model only has access to training data during training and must apply learned parameters to new, unseen data.
+
+    -   **Example**:
+
+        -   Training data for a feature (e.g., Gene A): \[10, 20, 30, 40, 50\].
+
+            -   Mean = 30, Standard Deviation ≈ 14.14.
+
+            -   Standardized training data: \[-1.41, -0.71, 0, 0.71, 1.41\].
+
+        -   Testing data for the same feature: \[15, 45\].
+
+            -   Using training data's ( Mean = 30) and ( Standard Deviation = 14.14), standardize the testing data:
+
+                -   15 → ((15 - 30) / 14.14 ≈ -1.06)
+
+                -   45 → ((45 - 30) / 14.14 ≈ 1.06)
+
+            -   Standardized testing data: \[-1.06, 1.06\].
+
+        -   Both datasets are now on the same scale, ensuring the model can process them consistently.
+
+-   **Additional Notes**:
+
+    -   **Avoiding Data Leakage**: Standardizing both datasets using parameters from the training data ensures that the model does not inadvertently learn from the testing data, which would inflate performance metrics and lead to overly optimistic results.
+
+    -   **Feature Consistency**: The feature intersection is crucial for multi-modal data, as different modalities (e.g., gene expression, mutations) may have varying feature availability across datasets.
+
+    -   **Practical Tip**: When working with biological data, always verify that the features retained after intersection are biologically relevant to the task (e.g., cancer-related genes for oncology applications).
+
+![](images/截圖%202025-03-30%20下午11.15.13.png)
+
 # 3. Components of a Neural Network
+
+There are several different kinds of Neural Network Structure.
+Here, I will introduce a basic structure and Key Components of Neural Network.
+And this is the video about the background of the neural network.
+
+::: {style="display: flex; justify-content: center; align-items: center; width: 100%;"}
+::: {style="max-width: 560px;"}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aircAruvnKk" title="What is a Neural Network" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
+:::
+:::
+
+## 3.1. Basic Structure
+
+![](https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?ssl=1&w=800&resize=800&ssl=1)
+
+1.  **Input Layer**:
+    -   Receives raw data (e.g., features like gene expression values).
+
+    -   Number of nodes equals the number of input features.
+2.  **Hidden Layers**:
+    -   Process the input data through weighted connections and activation functions.
+
+    -   Number of hidden layers and nodes per layer are hyperparameters to be tuned.
+3.  **Output Layer**:
+    -   Produces the final prediction.
+
+    -   Number of nodes depends on the task (e.g., 1 node for binary classification, multiple nodes for multi-class classification).
+
+## 3.2. Key Components
+
+### Neurons/Nodes
+
+Basic units that receive inputs, apply weights, and pass the result through an activation function.
+
+### Weights
+
+Parameters that determine the importance of each input, adjusted during training.
+
+### Activation Functions
+
+Introduce non-linearity (e.g., ReLU, sigmoid) to allow the network to learn complex patterns.
+Without this, neural networks couldn't make the magic.
+[Example1](https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9)
+
+![](images/ActivationFunctionsVisuallyExplained-ezgif.com-speed.gif)
+
+### Loss Functions
+
+Measure the error between predictions and true values, guiding weight updates.
+
+::: {style="display: flex; gap: 20px; align-items: center;"}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/v_ueBW_5dLg" title="Loss Function Explanation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IVVVjBSk9N0" title="Neural Network Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
+:::
+
+### Optimizer
+
+-   **Why This Is Necessary**: In neural network training, the model generates predictions via forward propagation and computes the error using a loss function. To minimize this error, the model's parameters (weights and biases) need to be adjusted. However, finding the optimal solution in a high-dimensional, complex loss function is challenging without a systematic approach. The optimizer provides a method to iteratively update parameters based on gradients, ensuring efficient convergence to a minimum loss.
+-   **What It Achieves**: The optimizer enables the model to efficiently and stably converge to a low-loss state, improving prediction accuracy. Different optimizers adapt to various data characteristics and network architectures, helping to overcome issues like slow convergence, instability due to high learning rates, or getting trapped in local minima.
+-   **Common Types**:
+-   **Stochastic Gradient Descent (SGD)**: Updates parameters using gradients from a single sample or small batch, simple but may converge slowly or oscillate. - **Momentum**: Adds a momentum term to SGD, accelerating updates and helping escape local minima. - **Adam (Adaptive Moment Estimation)**: Combines momentum and RMSProp, adaptively adjusts learning rates, widely used for its fast and stable convergence. - **RMSProp**: Adjusts learning rates based on the moving average of squared gradients, suitable for non-stationary objective functions.
+-   **Notes**: The choice of optimizer and its hyperparameters (e.g., learning rate) is often tuned via hyperparameter optimization (HPO) to suit specific tasks.
+
+### Hyperparameters
+
+-   **Gradient Descent**: Iteratively adjusts weights in the direction that reduces the loss.
+    Step size is determined by the learning rate.
+    [Article](https://pub.towardsai.net/deep-learning-from-scratch-in-modern-c-gradient-descent-670bc5889112)
+
+-   **Learning Rate**: Step size for weight updates.
+    Here are some articles about how to set up the learning rate: [Article 1](https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e), [Article 2](https://www.jeremyjordan.me/nn-learning-rate/)
+
+![](https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif)
+
+-   **Batch Size**: Number of samples processed before updating weights.
+
+![](images/截圖%202025-03-31%20上午12.44.32.png)
+
+-   **Epochs**: Number of complete passes through the training data.
+
+-   **Hidden Units**: Number of nodes in hidden layers.
+
+(Here is the article explain what is Batch Size, Epochs, and Hidden Units. [Article](https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations))
 
 # 4. Neural Network Training Process
 
-
-
-
-
-Multiomics refers to the integration of multiple biological data types (omics) to study complex diseases.
-Disease is influenced by multiple layers (e.g., genetics, environment), and a single data type (e.g., genomics) is insufficient for a complete understanding.
-Integrating multidimensional data is essential for deeper insights.
-
-There are different Data Layers:
-
--   **Genomics**: DNA sequence, e.g., EGFR mutations in lung cancer.
--   **Epigenomics**: Regulation of gene accessibility, e.g., methylation changes in Alzheimer's disease.
--   **Transcriptomics**: RNA expression levels, e.g., altered gene expression in diabetes.
--   **Proteomics**: Protein functions, e.g., inflammatory proteins in rheumatoid arthritis.
--   **Metabolomics**: Cellular metabolic states, e.g., lipid profiles in cardiovascular disease.
--   **Microbiome**: Microbes impacting health, e.g., gut bacteria influencing inflammatory bowel disease.
--   **Exposome**: Environmental factors, e.g., pollutant exposure affecting asthma.
--   **Imaging and Sensors**: Physical monitoring, e.g., wearables tracking heart rate in hypertension.
--   **Social Graph**: Cultural and social influences, e.g., social stress impacting mental health.
-
-![](images/截圖%202025-03-30%20下午5.14.29.png)
-
-# 2. Sources of Multiomics Data
-
--   **TCGA**: Covers 33 cancer types, 11,000 tumors, offering multilayered data---e.g., used to subtype breast cancer.
--   **CCLE***/***GDSC**: Over 1,000 cancer cell lines tested for drug responses---great for drug screening, but limited by in vitro evolution.
--   **cBioPortal**: Integrates multiomics and clinical data---e.g., visualizing survival trends.
--   **ICGC**: Global collaboration covering 50 cancer types, complementing TCGA with non-Western data---e.g., Asian-specific mutations.
--   **GEO**: Public transcriptomics database, often integrated with TCGA---e.g., for cross-study validation.
--   **DepMap**: Combines CRISPR screening with multiomics---e.g., finding druggable targets.\
-
-**Emerging Trends:**
-
--   *Single-Cell Multiomics*: Techniques like CITE-seq (RNA + protein) dissect tumor microenvironments
--   *Spatial Omics*: Combines imaging and molecular data to map cellular distributions (e.g., Visium)
-
-# 3. Multiomics Application
-
-Multiomics provides powerful tools to tackle disease by integrating diverse data layers, offering insights into treatment, prognosis, disease mechanisms, and progression.
-
-## 3.1. Precision Medicine
-
-Through multiomics, doctors can deliver the right treatment to the right patient at the right time, based on their unique biological profile.
-It creates a more complete picture of a patient's disease, enabling finer stratification, better predictions, and more effective therapies.
-
--   **Example**: Two EGFR-mutated lung cancer patients might respond differently due to proteomic (e.g., EGFR protein activity) or metabolic (e.g., glutamine reliance) differences detectable by multiomics.
--   **Impact**: Precision medicine moves from "mutation X = drug Y" to "patient X's full profile = therapy Z," capturing variations genomics misses.
-
-## 3.2. Survival
-
-Multiomics predicts how long patients might survive with a given cancer, guiding treatment intensity and follow-up care.
-
--   **Example**: In breast cancer, combining genomics (e.g., BRCA mutations) with transcriptomics (e.g., RNA expression of survival genes) and proteomics (e.g., apoptosis protein levels) can estimate 5-year survival more accurately than genomics alone.
--   **Impact**: Identifies high-risk patients needing aggressive therapy vs. low-risk ones who might avoid overtreatment, personalizing prognosis.
-
-## 3.3. Subtyping
-
-Multiomics uncovers the potential underlying molecular mechanisms driving a patient's cancer, enabling precise disease classification.
-
--   **Example**: In prostate cancer, subtyping might reveal high mutation burden (genomics), structural aberrations (e.g., chromosomal rearrangements), or high expression of hormone receptors (transcriptomics), each suggesting different origins---like DNA repair defects or hormonal triggers.
--   **Impact**: Links specific molecular profiles to tailored therapies, e.g., PARP inhibitors for mutation-heavy subtypes or hormone blockers for receptor-driven ones.
-
-## 3.4. Metastasis
-
-Multiomics assesses how likely a tumor is to metastasize to other organs, aiding early intervention and monitoring.
-
--   **Example**: In melanoma, genomics (e.g., BRAF mutations) paired with proteomics (e.g., adhesion protein loss) and metabolomics (e.g., energy shifts for invasion) predicts metastasis risk to lungs or brain.
--   **Impact**: Highlights patients needing closer surveillance or preventive treatments, like metastasis-blocking drugs, based on multiomics risk scores.
-
-# 4. Multiomics Integration Methods
-
-Multiomics integration methods can be classified into three categories: Early Fusion, Intermediate Fusion, and Late Fusion.
-These methods are typically used within machine learning pipelines to combine omics data for analysis.
-
-![](images/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png)
-
-## 4.1. Early Fusion
-
--   **How It Works**: Concatenates all raw data from different omics (e.g., gene mutation counts, protein expression values) into a single, wide dataset. This is often done by aligning features (e.g., genes) across layers and stacking them into a matrix---e.g., a table where each row is a patient and columns include genomic, proteomic, etc., values.
--   **Techniques**: Simple concatenation or normalization (e.g., scaling all values to 0-1) to handle differing scales (e.g., mutations as binary vs. protein levels as continuous).
--   **Next Steps**: The combined dataset is typically fed directly into a machine learning model or processed further (e.g., feature selection to reduce noise) before modeling.
--   **Pros**: Simple, captures all possible interactions between layers.
--   **Cons**: Noisy (e.g., irrelevant features), computationally heavy due to high dimensionality.
-
-## 4.2. Intermediate Fusion
-
--   **How It Works**: Transforms each omics layer into a shared, lower-dimensional representation (e.g., latent factors) before combining them. This uses methods like matrix factorization or neural networks to extract key patterns, then merges these into a unified dataset.
--   **Techniques**: Tools like MOFA (Multi-Omics Factor Analysis) or autoencoders compress genomics (e.g., mutations) and epigenomics (e.g., methylation) into factors capturing shared variation, then concatenate these for analysis.
--   **Example**: MOFA reduces genomics and epigenomics from TCGA into a few key factors (e.g., 10-20 numbers per patient) to subtype tumors, reflecting shared biological signals.
--   **Next Steps**: The fused representation is fed into a neural network or clustering algorithm for tasks like patient stratification.
--   **Pros**: Balances complexity and insight by focusing on meaningful patterns.
--   **Cons**: Requires advanced tools and expertise (e.g., tuning MOFA or training autoencoders).
-
-## 4.3. Late Fusion
-
--   **How It Works**: Analyzes each omics layer independently first with separate models, then combines their outputs (e.g., predictions or features) at the end. Combination might use averaging, voting, or a secondary model.
--   **Techniques**: Train individual models (e.g., random forests for genomics, SVMs for proteomics), then integrate results via weighted averages or a small neural network.
--   **Example**: "In breast cancer, a random forest on genomics predicts survival risk, an SVM on proteomics assesses protein activity, and their predictions are averaged to estimate overall prognosis."
--   **Next Steps**: Outputs are combined and used for final predictions.
--   **Pros**: Flexible, reduces noise by focusing on layer-specific signals.
--   **Cons**: Misses early cross-layer interactions (e.g., how mutations affect metabolites directly).
-
-# 5. Comparison of Multiomics Integration Methods
-
-Studies comparing multiomics integration methods and neural network models show that no single approach is best for all scenarios, but certain strategies and tools perform better depending on the task, data, and techniques used.
-Here's a summary of key findings from recent benchmarks.
-
-## 5.1. Hauptmann and Kramer (Arxiv, 2022) [paper](https://arxiv.org/pdf/2208.14822.pdf)
-
--   *What They Tested*: Compared 6 tools for multiomics integration: 1.
-    Simple Early Integration Classifier, 2.
-    Super.FELT, 3.
-    MOLI, 4.
-    Omics-Stacking, 5.
-    OmiEmbed, 6.
-    MOMA
-
--   *Key Findings*:
-
-    -   Early integration (combining all data upfront) performed significantly worse---likely due to noise and high dimensionality.
-    -   No tool consistently outperformed others; performance varied by dataset.
-    -   Tools using *triplet loss* (a method to train models by comparing data triplets for better separation) generally did better than those that didn't.
-    -   OmiEmbed (a supervised Variational Autoencoder) performed worst on holdout (unseen) data, possibly due to overfitting.
-
-## 5.2. Genome Biology Study (2022) [paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2)
-
--   *What They Tested*: Evaluated deep learning methods for multiomics integration in cancer, focusing on:
-    -   Integration sequence: Early vs. Late Fusion.
-    -   Encoding methods:
-        -   Fully Connected Networks (FCNs).
-        -   Autoencoders (Basic and Variational).
-        -   Loss functions for autoencoders: MMD (Maximum Mean Discrepancy) vs. KL (Kullback-Leibler divergence).
-    -   Network architectures:
-        -   Graph Attention Network (GAT).
-        -   Graph Convolutional Network (GCN).
-        -   1D Convolutional Neural Network (CNN).
--   *Key Findings*:
-    -   No single approach excelled in all cases---performance depended on the cancer type and task.
-    -   Graph Attention Networks (GATs) performed best overall for classification tasks, likely because they model relationships between omics features as a graph.
-    -   CNNs (1D) didn't work well, possibly because omics data lacks the spatial patterns CNNs are designed for (e.g., images).
-    -   For autoencoders, using MMD loss (which aligns data distributions) often outperformed KL loss (which enforces a specific distribution), improving generalization.
-
-![](images/截圖%202025-03-30%20下午8.11.07.png)
-
-## 5.3. Oxford Review (2022) [paper](https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true)
-
--   A comprehensive review analyzed 70 deep learning multiomics papers.
-
-![](images/截圖%202025-03-30%20下午8.12.54.png)
-
-## 5.4. Summary of Trends:
-
--   Early integration often underperforms due to noise; Late or Intermediate Fusion tends to be more effective.
--   Graph-based methods (e.g., GAT) are promising for classification, while CNNs struggle with omics data.
--   Loss functions matter---triplet loss and MMD can improve model performance over alternatives like KL.
--   Tool choice depends on the task: no one-size-fits-all solution exists.
+![](https://api.wandb.ai/files/mostafaibrahim17/images/projects/37042936/274d6d90.png)
 
 # References
 
 Article:
 
--   https://www.researchgate.net/publication/358074725_Machine_learning_for_multi-omics_data_integration_in_cancer
--   https://arxiv.org/pdf/2208.14822
--   https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full
--   https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true
+-   https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9
+-   https://awesomeneuron.substack.com/p/activation-functions-the-secret-sauce
+-   https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations
 
 Image:
 
--   https://www.cell.com/cms/10.1016/j.cell.2014.02.012/asset/7d7ee80d-6b6c-45c7-96b8-615ad93f1c68/main.assets/gr1_lrg.jpg
--   https://www.researchgate.net/publication/358074725/figure/fig2/AS:1124506185809921\@1645114575952/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png
--   https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2/figures/1
--   https://academic.oup.com/view-large/338428798
+-   https://i2.wp.com/cdn-images-1.medium.com/max/550/1\*pO5X2c28F1ysJhwnmPsy3Q.gif?s
+    sl=1&w=800&resize=800&ssl=1
 
+-   https://www.youtube.com/watch?v
+    =1npWKwGaq9Q&ab_channel=AwesomeNeuron
+
+-   https://miro.medium.com/v2/resize:fit:720/format:webp/1\*Nq6UMjR0WyH0Q8sDYmSzaQ.gif
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
 ::: left-align
@@ -205,4 +239,3 @@ Image:
 [Next](Drug_Response_Prediction.qmd)
 :::
 :::
-
