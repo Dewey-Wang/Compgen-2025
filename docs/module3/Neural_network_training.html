@@ -9,7 +9,7 @@
 <meta name="author" content="Ding Yang Wang">
 <meta name="dcterms.date" content="2025-03-30">
 
-<title>Spatial Omics Analysis – From Statistical Foundations to Machine Learning Applications in Genomics</title>
+<title>Neural network training – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,13 +167,32 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#types-of-spatial-omics-data" id="toc-types-of-spatial-omics-data" class="nav-link active" data-scroll-target="#types-of-spatial-omics-data">1. Types of Spatial Omics Data</a></li>
-  <li><a href="#spatial-transcriptomics-analysis" id="toc-spatial-transcriptomics-analysis" class="nav-link" data-scroll-target="#spatial-transcriptomics-analysis">2. Spatial Transcriptomics Analysis</a>
+  <li><a href="#introduction-to-the-process-of-training-neural-network" id="toc-introduction-to-the-process-of-training-neural-network" class="nav-link active" data-scroll-target="#introduction-to-the-process-of-training-neural-network">1. Introduction to the process of training neural network</a></li>
+  <li><a href="#data-preperation" id="toc-data-preperation" class="nav-link" data-scroll-target="#data-preperation">2. Data Preperation</a></li>
+  <li><a href="#components-of-a-neural-network" id="toc-components-of-a-neural-network" class="nav-link" data-scroll-target="#components-of-a-neural-network">3. Components of a Neural Network</a></li>
+  <li><a href="#neural-network-training-process" id="toc-neural-network-training-process" class="nav-link" data-scroll-target="#neural-network-training-process">4. Neural Network Training Process</a></li>
+  <li><a href="#sources-of-multiomics-data" id="toc-sources-of-multiomics-data" class="nav-link" data-scroll-target="#sources-of-multiomics-data">2. Sources of Multiomics Data</a></li>
+  <li><a href="#multiomics-application" id="toc-multiomics-application" class="nav-link" data-scroll-target="#multiomics-application">3. Multiomics Application</a>
   <ul class="collapse">
-  <li><a href="#spot-level-data-analysis" id="toc-spot-level-data-analysis" class="nav-link" data-scroll-target="#spot-level-data-analysis">2.1. Spot-level Data Analysis</a></li>
-  <li><a href="#cell-level-data-analysis" id="toc-cell-level-data-analysis" class="nav-link" data-scroll-target="#cell-level-data-analysis">2.2. Cell-level Data Analysis</a></li>
+  <li><a href="#precision-medicine" id="toc-precision-medicine" class="nav-link" data-scroll-target="#precision-medicine">3.1. Precision Medicine</a></li>
+  <li><a href="#survival" id="toc-survival" class="nav-link" data-scroll-target="#survival">3.2. Survival</a></li>
+  <li><a href="#subtyping" id="toc-subtyping" class="nav-link" data-scroll-target="#subtyping">3.3. Subtyping</a></li>
+  <li><a href="#metastasis" id="toc-metastasis" class="nav-link" data-scroll-target="#metastasis">3.4. Metastasis</a></li>
   </ul></li>
-  <li><a href="#supplementary-notes" id="toc-supplementary-notes" class="nav-link" data-scroll-target="#supplementary-notes">Supplementary Notes</a></li>
+  <li><a href="#multiomics-integration-methods" id="toc-multiomics-integration-methods" class="nav-link" data-scroll-target="#multiomics-integration-methods">4. Multiomics Integration Methods</a>
+  <ul class="collapse">
+  <li><a href="#early-fusion" id="toc-early-fusion" class="nav-link" data-scroll-target="#early-fusion">4.1. Early Fusion</a></li>
+  <li><a href="#intermediate-fusion" id="toc-intermediate-fusion" class="nav-link" data-scroll-target="#intermediate-fusion">4.2. Intermediate Fusion</a></li>
+  <li><a href="#late-fusion" id="toc-late-fusion" class="nav-link" data-scroll-target="#late-fusion">4.3. Late Fusion</a></li>
+  </ul></li>
+  <li><a href="#comparison-of-multiomics-integration-methods" id="toc-comparison-of-multiomics-integration-methods" class="nav-link" data-scroll-target="#comparison-of-multiomics-integration-methods">5. Comparison of Multiomics Integration Methods</a>
+  <ul class="collapse">
+  <li><a href="#hauptmann-and-kramer-arxiv-2022-paper" id="toc-hauptmann-and-kramer-arxiv-2022-paper" class="nav-link" data-scroll-target="#hauptmann-and-kramer-arxiv-2022-paper">5.1. Hauptmann and Kramer (Arxiv, 2022) paper</a></li>
+  <li><a href="#genome-biology-study-2022-paper" id="toc-genome-biology-study-2022-paper" class="nav-link" data-scroll-target="#genome-biology-study-2022-paper">5.2. Genome Biology Study (2022) paper</a></li>
+  <li><a href="#oxford-review-2022-paper" id="toc-oxford-review-2022-paper" class="nav-link" data-scroll-target="#oxford-review-2022-paper">5.3. Oxford Review (2022) paper</a></li>
+  <li><a href="#summary-of-trends" id="toc-summary-of-trends" class="nav-link" data-scroll-target="#summary-of-trends">5.4. Summary of Trends:</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -182,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Spatial Omics Analysis</h1>
+<h1 class="title">Neural network training</h1>
 </div>
 
 
@@ -211,212 +230,206 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="types-of-spatial-omics-data" class="level1">
-<h1>1. Types of Spatial Omics Data</h1>
-<p>Spatial omics data varies in resolution and scope, offering diverse perspectives on tissue biology:</p>
+<section id="introduction-to-the-process-of-training-neural-network" class="level1">
+<h1>1. Introduction to the process of training neural network</h1>
+</section>
+<section id="data-preperation" class="level1">
+<h1>2. Data Preperation</h1>
+</section>
+<section id="components-of-a-neural-network" class="level1">
+<h1>3. Components of a Neural Network</h1>
+</section>
+<section id="neural-network-training-process" class="level1">
+<h1>4. Neural Network Training Process</h1>
+<p>Multiomics refers to the integration of multiple biological data types (omics) to study complex diseases. Disease is influenced by multiple layers (e.g., genetics, environment), and a single data type (e.g., genomics) is insufficient for a complete understanding. Integrating multidimensional data is essential for deeper insights.</p>
+<p>There are different Data Layers:</p>
 <ul>
-<li>Cells: Gene expression profiles of individual cells with spatial coordinates, providing single-cell resolution (e.g., Xenium, Merfish data).</li>
-<li>Spots: Predefined areas on a slide capturing gene expression, often encompassing multiple cells (e.g., Visium spots).</li>
-<li>Regions of Interest (ROIs): User-selected tissue areas for targeted analysis, typically larger than cells, based on morphological or functional significance.</li>
-<li>Molecules: Subcellular detection of individual RNA molecules, offering the highest resolution.(e.g., Xenium, Merfish data)</li>
-<li>Histology Images: Visual data (e.g., H&amp;E or DAPI-stained slides) providing morphological context for molecular data.</li>
+<li><strong>Genomics</strong>: DNA sequence, e.g., EGFR mutations in lung cancer.</li>
+<li><strong>Epigenomics</strong>: Regulation of gene accessibility, e.g., methylation changes in Alzheimer’s disease.</li>
+<li><strong>Transcriptomics</strong>: RNA expression levels, e.g., altered gene expression in diabetes.</li>
+<li><strong>Proteomics</strong>: Protein functions, e.g., inflammatory proteins in rheumatoid arthritis.</li>
+<li><strong>Metabolomics</strong>: Cellular metabolic states, e.g., lipid profiles in cardiovascular disease.</li>
+<li><strong>Microbiome</strong>: Microbes impacting health, e.g., gut bacteria influencing inflammatory bowel disease.</li>
+<li><strong>Exposome</strong>: Environmental factors, e.g., pollutant exposure affecting asthma.</li>
+<li><strong>Imaging and Sensors</strong>: Physical monitoring, e.g., wearables tracking heart rate in hypertension.</li>
+<li><strong>Social Graph</strong>: Cultural and social influences, e.g., social stress impacting mental health.</li>
 </ul>
-<p>Each spatial omics data could provide different point of view and allow us to answer different biological questions. According to the data type, the analysis progress could be vaires. Here, I will use Visium and Xenium to do some basic analysis. For the rest of them, they will be used in the next section.</p>
-<div>
-
-</div>
-<div class="center-images quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午7.55.37.png" class="img-fluid figure-img" width="248"></p>
-<figcaption>Cells</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午7.54.39.png" class="img-fluid figure-img" width="285"></p>
-<figcaption>Spots</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div>
-
-</div>
-<div class="center-images quarto-layout-panel" data-layout-ncol="3">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午7.56.14.png" class="img-fluid figure-img" width="219"></p>
-<figcaption>Molecules</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午7.53.57.png" class="img-fluid figure-img" width="416"></p>
-<figcaption>ROIs</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午8.06.03.png" class="img-fluid figure-img" width="192"></p>
-<figcaption>Images</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<section id="source" class="level4">
-<h4 class="anchored" data-anchor-id="source">Source</h4>
+<p><img src="images/截圖 2025-03-30 下午5.14.29.png" class="img-fluid"></p>
+</section>
+<section id="sources-of-multiomics-data" class="level1">
+<h1>2. Sources of Multiomics Data</h1>
 <ul>
-<li>https://www.10xgenomics.com/products/xenium-in-situ/human-breast-dataset-explorer</li>
-<li>https://www.10xgenomics.com/</li>
-<li>https://www.biochain.com/nanostring-geomx-digital-spatial-profiling/</li>
-<li>https://www.10xgenomics.com/blog/your-introduction-to-visium-hd-spatial-biology-in-high-definition</li>
-<li>https://ostr.ccr.cancer.gov/emerging-technologies/spatial-biology/xenium/</li>
-<li>https://www.researchgate.net/figure/Classification-of-LAC-tumor-growth-patterns-in-digital-slides-Slides-classified-by-CNNs_fig3_330906505</li>
+<li><strong>TCGA</strong>: Covers 33 cancer types, 11,000 tumors, offering multilayered data—e.g., used to subtype breast cancer.</li>
+<li><strong>CCLE</strong><em>/</em><strong>GDSC</strong>: Over 1,000 cancer cell lines tested for drug responses—great for drug screening, but limited by in vitro evolution.</li>
+<li><strong>cBioPortal</strong>: Integrates multiomics and clinical data—e.g., visualizing survival trends.</li>
+<li><strong>ICGC</strong>: Global collaboration covering 50 cancer types, complementing TCGA with non-Western data—e.g., Asian-specific mutations.</li>
+<li><strong>GEO</strong>: Public transcriptomics database, often integrated with TCGA—e.g., for cross-study validation.</li>
+<li><strong>DepMap</strong>: Combines CRISPR screening with multiomics—e.g., finding druggable targets.<br>
+</li>
+</ul>
+<p><strong>Emerging Trends:</strong></p>
+<ul>
+<li><em>Single-Cell Multiomics</em>: Techniques like CITE-seq (RNA + protein) dissect tumor microenvironments</li>
+<li><em>Spatial Omics</em>: Combines imaging and molecular data to map cellular distributions (e.g., Visium)</li>
 </ul>
 </section>
+<section id="multiomics-application" class="level1">
+<h1>3. Multiomics Application</h1>
+<p>Multiomics provides powerful tools to tackle disease by integrating diverse data layers, offering insights into treatment, prognosis, disease mechanisms, and progression.</p>
+<section id="precision-medicine" class="level2">
+<h2 class="anchored" data-anchor-id="precision-medicine">3.1. Precision Medicine</h2>
+<p>Through multiomics, doctors can deliver the right treatment to the right patient at the right time, based on their unique biological profile. It creates a more complete picture of a patient’s disease, enabling finer stratification, better predictions, and more effective therapies.</p>
+<ul>
+<li><strong>Example</strong>: Two EGFR-mutated lung cancer patients might respond differently due to proteomic (e.g., EGFR protein activity) or metabolic (e.g., glutamine reliance) differences detectable by multiomics.</li>
+<li><strong>Impact</strong>: Precision medicine moves from “mutation X = drug Y” to “patient X’s full profile = therapy Z,” capturing variations genomics misses.</li>
+</ul>
 </section>
-<section id="spatial-transcriptomics-analysis" class="level1">
-<h1>2. Spatial Transcriptomics Analysis</h1>
-<p>The workflow of Spatial Transcriptomics Analysis will different on the techology that you used. However, we could make it two different levels: <strong>spot-level (e.g., Visium) and cell-level (e.g., Xenium)</strong>. Each level of analysis provides unique insights, from broad tissue architecture to single-cell interactions. This section will outline the key steps in <strong>spot-level</strong> and <strong>cell-level</strong> spatial transcriptomics analysis.</p>
-<section id="spot-level-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="spot-level-data-analysis">2.1. Spot-level Data Analysis</h2>
-<ol type="1">
-<li><p>Data Preprocessing: Includes quality control (QC), normalization, and dimensionality reduction to prepare the data for downstream analysis.</p></li>
-<li><p>Unbiased Clustering: Clustering spots based on their gene expression profiles. Used for dimensionality reduction method and followed by the Leiden algorithm for clustering.</p></li>
-<li><p>Spot Deconvolution: Since each spot contains multiple cells, we use reference single-cell RNA-seq datasets (e.g., SpaceXR’s RCTD algorithm) to estimate the cell type composition within each spot.</p></li>
-<li><p>Normalization and Dimensionality Reduction of Deconvolution Results:</p>
+<section id="survival" class="level2">
+<h2 class="anchored" data-anchor-id="survival">3.2. Survival</h2>
+<p>Multiomics predicts how long patients might survive with a given cancer, guiding treatment intensity and follow-up care.</p>
 <ul>
-<li><p>After deconvolution, we normalize and reduce the dimensionality of the cell-type composition matrix.</p></li>
-<li><p>This allows us to cluster spots based on their cell mixture profiles, revealing regions with similar cellular compositions.</p></li>
-</ul></li>
-<li><p>Niche Clustering of Spots:</p>
-<ul>
-<li><p>Spots with similar cell type compositions or gene expression profiles are grouped together to identify distinct tissue microenvironments.</p></li>
-<li><p>A heatmap can help visualize which cell types are spatially closer to each other within the tissue section, providing insights into cellular interactions and tissue organization.</p></li>
-</ul></li>
-</ol>
-<div>
-
-</div>
-<div class="center-images quarto-layout-panel" data-layout-ncol="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Rplot01.png" class="img-fluid figure-img"></p>
-<figcaption>Spots after Niche Clustering</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/截圖 2025-03-15 下午10.22.52.png" class="img-fluid figure-img" width="388"></p>
-<figcaption>Heatmap of clusters after Niche Clustering</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
+<li><strong>Example</strong>: In breast cancer, combining genomics (e.g., BRCA mutations) with transcriptomics (e.g., RNA expression of survival genes) and proteomics (e.g., apoptosis protein levels) can estimate 5-year survival more accurately than genomics alone.</li>
+<li><strong>Impact</strong>: Identifies high-risk patients needing aggressive therapy vs.&nbsp;low-risk ones who might avoid overtreatment, personalizing prognosis.</li>
+</ul>
 </section>
-<section id="cell-level-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="cell-level-data-analysis">2.2. Cell-level Data Analysis</h2>
-<ol type="1">
-<li>Data Preprocessing: Perform quality control (QC), normalization, and dimensionality reduction to prepare the data for downstream analysis.</li>
-<li>Unbiased Clustering: Cluster cells based on single-cell gene expression profiles, similar to Visium but at the single-cell level.</li>
-<li>Marker Analysis:
+<section id="subtyping" class="level2">
+<h2 class="anchored" data-anchor-id="subtyping">3.3. Subtyping</h2>
+<p>Multiomics uncovers the potential underlying molecular mechanisms driving a patient’s cancer, enabling precise disease classification.</p>
 <ul>
-<li><p>Identify cluster-specific marker genes to help annotate cell types (e.g., MS4A1 for B cells, CD3E for T cells).</p></li>
-<li><p>Perform differential expression analysis (DEA) between clusters to identify key gene expression patterns.</p></li>
-</ul></li>
-<li>Niche Clustering of Cells:
+<li><strong>Example</strong>: In prostate cancer, subtyping might reveal high mutation burden (genomics), structural aberrations (e.g., chromosomal rearrangements), or high expression of hormone receptors (transcriptomics), each suggesting different origins—like DNA repair defects or hormonal triggers.</li>
+<li><strong>Impact</strong>: Links specific molecular profiles to tailored therapies, e.g., PARP inhibitors for mutation-heavy subtypes or hormone blockers for receptor-driven ones.</li>
+</ul>
+</section>
+<section id="metastasis" class="level2">
+<h2 class="anchored" data-anchor-id="metastasis">3.4. Metastasis</h2>
+<p>Multiomics assesses how likely a tumor is to metastasize to other organs, aiding early intervention and monitoring.</p>
 <ul>
-<li><p>Group cells based on spatial proximity and gene expression similarity to define functional cell neighborhoods.</p></li>
-<li><p>This method clusters cells with similar overall gene expression patterns, revealing distinct microenvironments within the tissue.</p></li>
-<li><p>It helps identify spatially organized cell communities, such as immune cell infiltration zones, tumor-stroma interactions, or neuronal subregions.</p></li>
-<li><p>Unlike Hot Spot Analysis, Niche Clustering considers the entire gene expression profile of cells to classify functional regions, rather than focusing on specific gene enrichment.</p></li>
-</ul></li>
-<li>Hot Spot Analysis:
-<ul>
-<li><p>Use spatial statistical methods (e.g., Getis-Ord Gi* test) to identify regions of high gene expression activity.</p></li>
-<li><p>This method detects localized high-expression zones (hot spots) and low-expression zones (cold spots) for targeted genes.</p></li>
-<li><p>It is particularly useful for identifying biologically relevant hotspots, such as interferon signaling regions, hypoxia zones, or inflammatory niches.</p></li>
-<li><p>Unlike Niche Clustering, which considers global gene expression similarity, Hot Spot Analysis focuses on pinpointing spatial enrichment of individual genes.</p></li>
-</ul></li>
-</ol>
-<div>
-
-</div>
-<div class="center-images quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Rplot02.png" class="img-fluid figure-img" width="404"></p>
-<figcaption>Annotation base on Marker Analysis</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Rplot04.png" class="img-fluid figure-img" width="405"></p>
-<figcaption>Heat map of Niche Clustering</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div>
-
-</div>
-<div class="center-images quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Rplot05.png" class="img-fluid figure-img" width="404"></p>
-<figcaption>Example of Cluster 2 in Niche Clustering</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Rplot06.png" class="img-fluid figure-img" width="405"></p>
-<figcaption>PGR Hot Spot Analysis. PGR expression can help locate specific regions of the tumor.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
+<li><strong>Example</strong>: In melanoma, genomics (e.g., BRAF mutations) paired with proteomics (e.g., adhesion protein loss) and metabolomics (e.g., energy shifts for invasion) predicts metastasis risk to lungs or brain.</li>
+<li><strong>Impact</strong>: Highlights patients needing closer surveillance or preventive treatments, like metastasis-blocking drugs, based on multiomics risk scores.</li>
+</ul>
 </section>
 </section>
-<section id="supplementary-notes" class="level1">
-<h1>Supplementary Notes</h1>
-<p>In this section, I have only covered the key steps in spatial transcriptomics analysis, but in practice, there are many additional details and methodological choices that require careful consideration. For example, selecting the appropriate dimensionality reduction method (e.g., PCA vs.&nbsp;UMAP), choosing the best clustering algorithm (e.g., Leiden vs.&nbsp;Louvain), and optimizing the parameters for different algorithms are all critical decisions that can significantly impact the results. Additionally, a strong foundation in statistics and computational biology is essential for correctly interpreting spatial transcriptomics data.</p>
-<p>If you are interested in exploring these topics further, I may compile a more detailed guide in the future when I have time. However, most of these concepts have already been covered in <a href="statistics.qmd">Module 1</a>, so I encourage you to refer back to that for a more in-depth discussion.</p>
+<section id="multiomics-integration-methods" class="level1">
+<h1>4. Multiomics Integration Methods</h1>
+<p>Multiomics integration methods can be classified into three categories: Early Fusion, Intermediate Fusion, and Late Fusion. These methods are typically used within machine learning pipelines to combine omics data for analysis.</p>
+<p><img src="images/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png" class="img-fluid"></p>
+<section id="early-fusion" class="level2">
+<h2 class="anchored" data-anchor-id="early-fusion">4.1. Early Fusion</h2>
+<ul>
+<li><strong>How It Works</strong>: Concatenates all raw data from different omics (e.g., gene mutation counts, protein expression values) into a single, wide dataset. This is often done by aligning features (e.g., genes) across layers and stacking them into a matrix—e.g., a table where each row is a patient and columns include genomic, proteomic, etc., values.</li>
+<li><strong>Techniques</strong>: Simple concatenation or normalization (e.g., scaling all values to 0-1) to handle differing scales (e.g., mutations as binary vs.&nbsp;protein levels as continuous).</li>
+<li><strong>Next Steps</strong>: The combined dataset is typically fed directly into a machine learning model or processed further (e.g., feature selection to reduce noise) before modeling.</li>
+<li><strong>Pros</strong>: Simple, captures all possible interactions between layers.</li>
+<li><strong>Cons</strong>: Noisy (e.g., irrelevant features), computationally heavy due to high dimensionality.</li>
+</ul>
+</section>
+<section id="intermediate-fusion" class="level2">
+<h2 class="anchored" data-anchor-id="intermediate-fusion">4.2. Intermediate Fusion</h2>
+<ul>
+<li><strong>How It Works</strong>: Transforms each omics layer into a shared, lower-dimensional representation (e.g., latent factors) before combining them. This uses methods like matrix factorization or neural networks to extract key patterns, then merges these into a unified dataset.</li>
+<li><strong>Techniques</strong>: Tools like MOFA (Multi-Omics Factor Analysis) or autoencoders compress genomics (e.g., mutations) and epigenomics (e.g., methylation) into factors capturing shared variation, then concatenate these for analysis.</li>
+<li><strong>Example</strong>: MOFA reduces genomics and epigenomics from TCGA into a few key factors (e.g., 10-20 numbers per patient) to subtype tumors, reflecting shared biological signals.</li>
+<li><strong>Next Steps</strong>: The fused representation is fed into a neural network or clustering algorithm for tasks like patient stratification.</li>
+<li><strong>Pros</strong>: Balances complexity and insight by focusing on meaningful patterns.</li>
+<li><strong>Cons</strong>: Requires advanced tools and expertise (e.g., tuning MOFA or training autoencoders).</li>
+</ul>
+</section>
+<section id="late-fusion" class="level2">
+<h2 class="anchored" data-anchor-id="late-fusion">4.3. Late Fusion</h2>
+<ul>
+<li><strong>How It Works</strong>: Analyzes each omics layer independently first with separate models, then combines their outputs (e.g., predictions or features) at the end. Combination might use averaging, voting, or a secondary model.</li>
+<li><strong>Techniques</strong>: Train individual models (e.g., random forests for genomics, SVMs for proteomics), then integrate results via weighted averages or a small neural network.</li>
+<li><strong>Example</strong>: “In breast cancer, a random forest on genomics predicts survival risk, an SVM on proteomics assesses protein activity, and their predictions are averaged to estimate overall prognosis.”</li>
+<li><strong>Next Steps</strong>: Outputs are combined and used for final predictions.</li>
+<li><strong>Pros</strong>: Flexible, reduces noise by focusing on layer-specific signals.</li>
+<li><strong>Cons</strong>: Misses early cross-layer interactions (e.g., how mutations affect metabolites directly).</li>
+</ul>
+</section>
+</section>
+<section id="comparison-of-multiomics-integration-methods" class="level1">
+<h1>5. Comparison of Multiomics Integration Methods</h1>
+<p>Studies comparing multiomics integration methods and neural network models show that no single approach is best for all scenarios, but certain strategies and tools perform better depending on the task, data, and techniques used. Here’s a summary of key findings from recent benchmarks.</p>
+<section id="hauptmann-and-kramer-arxiv-2022-paper" class="level2">
+<h2 class="anchored" data-anchor-id="hauptmann-and-kramer-arxiv-2022-paper">5.1. Hauptmann and Kramer (Arxiv, 2022) <a href="https://arxiv.org/pdf/2208.14822.pdf">paper</a></h2>
+<ul>
+<li><p><em>What They Tested</em>: Compared 6 tools for multiomics integration: 1. Simple Early Integration Classifier, 2. Super.FELT, 3. MOLI, 4. Omics-Stacking, 5. OmiEmbed, 6. MOMA</p></li>
+<li><p><em>Key Findings</em>:</p>
+<ul>
+<li>Early integration (combining all data upfront) performed significantly worse—likely due to noise and high dimensionality.</li>
+<li>No tool consistently outperformed others; performance varied by dataset.</li>
+<li>Tools using <em>triplet loss</em> (a method to train models by comparing data triplets for better separation) generally did better than those that didn’t.</li>
+<li>OmiEmbed (a supervised Variational Autoencoder) performed worst on holdout (unseen) data, possibly due to overfitting.</li>
+</ul></li>
+</ul>
+</section>
+<section id="genome-biology-study-2022-paper" class="level2">
+<h2 class="anchored" data-anchor-id="genome-biology-study-2022-paper">5.2. Genome Biology Study (2022) <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2">paper</a></h2>
+<ul>
+<li><em>What They Tested</em>: Evaluated deep learning methods for multiomics integration in cancer, focusing on:
+<ul>
+<li>Integration sequence: Early vs.&nbsp;Late Fusion.</li>
+<li>Encoding methods:
+<ul>
+<li>Fully Connected Networks (FCNs).</li>
+<li>Autoencoders (Basic and Variational).</li>
+<li>Loss functions for autoencoders: MMD (Maximum Mean Discrepancy) vs.&nbsp;KL (Kullback-Leibler divergence).</li>
+</ul></li>
+<li>Network architectures:
+<ul>
+<li>Graph Attention Network (GAT).</li>
+<li>Graph Convolutional Network (GCN).</li>
+<li>1D Convolutional Neural Network (CNN).</li>
+</ul></li>
+</ul></li>
+<li><em>Key Findings</em>:
+<ul>
+<li>No single approach excelled in all cases—performance depended on the cancer type and task.</li>
+<li>Graph Attention Networks (GATs) performed best overall for classification tasks, likely because they model relationships between omics features as a graph.</li>
+<li>CNNs (1D) didn’t work well, possibly because omics data lacks the spatial patterns CNNs are designed for (e.g., images).</li>
+<li>For autoencoders, using MMD loss (which aligns data distributions) often outperformed KL loss (which enforces a specific distribution), improving generalization.</li>
+</ul></li>
+</ul>
+<p><img src="images/截圖 2025-03-30 下午8.11.07.png" class="img-fluid"></p>
+</section>
+<section id="oxford-review-2022-paper" class="level2">
+<h2 class="anchored" data-anchor-id="oxford-review-2022-paper">5.3. Oxford Review (2022) <a href="https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true">paper</a></h2>
+<ul>
+<li>A comprehensive review analyzed 70 deep learning multiomics papers.</li>
+</ul>
+<p><img src="images/截圖 2025-03-30 下午8.12.54.png" class="img-fluid"></p>
+</section>
+<section id="summary-of-trends" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-trends">5.4. Summary of Trends:</h2>
+<ul>
+<li>Early integration often underperforms due to noise; Late or Intermediate Fusion tends to be more effective.</li>
+<li>Graph-based methods (e.g., GAT) are promising for classification, while CNNs struggle with omics data.</li>
+<li>Loss functions matter—triplet loss and MMD can improve model performance over alternatives like KL.</li>
+<li>Tool choice depends on the task: no one-size-fits-all solution exists.</li>
+</ul>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Article:</p>
+<ul>
+<li>https://www.researchgate.net/publication/358074725_Machine_learning_for_multi-omics_data_integration_in_cancer</li>
+<li>https://arxiv.org/pdf/2208.14822</li>
+<li>https://www.biorxiv.org/content/10.1101/2024.04.03.586404v1.full</li>
+<li>https://academic.oup.com/bib/article/23/2/bbab569/6516346?login=true</li>
+</ul>
+<p>Image:</p>
+<ul>
+<li>https://www.cell.com/cms/10.1016/j.cell.2014.02.012/asset/7d7ee80d-6b6c-45c7-96b8-615ad93f1c68/main.assets/gr1_lrg.jpg</li>
+<li>https://www.researchgate.net/publication/358074725/figure/fig2/AS:1124506185809921@1645114575952/llustration-of-early-middle-and-late-integration-for-merging-data-matrices-generated-by.png</li>
+<li>https://genomebiology.biomedcentral.com/articles/10.1186/s13059-022-02739-2/figures/1</li>
+<li>https://academic.oup.com/view-large/338428798</li>
+</ul>
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="left-align">
-<p><a href="../module2/Introduction_of_Spatial_Transcriptomics.html">Previous</a></p>
+<p><a href="../module3/Introduction_of_Multiomics.html">Previous</a></p>
 </div>
 <div class="right-align">
-<p><a href="../module2/Multiomics_Integration.html">Next</a></p>
+<p><a href="../module3/Drug_Response_Prediction.html">Next</a></p>
 </div>
 </div>
 

@@ -28,12 +28,14 @@ website:
 
       - text: "Module 3: Neural Network for Genomics"
         menu:
-          - href: module3/BRC_Subtype_Prediction.qmd
-            text: "1. Breast Cancer Subtype Prediction"
+          - href: module3/Introduction_of_Multiomics.qmd
+            text: "1. Introduction of Multiomics"
+          - href: module3/Neural_network_training.qmd
+            text: "2. Neural Network Training"
           - href: module3/Survival_Analysis.qmd
-            text: "2. Survival Analysis"
+            text: "3. Survival Analysis"
           - href: module3/Drug_Response_Prediction.qmd
-            text: "3. Drug Response Prediction"
+            text: "4. Drug Response Prediction"
 
 format:
   html:
