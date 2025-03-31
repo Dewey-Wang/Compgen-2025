@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ding Yang Wang">
-<meta name="dcterms.date" content="2025-03-31">
+<meta name="dcterms.date" content="2025-04-01">
 
-<title>Neural network training – From Statistical Foundations to Machine Learning Applications in Genomics</title>
+<title>Neural Network Training – From Statistical Foundations to Machine Learning Applications in Genomics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,10 +183,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions">Activation Functions</a></li>
   <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions">Loss Functions</a></li>
   <li><a href="#optimizer" id="toc-optimizer" class="nav-link" data-scroll-target="#optimizer">Optimizer</a></li>
-  <li><a href="#hyperparameters" id="toc-hyperparameters" class="nav-link" data-scroll-target="#hyperparameters">Hyperparameters</a></li>
+  <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent">Gradient Descent</a></li>
+  <li><a href="#learning-rate" id="toc-learning-rate" class="nav-link" data-scroll-target="#learning-rate">Learning Rate</a></li>
+  <li><a href="#batch-size" id="toc-batch-size" class="nav-link" data-scroll-target="#batch-size">Batch Size</a></li>
+  <li><a href="#epochs" id="toc-epochs" class="nav-link" data-scroll-target="#epochs">Epochs</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#neural-network-training-process" id="toc-neural-network-training-process" class="nav-link" data-scroll-target="#neural-network-training-process">4. Neural Network Training Process</a></li>
+  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation">5. Model Evaluation</a></li>
+  <li><a href="#model-performance-enhancement" id="toc-model-performance-enhancement" class="nav-link" data-scroll-target="#model-performance-enhancement">6. Model Performance Enhancement</a>
+  <ul class="collapse">
+  <li><a href="#hyperparameter-fine-tuning" id="toc-hyperparameter-fine-tuning" class="nav-link" data-scroll-target="#hyperparameter-fine-tuning">6.1. Hyperparameter Fine-Tuning</a></li>
+  <li><a href="#bayesian-hyperparameter-fine-tuning" id="toc-bayesian-hyperparameter-fine-tuning" class="nav-link" data-scroll-target="#bayesian-hyperparameter-fine-tuning">6.2. Bayesian Hyperparameter Fine-Tuning</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -196,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Neural network training</h1>
+<h1 class="title">Neural Network Training</h1>
 </div>
 
 
@@ -213,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 31, 2025</p>
+      <p class="date">April 1, 2025</p>
     </div>
   </div>
   
@@ -363,12 +372,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="activation-functions" class="level3">
 <h3 class="anchored" data-anchor-id="activation-functions">Activation Functions</h3>
-<p>Introduce non-linearity (e.g., ReLU, sigmoid) to allow the network to learn complex patterns. Without this, neural networks couldn’t make the magic. <a href="https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9">Example1</a></p>
+<p>Introduce non-linearity (e.g., ReLU, sigmoid) to allow the network to learn complex patterns. Without this, neural networks couldn’t make the magic. <a href="https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9">Example1</a>, <a href="https://www.analyticssteps.com/blogs/7-types-activation-functions-neural-network">Article</a></p>
+<p><img src="images/截圖 2025-03-31 下午3.03.12.png" class="img-fluid"></p>
 <p><img src="images/ActivationFunctionsVisuallyExplained-ezgif.com-speed.gif" class="img-fluid"></p>
 </section>
 <section id="loss-functions" class="level3">
 <h3 class="anchored" data-anchor-id="loss-functions">Loss Functions</h3>
-<p>Measure the error between predictions and true values, guiding weight updates.</p>
+<p>Loss functions measure the difference between model predictions and actual values, guiding optimization in machine learning.</p>
+<p>Below is a comprehensive table of common loss functions, categorized by task type for easy reference.</p>
+<p><img src="images/截圖 2025-03-31 下午3.14.57.png" class="img-fluid"></p>
 <div style="display: flex; gap: 20px; align-items: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/v_ueBW_5dLg" title="Loss Function Explanation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
@@ -379,49 +391,130 @@ ul.task-list li input[type="checkbox"] {
 <section id="optimizer" class="level3">
 <h3 class="anchored" data-anchor-id="optimizer">Optimizer</h3>
 <ul>
-<li><strong>Why This Is Necessary</strong>: In neural network training, the model generates predictions via forward propagation and computes the error using a loss function. To minimize this error, the model’s parameters (weights and biases) need to be adjusted. However, finding the optimal solution in a high-dimensional, complex loss function is challenging without a systematic approach. The optimizer provides a method to iteratively update parameters based on gradients, ensuring efficient convergence to a minimum loss.</li>
-<li><strong>What It Achieves</strong>: The optimizer enables the model to efficiently and stably converge to a low-loss state, improving prediction accuracy. Different optimizers adapt to various data characteristics and network architectures, helping to overcome issues like slow convergence, instability due to high learning rates, or getting trapped in local minima.</li>
-<li><strong>Common Types</strong>:</li>
-<li><strong>Stochastic Gradient Descent (SGD)</strong>: Updates parameters using gradients from a single sample or small batch, simple but may converge slowly or oscillate. - <strong>Momentum</strong>: Adds a momentum term to SGD, accelerating updates and helping escape local minima. - <strong>Adam (Adaptive Moment Estimation)</strong>: Combines momentum and RMSProp, adaptively adjusts learning rates, widely used for its fast and stable convergence. - <strong>RMSProp</strong>: Adjusts learning rates based on the moving average of squared gradients, suitable for non-stationary objective functions.</li>
+<li><p><strong>Why This Is Necessary</strong>: In neural network training, the model generates predictions via forward propagation and computes the error using a loss function. To minimize this error, the model’s parameters (weights and biases) need to be adjusted. However, finding the optimal solution in a high-dimensional, complex loss function is challenging without a systematic approach. The optimizer provides a method to iteratively update parameters based on gradients, ensuring efficient convergence to a minimum loss.</p></li>
+<li><p><strong>What It Achieves</strong>: The optimizer enables the model to efficiently and stably converge to a low-loss state, improving prediction accuracy. Different optimizers adapt to various data characteristics and network architectures, helping to overcome issues like slow convergence, instability due to high learning rates, or getting trapped in local minima.</p></li>
+<li><p><strong>Common Types</strong>:</p>
+<ul>
+<li><strong>Stochastic Gradient Descent (SGD)</strong>: Updates parameters using gradients from a single sample or small batch, simple but may converge slowly or oscillate.</li>
+<li><strong>Momentum</strong>: Adds a momentum term to SGD, accelerating updates and helping escape local minima.</li>
+<li><strong>Adam (Adaptive Moment Estimation)</strong>: Combines momentum and RMSProp, adaptively adjusts learning rates, widely used for its fast and stable convergence.</li>
+<li><strong>RMSProp</strong>: Adjusts learning rates based on the moving average of squared gradients, suitable for non-stationary objective functions.</li>
 <li><strong>Notes</strong>: The choice of optimizer and its hyperparameters (e.g., learning rate) is often tuned via hyperparameter optimization (HPO) to suit specific tasks.</li>
+</ul></li>
 </ul>
 </section>
-<section id="hyperparameters" class="level3">
-<h3 class="anchored" data-anchor-id="hyperparameters">Hyperparameters</h3>
-<ul>
-<li><p><strong>Gradient Descent</strong>: Iteratively adjusts weights in the direction that reduces the loss. Step size is determined by the learning rate. <a href="https://pub.towardsai.net/deep-learning-from-scratch-in-modern-c-gradient-descent-670bc5889112">Article</a></p></li>
-<li><p><strong>Learning Rate</strong>: Step size for weight updates. Here are some articles about how to set up the learning rate: <a href="https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e">Article 1</a>, <a href="https://www.jeremyjordan.me/nn-learning-rate/">Article 2</a></p></li>
-</ul>
+<section id="gradient-descent" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-descent">Gradient Descent</h3>
+<p>Gradient descent is an optimization algorithm used to find the optimal solution (usually the global minimum) of a loss function by updating the weight in the opposite direction of the gradient to gradually reduce the loss. Step size is determined by the learning rate. <a href="https://pub.towardsai.net/deep-learning-from-scratch-in-modern-c-gradient-descent-670bc5889112">Article</a></p>
+<p><strong>Life-like Analogy</strong>: Descending a Mountain to Find the Lowest Point Imagine you are on a topographic map with many valleys (the landscape of the loss function), and your goal is to find the lowest valley (the minimum loss). You are standing at a random starting point (initial weights), but you cannot see the entire landscape, only feel the slope under your feet (the gradient). Gradient descent is like taking steps downwards based on the slope (gradient):</p>
+<p>If the slope tilts to the left (the gradient is positive), you move to the right (the opposite direction). If the slope tilts to the right (the gradient is negative), you move to the left (the opposite direction). You take a step each time (update the weights) until you reach a low point (minimum loss).</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*vchQOUUW_RPVjkb4pQF-1A.gif" class="img-fluid"></p>
+</section>
+<section id="learning-rate" class="level3">
+<h3 class="anchored" data-anchor-id="learning-rate">Learning Rate</h3>
+<p>Step size for weight updates. Here are some articles about how to set up the learning rate: <a href="https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e">Article 1</a>, <a href="https://www.jeremyjordan.me/nn-learning-rate/">Article 2</a></p>
 <p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif" class="img-fluid"></p>
-<ul>
-<li><strong>Batch Size</strong>: Number of samples processed before updating weights.</li>
-</ul>
+</section>
+<section id="batch-size" class="level3">
+<h3 class="anchored" data-anchor-id="batch-size">Batch Size</h3>
+<p>Number of samples processed before updating weights.</p>
 <p><img src="images/截圖 2025-03-31 上午12.44.32.png" class="img-fluid"></p>
-<ul>
-<li><p><strong>Epochs</strong>: Number of complete passes through the training data.</p></li>
-<li><p><strong>Hidden Units</strong>: Number of nodes in hidden layers.</p></li>
-</ul>
-<p>(Here is the article explain what is Batch Size, Epochs, and Hidden Units. <a href="https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations">Article</a>)</p>
+</section>
+<section id="epochs" class="level3">
+<h3 class="anchored" data-anchor-id="epochs">Epochs</h3>
+<p>Number of complete passes through the training data.</p>
+<p>(Here is the article explain what is Batch Size, Epochs, and iterations. <a href="https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations">Article</a>)</p>
 </section>
 </section>
 </section>
 <section id="neural-network-training-process" class="level1">
 <h1>4. Neural Network Training Process</h1>
 <p><img src="https://api.wandb.ai/files/mostafaibrahim17/images/projects/37042936/274d6d90.png" class="img-fluid"></p>
+<p>The training process of a neural network could mainly divide into three stages:</p>
+<ol type="1">
+<li><strong>Forward Propagation</strong>: Data flows from input to output, generating predictions.</li>
+<li><strong>Loss Calculation</strong>: Compares predicted values with actual values, calculating the error.</li>
+<li><strong>Backward Propagation</strong>: Adjusts the network’s weights based on the error, optimizing the model.</li>
+</ol>
+<p>These three stages are repeated multiple times until the error (loss) becomes very small.</p>
+</section>
+<section id="model-evaluation" class="level1">
+<h1>5. Model Evaluation</h1>
+<p>In order to evaluate the performance of the neural network, there are several plots you can see.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/截圖 2025-03-31 下午10.28.10.png" class="img-fluid figure-img"></p>
+<figcaption>OvR (One-vs-Rest), OvO (One-vs-One)</figcaption>
+</figure>
+</div>
+</section>
+<section id="model-performance-enhancement" class="level1">
+<h1>6. Model Performance Enhancement</h1>
+<p>There are also several ways to improve the performance of the model. Each optimization methods would fit different scenarios and most of the time those method needs to use together to have a best result.</p>
+<p><img src="images/截圖 2025-03-31 下午11.08.18.png" class="img-fluid"></p>
+<p>In this note, we would meaning focusing on the Hyperparameter Fine-Tuning.</p>
+<section id="hyperparameter-fine-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="hyperparameter-fine-tuning">6.1. Hyperparameter Fine-Tuning</h2>
+<p>In machine learning and deep learning, hyperparameters are parameters that must be set manually before the model training process begins.</p>
+<p>These hyperparameters can significantly impact the model’s performance and are associated with various components of the neural network. Common types of hyperparameters include:</p>
+<ul>
+<li><strong>Model Architecture Parameters</strong>: Such as the number of layers, the number of units (neurons) per layer, and the size of convolutional filters in a convolutional neural network (CNN).</li>
+<li><strong>Training Process Parameters</strong>: Such as the learning rate, batch size, and the choice of optimizer (e.g., SGD, Adam).</li>
+<li><strong>Regularization Parameters</strong>: Such as the L2 regularization coefficient and the dropout rate, which help prevent overfitting.</li>
+</ul>
+<p>To achieve the best performance, we need to find the optimal settings for these hyperparameters. There are three common methods for hyperparameter tuning: Grid Search, Random Grid Search, and Bayesian Optimization. Compared to traditional methods like Grid Search and Random Grid Search, Bayesian Optimization is more efficient because it leverages the results of previous trials to guide subsequent searches, rather than exhaustively or randomly trying all possible combinations.</p>
+<p>Related <a href="https://www.sciencedirect.com/science/article/pii/S0169743922000314#fig3">Article</a></p>
+<p><img src="https://ars.els-cdn.com/content/image/1-s2.0-S0169743922000314-gr2.jpg" class="img-fluid"></p>
+</section>
+<section id="bayesian-hyperparameter-fine-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-hyperparameter-fine-tuning">6.2. Bayesian Hyperparameter Fine-Tuning</h2>
+<p>Bayesian optimization works through the following two core components:</p>
+<ul>
+<li><strong>Surrogate Model:</strong>
+<ul>
+<li>The surrogate model typically uses a Gaussian Process (GP) to approximate the objective function, which represents the relationship between hyperparameter combinations and model performance.</li>
+<li>The surrogate model predicts the performance of different hyperparameter combinations and provides uncertainty estimates.</li>
+</ul></li>
+<li><strong>Acquisition Function:</strong>
+<ul>
+<li>The acquisition function determines the hyperparameter combination for the next trial, balancing Exploration and Exploitation:
+<ul>
+<li>Exploration: Focusing on areas with high uncertainty, which may potentially yield high performance</li>
+<li>Exploitation: Choosing the area predicted to have the best performance.</li>
+</ul></li>
+<li>Common acquisition functions include Expected Improvement (EI), Probability of Improvement (PI), and Upper Confidence Bound (UCB).</li>
+</ul></li>
+</ul>
+<p>The process of Bayesian optimization:</p>
+<ol type="1">
+<li><strong>Initialization</strong>: Randomly select several hyperparameter combinations, train the model with each combination, and record the performance (e.g., validation accuracy or loss).</li>
+<li><strong>Modeling</strong>: Use a Gaussian Process (or another surrogate model) to fit the relationship between hyperparameters and performance, creating a surrogate function.</li>
+<li><strong>Select the Next Hyperparameter Set</strong>: Use the acquisition function to identify the hyperparameter combination most likely to improve performance, and select it for the next trial.</li>
+<li><strong>Update</strong>: Incorporate the results of the new trial into the surrogate model, and repeat steps 2–3 until a stopping criterion is met (e.g., a maximum number of trials is reached or performance converges).</li>
+</ol>
+<p>Bayesian Optimization is particularly effective for continuous hyperparameters, such as learning rate and dropout rate, because the Gaussian Process assumes a smooth relationship between hyperparameters and performance. For discrete hyperparameters (e.g., number of layers or units) or categorical hyperparameters (e.g., optimizer type), Bayesian Optimization can still be applied by using appropriate surrogate models (e.g., tree-based models) or by mapping discrete values to a continuous space during optimization.</p>
+</section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
 <p>Article:</p>
 <ul>
 <li>https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9</li>
+<li>https://wandb.ai/mostafaibrahim17/ml-articles/reports/Decoding-Backpropagation-and-Its-Role-in-Neural-Network-Learning--Vmlldzo3MTY5MzM1</li>
+<li>https://tamaszilagyi.com/blog/2017/2017-11-11-animated_net/</li>
+<li>https://pub.towardsai.net/deep-learning-from-scratch-in-modern-c-gradient-descent-670bc5889112</li>
+<li>https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e</li>
+<li>https://www.jeremyjordan.me/nn-learning-rate/</li>
 <li>https://awesomeneuron.substack.com/p/activation-functions-the-secret-sauce</li>
 <li>https://www.sabrepc.com/blog/Deep-Learning-and-AI/Epochs-Batch-Size-Iterations</li>
+<li>https://www.sciencedirect.com/science/article/pii/S0169743922000314</li>
 </ul>
 <p>Image:</p>
 <ul>
-<li><p>https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?s sl=1&amp;w=800&amp;resize=800&amp;ssl=1</p></li>
-<li><p>https://www.youtube.com/watch?v =1npWKwGaq9Q&amp;ab_channel=AwesomeNeuron</p></li>
-<li><p>https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif</p></li>
+<li>https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?s sl=1&amp;w=800&amp;resize=800&amp;ssl=1</li>
+<li>https://www.youtube.com/watch?v =1npWKwGaq9Q&amp;ab_channel=AwesomeNeuron</li>
+<li>https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif</li>
+<li>https://ars.els-cdn.com/content/image/1-s2.0-S0169743922000314-gr2.jpg</li>
 </ul>
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="left-align">
