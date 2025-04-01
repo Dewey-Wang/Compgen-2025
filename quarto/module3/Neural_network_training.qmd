@@ -15,9 +15,9 @@ editor:
 
 # 1. Introduction to the process of training neural network
 
-In order to train a good nerual network model, you need to do the data preprocessing and understand the struture of the model.
+In order to train a good neural network model, you need to perform data preprocessing and understand the structure of the model.
 There are several different models available and the struture is slightly different.
-Here, we would just focus on the basic component of the neural network model.
+Here, we will focus on the basic components of a neural network model.
 
 # 2. Data Preperation
 
@@ -55,8 +55,8 @@ Here is the basic step for you to do the cleanup in Multi-modal omic data:
 ## 2.2. Harmonize Training and Testing Datasets
 
 After the data cleanup, the dataset need to be seprate into training group and testing group.
-In \[Note 1: Supervising Learning\](module1/supervised.html) section 3, you could see how to seperate dataset.
-In addition to the seperation, the training and testing datasets must be consistent in terms of features and scaling to ensure fair evaluation.
+In \[Note 1: Supervising Learning\](module1/supervised.html) section 3, you could see how to separate dataset.
+In addition to the separation, the training and testing datasets must be consistent in terms of features and scaling to ensure fair evaluation.
 If the training and testing datasets have different feature sets or scaling, the model may fail to generalize.
 This step is critical for reliable model evaluation and for ensuring that predictions are meaningful in a clinical context.
 
@@ -161,7 +161,8 @@ Parameters that determine the importance of each input, adjusted during training
 
 Introduce non-linearity (e.g., ReLU, sigmoid) to allow the network to learn complex patterns.
 Without this, neural networks couldn't make the magic.
-[Example1](https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9), [Article](https://www.analyticssteps.com/blogs/7-types-activation-functions-neural-network)
+
+For more details, see [Example1](https://towardsai.net/p/machine-learning/introduction-to-neural-networks-and-their-key-elements-part-c-activation-functions-layers-ea8c915a9d9) and [Article](https://www.analyticssteps.com/blogs/7-types-activation-functions-neural-network).
 
 ![](images/截圖%202025-03-31%20下午3.03.12.png)
 
@@ -224,6 +225,13 @@ You take a step each time (update the weights) until you reach a low point (mini
 Step size for weight updates.
 Here are some articles about how to set up the learning rate: [Article 1](https://medium.com/@ompramod9921/mastering-gradient-descent-optimizing-neural-networks-with-precision-e461e996633e), [Article 2](https://www.jeremyjordan.me/nn-learning-rate/)
 
+**Challenges in Gradient Descent & Learning Rat**:
+
+The step size (learning rate) is critical in gradient descent:
+
+-   If the learning rate is too large, you might overshoot the minimum and oscillate or diverge.
+-   If the learning rate is too small, convergence will be slow, requiring more iterations. Choosing an appropriate learning rate often requires experimentation or techniques like learning rate scheduling.
+
 ![](https://miro.medium.com/v2/resize:fit:720/format:webp/1*Nq6UMjR0WyH0Q8sDYmSzaQ.gif)
 
 ### Batch Size
@@ -240,15 +248,23 @@ Number of complete passes through the training data.
 
 # 4. Neural Network Training Process
 
+The training process of a neural network can be divided into three main stages:
+
+1.  **Forward Propagation**:
+    -   Data flows from the input layer to the output layer through the hidden layers.
+    -   Each neuron computes a weighted sum of its inputs, applies an activation function, and passes the result to the next layer.
+    -   The final output is the model's prediction.
+    -   **Example**: For a binary classification task, the output layer might produce a value between 0 and 1, representing the probability of the positive class.
+2.  **Loss Calculation**:
+    -   The loss function compares the model's predictions with the actual target values to compute the error.
+    -   For example, in a binary classification task, a common loss function is binary cross-entropy, which measures the difference between predicted probabilities and true labels.
+    -   **Purpose**: The loss provides a quantitative measure of how well the model is performing, guiding the optimization process.
+3.  **Backward Propagation (Backpropagation)**:
+    -   The error is propagated backward through the network to compute gradients of the loss function with respect to each weight.
+    -   The optimizer (e.g., Adam, SGD) uses these gradients to update the weights in a direction that reduces the loss.
+    -   **Learning Rate**: The step size of the weight updates is controlled by the learning rate, which must be carefully tuned to ensure stable convergence.
+
 ![](https://api.wandb.ai/files/mostafaibrahim17/images/projects/37042936/274d6d90.png)
-
-The training process of a neural network could mainly divide into three stages:
-
-1.  **Forward Propagation**: Data flows from input to output, generating predictions.
-2.  **Loss Calculation**: Compares predicted values with actual values, calculating the error.
-3.  **Backward Propagation**: Adjusts the network's weights based on the error, optimizing the model.
-
-These three stages are repeated multiple times until the error (loss) becomes very small.
 
 # 5. Model Evaluation
 
@@ -259,7 +275,7 @@ In order to evaluate the performance of the neural network, there are several pl
 # 6. Model Performance Enhancement
 
 There are also several ways to improve the performance of the model.
-Each optimization methods would fit different scenarios and most of the time those method needs to use together to have a best result.
+Each optimization methods would fit different scenarios and most of the time those methods need to use together to have a best result.
 
 ![](images/截圖%202025-03-31%20下午11.08.18.png)
 
