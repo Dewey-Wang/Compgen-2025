@@ -13,7 +13,7 @@ editor:
 ```{r, echo=FALSE}
 ```
 
-# 1. Introduction to the process of training neural network
+# 1. There are several different kinds of Neural Network Structure.
 
 In order to train a good neural network model, you need to perform data preprocessing and understand the structure of the model.
 There are several different models available and the struture is slightly different.
@@ -168,13 +168,23 @@ For more details, see [Example1](https://towardsai.net/p/machine-learning/introd
 
 ![](images/ActivationFunctionsVisuallyExplained-ezgif.com-speed.gif)
 
-### Loss Functions
+### Loss Functions and Regularization
 
-Loss functions measure the difference between model predictions and actual values, guiding optimization in machine learning.
+Loss functions measure the difference between model predictions and actual values, guiding the optimization process in machine learning by providing a signal for updating model parameters.
+
+Regularization function is optional but it could prevent overfitting and improve model generalization.
+
+In practice, the total loss function often consists of a data-related loss (e.g., Mean Squared Error, Cross-Entropy Loss) combined with regularization terms (e.g., L1 or L2 regularization).
+These components can be combined by adding them together, with appropriate weighting factors to balance their contributions.
+For example, a total loss might be formulated as: (Dice Loss + Focal Loss + λ \* L2 Regularization), where λ controls the strength of regularization.
+
+Below is a table of common regularization techniques.
+
+![](images/截圖 2025-04-01 下午6.19.38.png)
 
 Below is a comprehensive table of common loss functions, categorized by task type for easy reference.
 
-![](images/截圖%202025-03-31%20下午3.14.57.png)
+![](images/截圖 2025-04-01 下午6.15.54.png)
 
 ::: {style="display: flex; gap: 20px; align-items: center;"}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/v_ueBW_5dLg" title="Loss Function Explanation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>

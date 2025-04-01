@@ -1,5 +1,5 @@
 ---
-title: "Multiomics Integration"
+title: "Genomics Model"
 author: "Ding Yang Wang"
 date: "`r Sys.Date()`"
 format:
@@ -10,72 +10,195 @@ format:
 ```{r, echo=FALSE}
 ```
 
-# 1. Image Registration
+# 1. Introduction of the Layers
 
-In the previous notes, I mentioned that there are different types of spatial omics data, including spatial transcriptomics and histology images. Through image registration, spatial transcriptomics data can be aligned with histology images, enabling multi-modal integration by linking molecular and morphological features.
+As discussed in the previous section, there are several types of neural network models, and selecting the appropriate model depends on your specific task. In this section, we will focus on the layers that form the structure of these models, rather than delving into the models themselves. In earlier notes, we have covered other essential elements, such as activation functions and optimizers. Here, we will concentrate solely on layers.
 
-This process helps interpret transcriptomics data in the context of tissue structure and supports automated region segmentation and pathology-guided analysis.
+Neural network models are constructed from layers and activation functions. In other words, understanding the various layers enables you to build your own model or easily comprehend how other models function. Below, we will introduce different layers, including their descriptions, typical positions in a network, and practical use cases, highlighting what each layer can learn and where it can be applied.
 
-# 2. Methods of Image Registration
+## Fully Connected Layer (FC Layer)
 
-## 2.1. Automated Registration
+-   **Description**: A layer where every neuron is connected to all nodes in the previous layer, allowing the network to learn complex relationships between all input features.
 
-Step 1. Keypoint detection/selection (e.g., SIFT)
+-   **Typical Position**: Hidden layers, output layer.
 
-Step 2. Descriptor Matching (e.g., FLANN-based matching)
+-   **Use Case**:
 
-Step 3. Homography transformation (e.g., RANSC)
+    -   **What it can learn**: It can learn global patterns and relationships across all input features, making it good for combining information from different parts of the data.
 
-Efficient for large-scale datasets but may require fine-tuning.
+    -   **Practical applications**: Used in tasks like predicting house prices (by learning relationships between features like size, location, and age) or classifying text sentiment (e.g., positive or negative reviews). In biology, it can be used to predict drug response based on gene expression data.
 
-## 2.2. Manual Alignment
+The picture shows three FC Layer, including hidden layers and output layers.
 
-Step 1. Manually Keypoint selection
+![](https://i2.wp.com/cdn-images-1.medium.com/max/550/1*pO5X2c28F1ysJhwnmPsy3Q.gif?ssl=1&w=800&resize=800&ssl=1)
 
-Step 2. Homography transformation (e.g., TPS)
+## Convolutional Layer
 
-Ensures accurate alignment when automated methods fail.
+-   **Description**: A layer designed for grid-like data, such as images, that uses filters to detect local patterns like edges, textures, or shapes.
 
-### Exsamples
+-   **Typical Position**: Hidden layers.
 
-::: {.center-images layout-ncol="2"}
-![Xenium DAPI image (negative-stained)](images/截圖%202025-03-16%20上午3.58.41.png){width="296"}
+-   **Use Case**:
 
-![H&E image](images/截圖%202025-03-16%20上午3.52.50.png){width="292"}
-:::
+    -   **What it can learn**: It can learn local features in data, such as edges in images, patterns in time-series, or motifs in sequences.
 
+    -   **Practical applications**: Commonly used in image recognition (e.g., identifying objects in photos, like cats or dogs) or video analysis (e.g., detecting actions in videos). In biology, it can detect patterns in DNA sequences for variant calling.
 
-::: {.center-images layout-ncol="2"}
-![Align Both images](images/2025-03-164.00.32-ezgif.com-video-to-gif-converter.gif){width="277"}
+![with different stride](https://content.codecademy.com/courses/deeplearning-with-tensorflow/image-classification/stride.gif){width="282"}![with padding](https://upload.wikimedia.org/wikipedia/commons/1/19/2D_Convolution_Animation.gif){fig-align="center" width="256"}
 
-![Overlay Xenium clusters with H&E](images/Rplot08.png){width="322"}
-:::
+## Recurrent Layer
 
-# 3. Spatial Multiomics Integration
+-   **Description**: A layer for sequential data, where it remembers past information to understand patterns over time or sequence.
 
-In the previous notes, I mentioned that Xenium captures not only transcripts within cells but also those outside the cells. This allows Xenium to provide Cell assay and Molecule assay. This feature provides a more comprehensive understanding of spatial transcriptomics.
+-   **Typical Position**: Hidden layers.
 
-However, while we can detect molecules outside the cells, we do not know what they are interacting with. To address this, we need tissue morphology information. Here, we use COVID-19-infected lung tissue as an example.
+-   **Use Case**:
 
-::: {.center-images layout-ncol="1"}
-![Integrate cell assay and molecule assay](images/Rplot07.png){width="461"}
-:::
+    -   **What it can learn**: It can learn temporal or sequential dependencies, such as the order of words in a sentence or trends in a time-series.
 
-In the sample, the ORF1AB gene is present in template viral RNA, while the N gene is found in replicating viral RNA. By analyzing the N/ORF1AB gene ratio, we can determine whether the virus is actively replicating.
+    -   **Practical applications**: Used in language modeling (e.g., predicting the next word in a sentence) or speech recognition (e.g., transcribing audio to text). In biology, it can analyze time-series gene expression data to study how genes change over time.
 
-To incorporate tissue morphology, we use H&E images, where pathologists annotate healing membrane regions. By integrating healing membrane annotations with the molecule assay, we can study whether the virus is active in these regions.
+## Attention Layer
 
-::: {.center-images layout-ncol="2"}
-![H&E with Annotation](images/Rplot09.png){width="412"}
+-   **Description**: A layer that focuses on important parts of the input by calculating how much each part relates to others, often used for sequences or graphs.
 
-![Integrate H&E and molecule assay](images/Rplot10.png){width="457"}
-:::
+-   **Typical Position**: Hidden layers.
 
-# Supplementary Notes
+-   **Use Case**:
 
-To extract more information from images, interactive exploration tools can be used.
+    -   **What it can learn**: It can learn which parts of the input are most relevant to each other, such as which words in a sentence are related or which nodes in a graph are connected.
 
-For example: Convert Anndata into Zarr format and use VoltRon for an interactive visualization system
+    -   **Practical applications**: Widely used in machine translation (e.g., translating English to French by focusing on relevant words) or chatbots (e.g., understanding context in a conversation). In biology, it can model relationships in genomic sequences, such as predicting variant effects.
+
+## Pooling Layer
+
+-   **Description**: A layer that reduces the size of the data by summarizing regions, such as taking the maximum or average value in a small area.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn to focus on the most important features in a region, reducing noise and making the model more robust to small changes.
+
+    -   **Practical applications**: Used in image processing to reduce image size while keeping key features (e.g., in facial recognition to focus on key facial features). In biology, it can reduce the dimensionality of genomic sequence data for easier processing.
+
+## Embedding Layer
+
+-   **Description**: A layer that converts discrete data (like words or IDs) into continuous vectors, making it easier for the network to process.
+
+-   **Typical Position**: Input layer, hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn meaningful representations of discrete items, such as the similarity between words or categories.
+
+    -   **Practical applications**: Used in language tasks like word embeddings (e.g., learning that "king" and "queen" are similar) or recommendation systems (e.g., embedding user IDs to recommend movies). In biology, it can embed gene IDs to predict gene functions.
+
+## Graph Convolutional Layer
+
+-   **Description**: A layer for graph-structured data, where it learns by combining information from connected nodes in a graph.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn relationships and patterns in graph data, such as connections between nodes or communities in a network.
+
+    -   **Practical applications**: Used in social network analysis (e.g., predicting friendships based on connections) or knowledge graphs (e.g., linking related concepts). In biology, it can analyze gene interaction networks to predict pathways or drug sensitivity.
+
+## Batch Normalization Layer
+
+-   **Description**: A layer that standardizes the inputs to a layer, making training faster and more stable.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It doesn't directly learn patterns but helps the network learn better by keeping the data in a consistent range, reducing training issues.
+
+    -   **Practical applications**: Used in deep networks for image classification (e.g., improving accuracy in object detection) or language tasks (e.g., stabilizing training in large language models). In biology, it can stabilize training when integrating gene expression and proteomics data.
+
+## Layer Normalization
+
+-   **Description**: A layer that standardizes the inputs for each sample, useful for sequential data and independent of batch size.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: Similar to batch normalization, it helps the network learn more effectively by normalizing data, especially for sequences.
+
+    -   **Practical applications**: Used in language models (e.g., stabilizing training in Transformers for text generation) or speech processing (e.g., improving audio models). In biology, it can help process sequential genomic data like gene sequences.
+
+## Residual Connection
+
+-   **Description**: A layer that adds a shortcut connection, allowing the network to learn differences (residuals) and train deeper networks more easily.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn small adjustments (residuals) to the input, making it easier to train very deep networks without losing performance.
+
+    -   **Practical applications**: Used in deep image models (e.g., ResNet for image classification) or deep language models (e.g., improving text understanding). In biology, it can help build deep models for high-dimensional gene expression analysis.
+
+## Transposed Convolutional Layer
+
+-   **Description**: A layer that increases the size of the data, often used to generate or upsample data like images.
+
+-   **Typical Position**: Hidden layers (decoders).
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn how to expand data, such as generating high-resolution images from low-resolution ones.
+
+    -   **Practical applications**: Used in image generation (e.g., creating fake images in GANs) or image segmentation (e.g., identifying objects in photos). In biology, it can generate genomic sequences or upsample chromosomal images.
+
+## Gated Layer (e.g., LSTM, GRU)
+
+-   **Description**: An enhanced recurrent layer with gates to control what information to keep or forget, better for long sequences.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It can learn long-term dependencies in sequences, such as remembering earlier parts of a sentence or time-series.
+
+    -   **Practical applications**: Used in language tasks (e.g., generating text in chatbots) or time-series prediction (e.g., stock price forecasting). In biology, it can study gene expression changes over time.
+
+## Dropout Layer
+
+-   **Description**: A layer that randomly ignores some neurons during training to prevent the model from overfitting.
+
+-   **Typical Position**: Hidden layers.
+
+-   **Use Case**:
+
+    -   **What it can learn**: It doesn't learn patterns directly but helps the network learn more robustly by preventing reliance on specific neurons.
+
+    -   **Practical applications**: Used in image classification (e.g., preventing overfitting in photo recognition) or language models (e.g., improving text classification). In biology, it can reduce overfitting in high-dimensional gene expression data.
+
+This section introduces the neural network models commonly used in genomics research, particularly for multi-omics data integration. We will explore their applications in various research tasks, such as drug response prediction, pathway analysis, and cross-modality prediction. Each model is presented with its key characteristics and the types of studies it is best suited for.
+
+1.  Introduction of the Models In genomics research, neural networks are powerful tools for integrating and analyzing multi-omics data (e.g., gene expression, mutations, proteomics). Below is a list of models discussed in this workshop, along with their applications in specific research tasks:
+
+Embeddings are numerical representations of data (e.g., genes, samples) that capture abstract, lower-dimensional features. They are widely used in deep learning to reduce the dimensionality of high-dimensional omics data and extract meaningful patterns.
+
+# **2. Embeddings**
+
+## **2.1. What Are Embeddings?**
+
+-   **Definition**: Embeddings are feature vectors or matrices that represent a sample or feature in a lower-dimensional space.
+
+-   **Purpose**: They reduce the dimensionality of raw omics data (e.g., from 13,000 features to 5 features) while preserving relevant information.
+
+-   **Example**: A gene expression matrix with 10,000 features can be compressed into a 5-dimensional embedding vector, representing higher-order biological processes.
+
+## **2.2. Biological Interpretation**
+
+Embeddings can be thought of as capturing higher-order biological functions, such as pathways or processes, rather than individual gene measurements. For example:
+
+-   A single gene's expression may not be meaningful in isolation, but a combination of genes (represented by an embedding) might reflect a biological pathway (e.g., growth factor sensing).
 
 ::: left-align
 [Previous](Spatial_Transcriptomics_Analysis.qmd)

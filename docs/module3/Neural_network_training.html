@@ -167,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-the-process-of-training-neural-network" id="toc-introduction-to-the-process-of-training-neural-network" class="nav-link active" data-scroll-target="#introduction-to-the-process-of-training-neural-network">1. Introduction to the process of training neural network</a></li>
+  <li><a href="#there-are-several-different-kinds-of-neural-network-structure." id="toc-there-are-several-different-kinds-of-neural-network-structure." class="nav-link active" data-scroll-target="#there-are-several-different-kinds-of-neural-network-structure.">1. There are several different kinds of Neural Network Structure.</a></li>
   <li><a href="#data-preperation" id="toc-data-preperation" class="nav-link" data-scroll-target="#data-preperation">2. Data Preperation</a>
   <ul class="collapse">
   <li><a href="#data-cleanup" id="toc-data-cleanup" class="nav-link" data-scroll-target="#data-cleanup">2.1. Data Cleanup</a></li>
@@ -181,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#neuronsnodes" id="toc-neuronsnodes" class="nav-link" data-scroll-target="#neuronsnodes">Neurons/Nodes</a></li>
   <li><a href="#weights" id="toc-weights" class="nav-link" data-scroll-target="#weights">Weights</a></li>
   <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions">Activation Functions</a></li>
-  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions">Loss Functions</a></li>
+  <li><a href="#loss-functions-and-regularization" id="toc-loss-functions-and-regularization" class="nav-link" data-scroll-target="#loss-functions-and-regularization">Loss Functions and Regularization</a></li>
   <li><a href="#optimizer" id="toc-optimizer" class="nav-link" data-scroll-target="#optimizer">Optimizer</a></li>
   <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent">Gradient Descent</a></li>
   <li><a href="#learning-rate" id="toc-learning-rate" class="nav-link" data-scroll-target="#learning-rate">Learning Rate</a></li>
@@ -234,8 +234,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction-to-the-process-of-training-neural-network" class="level1">
-<h1>1. Introduction to the process of training neural network</h1>
+<section id="there-are-several-different-kinds-of-neural-network-structure." class="level1">
+<h1>1. There are several different kinds of Neural Network Structure.</h1>
 <p>In order to train a good neural network model, you need to perform data preprocessing and understand the structure of the model. There are several different models available and the struture is slightly different. Here, we will focus on the basic components of a neural network model.</p>
 </section>
 <section id="data-preperation" class="level1">
@@ -377,11 +377,15 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/截圖 2025-03-31 下午3.03.12.png" class="img-fluid"></p>
 <p><img src="images/ActivationFunctionsVisuallyExplained-ezgif.com-speed.gif" class="img-fluid"></p>
 </section>
-<section id="loss-functions" class="level3">
-<h3 class="anchored" data-anchor-id="loss-functions">Loss Functions</h3>
-<p>Loss functions measure the difference between model predictions and actual values, guiding optimization in machine learning.</p>
+<section id="loss-functions-and-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="loss-functions-and-regularization">Loss Functions and Regularization</h3>
+<p>Loss functions measure the difference between model predictions and actual values, guiding the optimization process in machine learning by providing a signal for updating model parameters.</p>
+<p>Regularization function is optional but it could prevent overfitting and improve model generalization.</p>
+<p>In practice, the total loss function often consists of a data-related loss (e.g., Mean Squared Error, Cross-Entropy Loss) combined with regularization terms (e.g., L1 or L2 regularization). These components can be combined by adding them together, with appropriate weighting factors to balance their contributions. For example, a total loss might be formulated as: (Dice Loss + Focal Loss + λ * L2 Regularization), where λ controls the strength of regularization.</p>
+<p>Below is a table of common regularization techniques.</p>
+<p><img src="images/截圖 2025-04-01 下午6.19.38.png" class="img-fluid"></p>
 <p>Below is a comprehensive table of common loss functions, categorized by task type for easy reference.</p>
-<p><img src="images/截圖 2025-03-31 下午3.14.57.png" class="img-fluid"></p>
+<p><img src="images/截圖 2025-04-01 下午6.15.54.png" class="img-fluid"></p>
 <div style="display: flex; gap: 20px; align-items: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/v_ueBW_5dLg" title="Loss Function Explanation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
