@@ -21,23 +21,18 @@ The Compgen-2025 course, expertly led by **Dr. Altuna Akalın**, **Dr. Artür Ma
 - Spatial Transcriptomics Analysis
 - Multiomics Integration
 
----
+#### Week 3 coding
 
-## Upcoming Content
-
-Stay tuned! I’m excited to upload new content soon, focusing on using **Neural Networks with Genomics Data** for:  
-- **Breast Cancer Subtype Prediction**  
-- **Survival Analysis**  
-- **Drug Response Prediction**  
-
-This upcoming section will also include code implementations to demonstrate how neural networks can be applied to these genomic challenges. If you’re interested in these topics, keep an eye on this repository for updates! 🔍
+- **Breast Cancer Subtype Prediction** [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%201/noteboook/day1_hw_brca_subtypes.ipynb)
+- **Survival Analysis**  [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%202/noteboook/day2_hw_lgg_gbm.ipynb)
+- **Drug Response Prediction**  [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%203/noteboook/day3.ipynb)
 
 ---
 
 ## How to Use This Repository
 
 - **Notes**: Browse the HTML files or visit the hosted site ([https://dewey-wang.github.io/Compgen-2025/](https://dewey-wang.github.io/Compgen-2025/)) for a polished reading experience.
-- **Code**: Check the code directories for scripts where I apply the knowledge from the course to practical problems in genomics. These include implementations of statistical methods, machine learning models, and spatial transcriptomics workflows, primarily in R.
+- **Code**: Check the code directories for scripts where I apply the knowledge from the course to practical problems in genomics. These include implementations of statistical methods, machine learning models, and spatial transcriptomics workflows.
 - **Contributions**: Feel free to suggest improvements, share feedback, or collaborate by opening an issue or pull request!
 
 ---
