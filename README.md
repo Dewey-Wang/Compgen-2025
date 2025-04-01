@@ -23,9 +23,9 @@ The Compgen-2025 course, expertly led by **Dr. Altuna Akalın**, **Dr. Artür Ma
 
 #### Week 3 coding
 
-- **Breast Cancer Subtype Prediction** [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%201/noteboook/day1_hw_brca_subtypes.ipynb)
-- **Survival Analysis**  [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%202/noteboook/day2_hw_lgg_gbm.ipynb)
-- **Drug Response Prediction**  [Code in Jupyternotebook](Compgen-2025/code/module%203/hw/day%203/noteboook/day3.ipynb)
+- **Breast Cancer Subtype Prediction**   [Code in Jupyternotebook](code/module%203/hw/day%201/noteboook/day1_hw_brca_subtypes.ipynb)
+- **Survival Analysis**                  [Code in Jupyternotebook](code/module%203/hw/day%202/noteboook/day2_hw_lgg_gbm.ipynb)
+- **Drug Response Prediction**           [Code in Jupyternotebook](code/module%203/hw/day%203/noteboook/day3.ipynb)
 
 ---
 
