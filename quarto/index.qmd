@@ -40,17 +40,17 @@ The **Compgen2025** course is organized by the **Max Delbrück Center** at the *
 
     3.  Spatial Multiomics Integration - [Notes](module2/Multiomics_Integration.qmd)
 
-    -   [GitHub Link](https://github.com/BIMSBbioinfo/VoltRon?tab=readme-ov-file#installation)
+    -   [lesson GitHub Link](https://github.com/BIMSBbioinfo/VoltRon?tab=readme-ov-file#installation)
 
 -   **Module 3**: Multi-omics data integration (Haven't finished)
 
     1.  Introduction of Multiomics - [Notes](module3/Introduction_of_Multiomics.qmd), [Course record](https://www.youtube.com/watch?v=7QxRqhFDJiY&ab_channel=BoraUyar), [Slides](https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit)
 
-    3.  Neural Network Training - [Notes](Neural_network_training.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=CjTjcu_k2EI), [Slides](https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit)
+    2.  Neural Network Training - [Notes](module3/Neural_network_training.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=CjTjcu_k2EI), [Slides](https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit)
 
-    3.  Genomics Model - [Notes](module3/Genomics_Model.qmd)(In the note, I used lots of supplyment. Therefore, it might be different than the course record), [Course record](https://www.youtube.com/watch?feature=shared&v=WM4VkjFHOwI), [Slides](https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit)
+    3.  Genomics Model - [Notes](module3/Genomics_Model.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=WM4VkjFHOwI), [Slides](https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit) (In the note, I used lots of supplyments. Therefore, it might be different from the course record)
 
-    -   [GitHub Link](https://github.com/BIMSBbioinfo/compgen_course_2025_module3)
+    -   [lesson GitHub Link](https://github.com/BIMSBbioinfo/compgen_course_2025_module3)
 
 # Acknowledgments
 

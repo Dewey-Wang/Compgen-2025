@@ -548,6 +548,14 @@ video:
 -   https://www.youtube.com/embed/Jj_w_zOEu4M
 -   https://www.youtube.com/embed/2V3Uduw1zwQ
 
-::: left-align
+
+
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+::: {.left-align}
 [Previous](Neural_network_training.qmd)
+:::
+
+::: {.right-align}
+[Return Main page](../index.qmd)
+:::
 :::

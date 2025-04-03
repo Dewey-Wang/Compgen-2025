@@ -191,6 +191,12 @@ Unlike unsupervised learning's exploratory focus, supervised learning uses label
 
 -   <https://compgenomr.github.io/book/supervisedLearning.html>
 
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
 ::: {.left-align}
 [Previous](unsupervised.qmd)
+:::
+
+::: {.right-align}
+[Next: Module 2](../module2/Introduction_of_Spatial_Transcriptomics.qmd)
+:::
 :::

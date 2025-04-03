@@ -77,6 +77,13 @@ To extract more information from images, interactive exploration tools can be us
 
 For example: Convert Anndata into Zarr format and use VoltRon for an interactive visualization system
 
-::: left-align
+
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+::: {.left-align}
 [Previous](Spatial_Transcriptomics_Analysis.qmd)
+:::
+
+::: {.right-align}
+[Next: Module 3](../module3/Introduction_of_Multiomics.qmd)
+:::
 :::
