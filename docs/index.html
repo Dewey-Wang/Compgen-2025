@@ -166,6 +166,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#welcome-to-genomic-insights" id="toc-welcome-to-genomic-insights" class="nav-link active" data-scroll-target="#welcome-to-genomic-insights">Welcome to Genomic Insights</a></li>
   <li><a href="#about-the-course" id="toc-about-the-course" class="nav-link" data-scroll-target="#about-the-course">About the Course</a></li>
   <li><a href="#course-notes" id="toc-course-notes" class="nav-link" data-scroll-target="#course-notes">Course Notes</a></li>
+  <li><a href="#practical-applications" id="toc-practical-applications" class="nav-link" data-scroll-target="#practical-applications">Practical Applications</a>
+  <ul class="collapse">
+  <li><a href="#spatial-transcriptomics" id="toc-spatial-transcriptomics" class="nav-link" data-scroll-target="#spatial-transcriptomics">Spatial Transcriptomics</a></li>
+  <li><a href="#breast-cancer-subtype-prediction" id="toc-breast-cancer-subtype-prediction" class="nav-link" data-scroll-target="#breast-cancer-subtype-prediction">Breast Cancer Subtype Prediction</a></li>
+  <li><a href="#survival-analysis" id="toc-survival-analysis" class="nav-link" data-scroll-target="#survival-analysis">Survival Analysis</a></li>
+  <li><a href="#drug-response-prediction" id="toc-drug-response-prediction" class="nav-link" data-scroll-target="#drug-response-prediction">Drug Response Prediction</a></li>
+  </ul></li>
   <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
   </ul>
 </nav>
@@ -232,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><a href="https://github.com/BIMSBbioinfo/VoltRon?tab=readme-ov-file#installation">lesson GitHub Link</a></li>
 </ul></li>
-<li><p><strong>Module 3</strong>: Multi-omics data integration (Haven’t finished)</p>
+<li><p><strong>Module 3</strong>: Multi-omics data integration and Neural Network</p>
 <ol type="1">
 <li><p>Introduction of Multiomics - <a href="./module3/Introduction_of_Multiomics.html">Notes</a>, <a href="https://www.youtube.com/watch?v=7QxRqhFDJiY&amp;ab_channel=BoraUyar">Course record</a>, <a href="https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit">Slides</a></p></li>
 <li><p>Neural Network Training - <a href="./module3/Neural_network_training.html">Notes</a>, <a href="https://www.youtube.com/watch?feature=shared&amp;v=CjTjcu_k2EI">Course record</a>, <a href="https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit">Slides</a></p></li>
@@ -242,6 +249,37 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://github.com/BIMSBbioinfo/compgen_course_2025_module3">lesson GitHub Link</a></li>
 </ul></li>
 </ul>
+</section>
+<section id="practical-applications" class="level1">
+<h1>Practical Applications</h1>
+<p>In addition to the theoretical notes, I also worked on several hands-on projects during the course, applying the concepts to real-world problems in computational genomics. Below are some of the complete analyses I conducted:</p>
+<section id="spatial-transcriptomics" class="level2">
+<h2 class="anchored" data-anchor-id="spatial-transcriptomics">Spatial Transcriptomics</h2>
+<ul>
+<li>Analyzed spatial transcriptomics data with spot deconvolution and niche clustering. Registered multimodal images (cell assays, molecular assays, H&amp;E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions.</li>
+</ul>
+</section>
+<section id="breast-cancer-subtype-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="breast-cancer-subtype-prediction">Breast Cancer Subtype Prediction</h2>
+<ul>
+<li>Integrated METABRIC multi-omics data (gex, cna, clinical); selected features with Laplacian score; trained model with Bayesian hyperparameter tuning; evaluated classification performance.</li>
+<li><a href="https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%201/noteboook/day1_hw_brca_subtypes.ipynb">Code</a></li>
+</ul>
+</section>
+<section id="survival-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="survival-analysis">Survival Analysis</h2>
+<ul>
+<li>Integrated TCGA LGG/GBM data (mutation, cna, clinical); performed EDA; built survival models targeting OS STATUS/OS MONTHS; computed top 5 features with Integrated Gradients; built Cox-PH model with markers and clinical variables; visualized log hazard ratios.</li>
+<li><a href="https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%202/noteboook/day2_hw_lgg_gbm.ipynb">Code</a></li>
+</ul>
+</section>
+<section id="drug-response-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="drug-response-prediction">Drug Response Prediction</h2>
+<ul>
+<li>Integrated CCLE/GDSC data (mutation, rna) to build models predicting Erlotinib responses; enhanced neural network models by incorporating STRINGDB protein network with Bayesian hyperparameter tuning; computed top 10 features with Integrated Gradients for correlation analysis.</li>
+<li><a href="https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%203/noteboook/day3.ipynb">Code</a></li>
+</ul>
+</section>
 </section>
 <section id="acknowledgments" class="level1">
 <h1>Acknowledgments</h1>

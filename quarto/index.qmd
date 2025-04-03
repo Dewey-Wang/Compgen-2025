@@ -42,7 +42,7 @@ The **Compgen2025** course is organized by the **Max Delbrück Center** at the *
 
     -   [lesson GitHub Link](https://github.com/BIMSBbioinfo/VoltRon?tab=readme-ov-file#installation)
 
--   **Module 3**: Multi-omics data integration (Haven't finished)
+-   **Module 3**: Multi-omics data integration and Neural Network
 
     1.  Introduction of Multiomics - [Notes](module3/Introduction_of_Multiomics.qmd), [Course record](https://www.youtube.com/watch?v=7QxRqhFDJiY&ab_channel=BoraUyar), [Slides](https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit)
 
@@ -51,6 +51,29 @@ The **Compgen2025** course is organized by the **Max Delbrück Center** at the *
     3.  Genomics Model - [Notes](module3/Genomics_Model.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=WM4VkjFHOwI), [Slides](https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit) (In the note, I used lots of supplyments. Therefore, it might be different from the course record)
 
     -   [lesson GitHub Link](https://github.com/BIMSBbioinfo/compgen_course_2025_module3)
+
+# Practical Applications
+
+In addition to the theoretical notes, I also worked on several hands-on projects during the course, applying the concepts to real-world problems in computational genomics. Below are some of the complete analyses I conducted:
+
+## Spatial Transcriptomics
+
+-   Analyzed spatial transcriptomics data with spot deconvolution and niche clustering. Registered multimodal images (cell assays, molecular assays, H&E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions.
+
+## Breast Cancer Subtype Prediction
+
+-   Integrated METABRIC multi-omics data (gex, cna, clinical); selected features with Laplacian score; trained model with Bayesian hyperparameter tuning; evaluated classification performance.
+-   [Code](https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%201/noteboook/day1_hw_brca_subtypes.ipynb)
+
+## Survival Analysis
+
+-   Integrated TCGA LGG/GBM data (mutation, cna, clinical); performed EDA; built survival models targeting OS STATUS/OS MONTHS; computed top 5 features with Integrated Gradients; built Cox-PH model with markers and clinical variables; visualized log hazard ratios.
+-   [Code](https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%202/noteboook/day2_hw_lgg_gbm.ipynb)
+
+## Drug Response Prediction
+
+-   Integrated CCLE/GDSC data (mutation, rna) to build models predicting Erlotinib responses; enhanced neural network models by incorporating STRINGDB protein network with Bayesian hyperparameter tuning; computed top 10 features with Integrated Gradients for correlation analysis.
+-   [Code](https://github.com/Dewey-Wang/Compgen-2025/blob/main/code/module%203/hw/day%203/noteboook/day3.ipynb)
 
 # Acknowledgments
 
