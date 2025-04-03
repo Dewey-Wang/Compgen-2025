@@ -32,10 +32,8 @@ website:
             text: "1. Introduction of Multiomics"
           - href: module3/Neural_network_training.qmd
             text: "2. Neural Network Training"
-          - href: module3/Survival_Analysis.qmd
-            text: "3. Survival Analysis"
-          - href: module3/Drug_Response_Prediction.qmd
-            text: "4. Drug Response Prediction"
+          - href: module3/Genomics_Model.qmd
+            text: "3. Model"
 
 format:
   html:

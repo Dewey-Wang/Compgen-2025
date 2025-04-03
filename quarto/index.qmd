@@ -46,11 +46,9 @@ The **Compgen2025** course is organized by the **Max Delbrück Center** at the *
 
     1.  Introduction of Multiomics - [Notes](module3/Introduction_of_Multiomics.qmd), [Course record](https://www.youtube.com/watch?v=7QxRqhFDJiY&ab_channel=BoraUyar), [Slides](https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit)
 
-    1.  Breast Cancer Subtype Prediction - [Notes](BRC_Subtype_Prediction.qmd), [Course record](https://www.youtube.com/watch?v=7QxRqhFDJiY&ab_channel=BoraUyar), [Slides](https://docs.google.com/presentation/d/1Z3m8JOQY0JidM7gIJNFWaOfCaTH-rU47y4zCu5Bk6mE/edit)
+    3.  Neural Network Training - [Notes](Neural_network_training.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=CjTjcu_k2EI), [Slides](https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit)
 
-    2.  Survival Analysis - [Notes](BRC_Subtype_Prediction.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=CjTjcu_k2EI), [Slides](https://docs.google.com/presentation/d/1a31RoNIiZYdZFL9cc4OZ3TpgBGrk1IH1brW9VeHo3dQ/edit)
-
-    3.  Drug Response Prediction - [Notes](Drug_Response_Prediction.qmd), [Course record](https://www.youtube.com/watch?feature=shared&v=WM4VkjFHOwI), [Slides](https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit)
+    3.  Genomics Model - [Notes](module3/Genomics_Model.qmd)(In the note, I used lots of supplyment. Therefore, it might be different than the course record), [Course record](https://www.youtube.com/watch?feature=shared&v=WM4VkjFHOwI), [Slides](https://docs.google.com/presentation/d/1OvXK4H5W7qbD4jeru8pwnkQdiGz0RfjrW4Omd8kd0dg/edit)
 
     -   [GitHub Link](https://github.com/BIMSBbioinfo/compgen_course_2025_module3)
 

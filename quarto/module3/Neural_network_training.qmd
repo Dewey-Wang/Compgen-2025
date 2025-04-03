@@ -360,6 +360,6 @@ Image:
 :::
 
 ::: right-align
-[Next](Drug_Response_Prediction.qmd)
+[Next](Genomics_Model.qmd)
 :::
 :::
