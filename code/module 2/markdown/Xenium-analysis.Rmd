@@ -1,0 +1,326 @@
+---
+title: "Spatial Transcriptomics - Xenium Analysis"
+author: "Ding Yang Wang"
+date: "2025-04-04"
+output: html_document
+output_dir: ../../../docs/module2
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;">
+← Back to Note</a>
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+
+</nav>
+
+```{=html}
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
+```
+
+# Description
+
+This R Markdown document performs a high-resolution **cell-level spatial
+analysis** using **Xenium** breast cancer data and **VoltRon** package.
+Unlike Visium (spot-based), Xenium captures **individual cells**,
+allowing us to investigate **local microenvironments**, **immune-tumor
+interactions**, and **expression hotspots**.
+
+We perform a full analysis including: data filtering, disk-based
+representation for large-scale handling, clustering, marker analysis,
+and hotspot detection.
+
+## Xenium Analysis – Cell-Level Spatial Transcriptomics
+
+Compared to spot-based methods (e.g., Visium), Xenium captures
+**individual cell** or even **molecule-level** information, enabling
+high-resolution analysis of **cell identity**, **spatial interactions**,
+and **functional zones** within tissues. This allows us to examine not
+just spatial zones of gene expression but **individual cells and their
+microenvironments**.
+
+```{r setup, include=FALSE}
+options(java.parameters = "-Xmx8g")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+# Load Required Libraries
+
+```{r load-libraries, message=FALSE}
+library(HDF5Array)
+library(ImageArray)
+library(BPCells)
+library(VoltRon)
+library(rhdf5) 
+library(Seurat)
+library(patchwork)
+library(ComplexHeatmap)
+```
+
+------------------------------------------------------------------------
+
+# Data Import & Filtering
+
+We start by importing the Xenium dataset and filtering out cells with
+low expression counts (e.g., low RNA molecule counts per cell) to remove
+noise. This helps reduce background signal and computational burden.
+
+```{r import-xenium, eval = FALSE}
+Xen_R1 <- importXenium("../workshop/data/BreastCancer/Xenium_R1/outs/", 
+                       sample_name = "XeniumR1", 
+                       overwrite_resolution = TRUE, 
+                       resolution_level = 3)
+
+# Filter cells with low molecule counts
+Xen_R1 <- subset(Xen_R1, Count > 5)
+```
+
+------------------------------------------------------------------------
+
+# On-Disk Representation
+
+Xenium datasets are often large (especially in molecule-resolution), so
+we store them on disk using an `HDF5VoltRon` format. Disk-backed formats
+allow us to analyze large spatial datasets without crashing R due to
+memory limits.
+
+```{r, eval = FALSE}
+# Save and reload Xenium object
+Xen_R1_ondisk <- saveVoltRon(Xen_R1, 
+                             format = "HDF5VoltRon", 
+                             output = "../workshop/data/ondisk/Xen_R1", 
+                             replace = TRUE)
+Xen_R1_ondisk <- loadVoltRon("../workshop/data/ondisk/Xen_R1/")
+```
+
+```{r xenium-disk, echo=FALSE}
+Xen_R1_ondisk <- readRDS("./RDS/Xen_R1_ondisk_1.rds")
+```
+
+------------------------------------------------------------------------
+
+# Omic Profile Clustering
+
+We normalize gene expression, perform dimensionality reduction (PCA +
+UMAP), and cluster cells using SNN. The UMAP visualization shows
+distinct clusters of cells based on expression, while the spatial plot
+reveals **how those clusters organize within tissue**.
+
+```{r, eval = FALSE}
+Xen_R1_ondisk <- normalizeData(Xen_R1_ondisk, sizefactor = 1000)
+Xen_R1_ondisk <- getPCA(Xen_R1_ondisk, dims = 20, overwrite = TRUE)
+Xen_R1_ondisk <- getUMAP(Xen_R1_ondisk, dims = 1:20, overwrite = TRUE)
+Xen_R1_ondisk <- getProfileNeighbors(Xen_R1_ondisk, dims = 1:20, method = "SNN")
+Xen_R1_ondisk <- getClusters(Xen_R1_ondisk, resolution = 1.3, label = "Cluste rs", graph = "SNN")
+
+# UMAP + spatial plots
+p1 <- vrEmbeddingPlot(Xen_R1_ondisk, group.by = "Clusters", embedding = "umap", pt.size = 0.4, label = TRUE)
+p2 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "Clusters", pt.size = 0.18)
+
+(p1 | p2) 
+```
+
+```{r xenium-clustering, fig.align='center', fig.width=9, fig.height=4, echo=FALSE}
+# UMAP + spatial plots
+p1 <- vrEmbeddingPlot(Xen_R1_ondisk, group.by = "Clusters", embedding = "umap", pt.size = 0.4, label = TRUE)
+p2 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "Clusters", pt.size = 0.18)
+
+(p1 | p2) 
+```
+
+------------------------------------------------------------------------
+
+# Marker Analysis & Cell Type Annotation
+
+We identify marker genes and annotate each cluster based on known cell
+types. This gives biological meaning to the clusters and helps define
+what kinds of cells are where in the tissue.
+
+```{r, eval = FALSE}
+# Convert to Seurat for marker detection
+Xen_R1$Clusters <- Xen_R1_ondisk$Clusters
+Xen_R1_seu <- VoltRon::as.Seurat(Xen_R1, cell.assay = "Xenium", type = "image")
+Idents(Xen_R1_seu) <- "Clusters"
+Xen_R1_seu <- NormalizeData(Xen_R1_seu, scale.factor = 1000)
+markers <- FindAllMarkers(Xen_R1_seu)
+
+# Annotate clusters with known labels
+annotations <- read.table("../workshop/data/BreastCancer/Xenium_R1/annotation.txt")[,1]
+CellType <- factor(Xen_R1_ondisk$Clusters)
+levels(CellType) <- annotations
+Xen_R1_ondisk$CellType <- as.character(CellType)
+
+# Visualize annotations
+p1 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 0.18, alpha = 1)
+p2 <- vrEmbeddingPlot(Xen_R1_ondisk, group.by = "CellType", embedding = "umap", pt.size = 0.4, label = TRUE)
+
+# Save annotated object
+Xen_R1_ondisk <- saveVoltRon(Xen_R1_ondisk)
+(p1 | p2) 
+```
+
+```{r xenium-annotation, fig.align='center', fig.width=11, fig.height=4, echo=FALSE}
+Xen_R1_ondisk <- readRDS("./RDS/Xen_R1_ondisk_2.rds")
+# Visualize annotations
+p1 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 0.18, alpha = 1)
+p2 <- vrEmbeddingPlot(Xen_R1_ondisk, group.by = "CellType", embedding = "umap", pt.size = 0.4, label = TRUE)
+(p1 | p2) 
+```
+
+------------------------------------------------------------------------
+
+# Spatially Aware Clustering (Niche Clustering)
+
+Now that we know cell types, we want to see how they're arranged in
+tissue. Using **spatial neighborhoods**, we build a graph of cell-cell
+proximity, compute the **abundance of cell types around each cell**,
+normalize them (CLR), and perform **k-means clustering**.
+
+These **niche clusters** reveal **tissue microenvironments** — like
+immune zones or invasive tumor nests — based on **compositional
+cell-type context**.
+
+```{r, eval = FALSE}
+# Build spatial neighbor graph
+Xen_R1_ondisk <- getSpatialNeighbors(Xen_R1_ondisk, radius = 30, method = "radius")
+
+# Build niche matrix
+Xen_R1_ondisk <- getNicheAssay(Xen_R1_ondisk, label = "CellType", graph.type = "radius", overwrite =TRUE)
+
+# Normalize + cluster niche profiles
+vrMainFeatureType(Xen_R1_ondisk) <- "Niche"
+Xen_R1_ondisk <- normalizeData(Xen_R1_ondisk, method = "CLR")
+Xen_R1_ondisk <- getClusters(Xen_R1_ondisk, nclus = 9, method = "kmeans", label = "niche_clusters")
+
+# Visualize
+p1 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "niche_clusters", alpha = 1)
+p2 <- vrHeatmapPlot(Xen_R1_ondisk, features = vrFeatures(Xen_R1_ondisk), group.by = "niche_clusters")
+(p1 | p2) 
+```
+
+```{r xenium-niche, fig.align='center', fig.width=9, fig.height=3, echo=FALSE}
+Xen_R1_ondisk <- readRDS("./RDS/Xen_R1_ondisk_3.rds")
+p1 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "niche_clusters", alpha = 1)
+p2 <- vrHeatmapPlot(Xen_R1_ondisk, features = vrFeatures(Xen_R1_ondisk), group.by = "niche_clusters")
+library(gridExtra)
+library(grid)
+heatmap_grob <- grid.grabExpr(draw(p2))
+grid.arrange(p1, heatmap_grob, ncol = 2)
+```
+
+> 💬 *Interpretation:* In the clustering plots, different **niche
+> clusters** represent distinct **spatial microenvironments**. For
+> example: cluster 2 (**ACTA2 and KRT-positive epithelial cells**)
+> suggest structural zones, while immune-dense niches cluster
+> separately. These patterns help us map **functional domains** within
+> the tissue, guided by **cellular composition and spatial context**.
+
+------------------------------------------------------------------------
+
+# Subsetting Cell Types
+
+To explore **immune infiltration** or **stromal interactions**, we
+subset and visualize specific cell types. These plots help confirm
+findings from the niche heatmaps.
+
+```{r xenium-celltype,  fig.align='center', fig.width=9, fig.height=3}
+p1 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 0.18, alpha = 1, 
+              group.ids = c("ACTA2_myoepithelial", "KRT15_myoepithelial"))
+
+p2 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 1, alpha = 1, 
+              group.ids = c("CD4_TCells", "CD8_TCells", "BCells"), n.tile = 400)
+(p1 | p2) 
+```
+
+> 🔍 Interpretation of Spatial & Niche Clustering Plots
+>
+> -   **ACTA2 / KRT15** myoepithelial cells form **structural
+>     boundaries**, likely marking tumor edges or ductal structures.
+> -   **CD4 / CD8 T cells and B cells** highlight areas of **immune
+>     infiltration**, with CD8+ T cells suggesting cytotoxic responses
+>     and B cells possibly forming lymphoid-like structures.
+
+------------------------------------------------------------------------
+
+# Hot Spot Analysis
+
+This analysis detects **statistical hotspots** of a specific gene (e.g.
+`PGR`), identifying areas where expression is **significantly elevated
+in both a cell and its neighbors**.\
+It uses **Getis-Ord statistics**, comparing local vs. global expression
+means, and outputs per-cell p-values.
+
+```{r, eval = FALSE}
+# Build spatial neighbor graph for hotspot
+Xen_R1_ondisk <- getSpatialNeighbors(Xen_R1_ondisk, method = "radius", radius = 15, graph.key = "radius_hot")
+
+# Define RNA features as main
+vrMainFeatureType(Xen_R1_ondisk) <- "RNA"
+
+# Visualize gene
+p1 <- vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR", alpha = 1, background.color = "black", n.tile = 300)
+
+# Run hotspot test
+Xen_R1_ondisk <- getHotSpotAnalysis(Xen_R1_ondisk, features = "PGR", graph.type = "radius_hot", alpha.value = 0.001)
+
+# Visualize significant regions
+p2 <- vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR_hotspot_stat", alpha = 1, background.color = "black", n.tile = 400)
+p3 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "PGR_hotspot_flag", alpha = 1, background.color = "black", n.tile = 400)
+
+p1 + p2 + p3
+```
+
+```{r xenium-hotspot,  fig.align='center', fig.width=12, fig.height=3, echo=FALSE}
+Xen_R1_ondisk <- readRDS("./RDS/Xen_R1_ondisk_4.rds")
+
+# Visualize gene
+p1 <- vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR", alpha = 1, background.color = "black", n.tile = 300)
+
+# Visualize significant regions
+p2 <- vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR_hotspot_stat", alpha = 1, background.color = "black", n.tile = 400)
+p3 <- vrSpatialPlot(Xen_R1_ondisk, group.by = "PGR_hotspot_flag", alpha = 1, background.color = "black", n.tile = 400)
+
+p1 + p2 + p3
+```
+
+> 💬 *Explanation:* Hotspot analysis pinpoints **regions of biological
+> activity**, such as hormone-active tumor zones or interferon
+> responses. It complements clustering by analyzing **spatial patterns
+> of single gene features**.
+
+------------------------------------------------------------------------
+
+# Summary
+
+This Xenium pipeline provides a high-resolution, cell-level spatial
+analysis of breast cancer tissue, including:
+
+-   Cell identity classification
+-   Microenvironment niche clustering
+-   Detection of spatial gene expression hotspots
+
+These steps help us understand **cellular organization, interactions,
+and functional zones** — essential for cancer biology, immunology, and
+tissue profiling.
+
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;">
+← Back to Note</a>
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+
+</nav>

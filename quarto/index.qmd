@@ -68,6 +68,7 @@ In addition to the theoretical notes, I also worked on several hands-on projects
     -   Xenium Analysis
 
         -   Xenium is a **cell-level spatial transcriptomics platform** that offers subcellular resolution. This allows us to examine not just spatial zones of gene expression but **individual cells and their microenvironments**. Here, we perform a full analysis including: data filtering, disk-based representation for large-scale handling, clustering, marker analysis, and hotspot detection.
+        -   [Code](module2/Xenium-analysis.html)
 
     -   Xenium Analysis with Image Registration
 

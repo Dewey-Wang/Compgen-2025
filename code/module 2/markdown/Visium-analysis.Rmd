@@ -5,6 +5,7 @@ date: "2025-04-03"
 output:
   html_document: default
   pdf_document: default
+output_dir: ../../docs/module2
 ---
 
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
@@ -60,9 +61,9 @@ In this step, we import the spatial gene expression data from the mouse brain, s
 
 ```{r import-visium, eval = FALSE}
 # import Visium data
-Ant_Sec1 <- importVisium("./workshop/data/Mouse Brain/Sagittal_Anterior/Section1/",
+Ant_Sec1 <- importVisium("../workshop/data/Mouse Brain/Sagittal_Anterior/Section1/",
                          sample_name = "Anterior1")
-Pos_Sec1 <- importVisium("./workshop/data/Mouse Brain/Sagittal_Posterior/Section1/",
+Pos_Sec1 <- importVisium("../workshop/data/Mouse Brain/Sagittal_Posterior/Section1/",
                          sample_name = "Posterior1")
 
 # merge datasets
@@ -98,7 +99,7 @@ However, since each spot includes **multiple cells**, clustering alone is **not 
 
 ::: center
 ```{r, echo=FALSE, fig.width=10, fig.height=4}
-MBrain_Sec <- readRDS("../../../MBrain_Sec_1.rds")
+MBrain_Sec <- readRDS("./RDS/MBrain_Sec_1.rds")
 p1 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap")
 p2 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Clusters")
 
@@ -134,7 +135,7 @@ Since each Visium spot includes a mixture of cell types, we use a **reference si
 
 ```{r, fig.align='center', fig.width=9, fig.height=4}
 # reference data visualization
-allen_reference <- readRDS("./workshop/data/Mouse Brain/scRNA Mouse Brain/allen_cortex_analyzed_subset.rds")
+allen_reference <- readRDS("../workshop/data/Mouse Brain/scRNA Mouse Brain/allen_cortex_analyzed_subset.rds")
 Idents(allen_reference) <- "subclass"
 gsubclass <- DimPlot(allen_reference, reduction = "umap", label = T) + NoLegend()
 Idents(allen_reference) <- "class"
@@ -152,7 +153,7 @@ vrSpatialFeaturePlot(MBrain_Sec, features = c("L4", "L5 PT", "Oligo", "Vip"), cr
 ```
 
 ```{r, echo=FALSE}
-MBrain_Sec <- readRDS("../../../MBrain_Sec_2.rds")
+MBrain_Sec <- readRDS("./RDS/MBrain_Sec_2.rds")
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}

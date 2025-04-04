@@ -1,0 +1,38 @@
+---
+title: "Xenium Analysis with Image Registration"
+author: "Ding Yang Wang"
+date: "2025-04-04"
+output:
+  html_document: default
+  pdf_document: default
+output_dir: ../../docs/module2
+---
+
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
+  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+</nav>
+
+
+```{=html}
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
+```
+
+# Description
+
+This R Markdown document performs a comprehensive spatial transcriptomics analysis using the **VoltRon** package.
+
+The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+
+
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
+  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+</nav>

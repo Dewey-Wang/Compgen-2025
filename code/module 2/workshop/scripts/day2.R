@@ -51,7 +51,7 @@ head(selected_features, 20)
 # embedding
 MBrain_Sec <- getPCA(MBrain_Sec, features = selected_features, dims = 30)
 MBrain_Sec <- getUMAP(MBrain_Sec, dims = 1:30)
-saveRDS(MBrain_Sec, "MBrain_Sec_1.rds")
+saveRDS(MBrain_Sec, "./project/code/module 2/markdown/RDS/MBrain_Sec_1.rds")
 vrEmbeddingNames(MBrain_Sec)
 
 # embedding visualization
@@ -153,7 +153,7 @@ if(!requireNamespace("ComplexHeatmap"))
 library(ComplexHeatmap)
 vrHeatmapPlot(MBrain_Sec, features = vrFeatures(MBrain_Sec), group.by = "Niche_Clusters",
               show_row_names = T, show_heatmap_legend = T)
-saveRDS(MBrain_Sec, "MBrain_Sec_2.rds")
+saveRDS(MBrain_Sec, "./project/code/module 2/markdown/RDS/MBrain_Sec_2.rds")
 ####
 # Xenium Analysis ####
 ####
@@ -227,6 +227,8 @@ vrGraphNames(Xen_R1_ondisk)
 # clustering
 Xen_R1_ondisk <- getClusters(Xen_R1_ondisk, resolution = 1.3, label = "Clusters", graph = "SNN")
 
+saveRDS(Xen_R1_ondisk, "./project/code/module 2/markdown/RDS/Xen_R1_ondisk_1.rds")
+
 # visualization
 vrEmbeddingPlot(Xen_R1_ondisk, group.by = "Clusters", embedding = "umap", 
                 pt.size = 0.4, label = TRUE)
@@ -264,6 +266,7 @@ vrEmbeddingPlot(Xen_R1_ondisk, group.by = "CellType", embedding = "umap",
 
 # save clusters and annotations to disk
 Xen_R1_ondisk <- saveVoltRon(Xen_R1_ondisk)
+saveRDS(Xen_R1_ondisk, "./project/code/module 2/markdown/RDS/Xen_R1_ondisk_2.rds")
 
 ####
 ## Spatially aware clustering ####
@@ -296,6 +299,7 @@ vrHeatmapPlot(Xen_R1_ondisk, features = vrFeatures(Xen_R1_ondisk), group.by = "n
 # visualization of specific cell type
 vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 0.18, alpha = 1, group.ids = c("ACTA2_myoepithelial", "KRT15_myoepithelial"))
 vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 1, alpha = 1, group.ids = c("CD4_TCells", "CD8_TCells", "BCells"), n.tile = 400)
+saveRDS(Xen_R1_ondisk, "./project/code/module 2/markdown/RDS/Xen_R1_ondisk_3.rds")
 
 ####
 ### Hot Spot Analysis ####
@@ -307,6 +311,7 @@ Xen_R1_ondisk <- getSpatialNeighbors(Xen_R1_ondisk, method = "radius", radius = 
 # visualize 
 vrMainFeatureType(Xen_R1_ondisk) <- "RNA"
 vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR", alpha = 1, background.color = "black", n.tile = 300)
+saveRDS(Xen_R1_ondisk, "./project/code/module 2/markdown/RDS/Xen_R1_ondisk_4.rds")
 
 # analysis 
 Xen_R1_ondisk <- getHotSpotAnalysis(Xen_R1_ondisk, features = "PGR", graph.type = "radius_hot", alpha.value = 0.001)
