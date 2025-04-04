@@ -40,6 +40,8 @@ vrImageChannelNames(Xen_R1)
 # visualize plots
 vrSpatialPlot(Xen_R1, group.by = "Clusters", channel = "H&E")
 
+saveRDS(Xen_R1, "./project/code/module 2/markdown/RDS/Xen_R1_1.rds")
+
 # manual alignment
 xen_reg <- registerSpatialData(object_list = list(Xen_R1, Xen_R1_image_disk))
 
@@ -128,6 +130,9 @@ vr2_merged_acute1
 vrMainAssay(vr2_merged_acute1) <- "ROIAnnotation"
 vr2_merged_acute1$Region <- "Hyaline Membrane"
 
+
+saveRDS(vr2_merged_acute1, "./project/code/module 2/markdown/RDS/vr2_merged_acute1_1.rds")
+
 # visualize
 vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by = "gene", 
               group.ids = c("S2_N", "S2_orf1ab"), n.tile = 500) |>
@@ -154,6 +159,7 @@ vr2_merged_acute1 <- transferData(object = vr2_merged_acute1,
 
 # Metadata of molecules
 Metadata(vr2_merged_acute1, assay = "Xenium_mol")
+saveRDS(vr2_merged_acute1, "./project/code/module 2/markdown/RDS/vr2_merged_acute1_2.rds")
 
 # check the abundance of molecules of hyaline membranes
 s2_summary_hyaline <- 
@@ -203,9 +209,10 @@ vrSpatialPlot(vr2_merged_acute1, assay = "Xenium",channel = "H&E", group.by = "C
 vr2_merged_acute1 <- annotateSpatialData(vr2_merged_acute1, assay = "Xenium_mol", 
                                          label = "Region2", use.image = TRUE, 
                                          channel = "H&E", annotation_assay = "InfectedAnnotation")
+saveRDS(vr2_merged_acute1, "./project/code/module 2/markdown/RDS/vr2_merged_acute1_3.rds")
 
 # Metadata
-Metadata(vr2_merged_acute1, assay = "Xenium_mol")
+tmp<-Metadata(vr2_merged_acute1, assay = "Xenium_mol")
 
 # visualize multilayer
 if(!requireNamespace("ggnewscale"))
@@ -216,7 +223,7 @@ vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by = "gene",
   addSpatialLayer(vr2_merged_acute1, assay = "ROIAnnotation", group.by = "Region", alpha = 0.3, spatial = "main_reg",
                   colors = list(`Hyaline Membrane` = "blue")) |>
   addSpatialLayer(vr2_merged_acute1, assay = "InfectedAnnotation", group.by = "Region2", alpha = 0.3, 
-                  colors = list(`Infected` = "yellow"))
+                  colors = list(`Infected` = "red"))
 
 # check abundance of molecules
 s2_summary_infected <- 
@@ -229,6 +236,8 @@ s2_summary_infected <-
   as.matrix()
 s2_summary_infected
 rbind(s2_summary_infected, s2_summary_hyaline)
+saveRDS(s2_summary_hyaline, "./project/code/module 2/markdown/RDS/s2_summary_hyaline.rds")
+saveRDS(s2_summary_infected, "./project/code/module 2/markdown/RDS/s2_summary_infected.rds")
 
 # check all abundances
 S2_table <- matrix(c(s2_summary_hyaline[,1:2], 
@@ -251,6 +260,7 @@ vr2_merged_acute1 <- getSpatialNeighbors(vr2_merged_acute1, assay = "Xenium_mol"
 # get hotspot analysis
 vr2_merged_acute1 <- getHotSpotAnalysis(vr2_merged_acute1, assay = "Xenium_mol", 
                                         features = "gene", graph.type = "radius")
+saveRDS(vr2_merged_acute1, "./project/code/module 2/markdown/RDS/vr2_merged_acute1_4.rds")
 
 # visualize
 vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", 

@@ -3,14 +3,28 @@ title: "Spatial Transcriptomics - Visium Analysis"
 author: "Ding Yang Wang"
 date: "2025-04-03"
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
 output_dir: ../../docs/module2
 ---
 
-<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
 
-<a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a> <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+<div style="text-align: left;">
+<a href="../index.html" style="text-decoration: none;">Back to Note</a>
+</div>
+
+<div style="text-align: center;">
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+</div>
+
+<div style="text-align: right;">
+<a href="./Xenium-analysis.html" style="text-decoration: none;">
+See Next - Xenium Analysis</a>
+</div>
 
 </nav>
 
@@ -265,8 +279,20 @@ Download the complete dataset bundle used in this notebook:
     -   [Publication](https://www.nature.com/articles/nn.4216)
     -   [Download RDS](https://www.dropbox.com/s/cuowvm4vrf65pvq/allen_cortex.rds?dl=1)
 
-<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
 
-<a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a> <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+<div style="text-align: left;">
+<a href="../index.html" style="text-decoration: none;">Back to Note</a>
+</div>
+
+<div style="text-align: center;">
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+</div>
+
+<div style="text-align: right;">
+<a href="./Xenium-analysis.html" style="text-decoration: none;">
+See Next - Xenium Analysis</a>
+</div>
 
 </nav>
