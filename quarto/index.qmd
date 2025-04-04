@@ -63,7 +63,7 @@ In addition to the theoretical notes, I also worked on several hands-on projects
     -   Visium Analysis
 
         -   The markdown is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
-        -   [Code](https://github.com/Dewey-Wang/Compgen-2025/tree/main/code/module%202/Spatial-Transcriptomics.html)
+        -   [Code](module2/Visium-analysis.html)
 
     -   Xenium Analysis
 

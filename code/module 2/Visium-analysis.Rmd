@@ -7,6 +7,12 @@ output:
   pdf_document: default
 ---
 
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
+  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+</nav>
+
+
 ```{=html}
 <style>
 .center {
@@ -203,3 +209,8 @@ vrSpatialPlot(MBrain_Sec, group.by = "Niche_Clusters", crop = TRUE, alpha = 1)
 ```{r, fig.align='center', fig.width=5, fig.height=4}
 vrHeatmapPlot(MBrain_Sec, features = vrFeatures(MBrain_Sec), group.by = "Niche_Clusters")
 ```
+
+<nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
+  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
+  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+</nav>
