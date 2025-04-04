@@ -9,10 +9,10 @@ output_dir: ../../docs/module2
 ---
 
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
-  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
-  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
-</nav>
 
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a> <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+
+</nav>
 
 ```{=html}
 <style>
@@ -30,6 +30,8 @@ output_dir: ../../docs/module2
 This R Markdown document performs a comprehensive spatial transcriptomics analysis using the **VoltRon** package.
 
 The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+
+> If you want to reproduce the experiment: 👉 [Click here to the Docker and the data setup instructions](#environment--dataset-setup)
 
 ## Visium Analysis
 
@@ -211,7 +213,60 @@ vrSpatialPlot(MBrain_Sec, group.by = "Niche_Clusters", crop = TRUE, alpha = 1)
 vrHeatmapPlot(MBrain_Sec, features = vrFeatures(MBrain_Sec), group.by = "Niche_Clusters")
 ```
 
+------------------------------------------------------------------------
+
+# Environment & Dataset Setup {#environment--dataset-setup}
+
+## Run RStudio in Docker
+
+Use a pre-built Docker image with VoltRon and all dependencies pre-installed.
+
+1.  Make sure [Docker Desktop](https://www.docker.com/products/docker-desktop) is installed.
+
+2.  Pull the image:
+
+``` bash
+docker pull amanukyan1385/rstudio-voltron:main
+```
+
+3.  Start the container:
+
+``` bash
+docker run --rm -ti \
+  -e PASSWORD=yourpassword \
+  -p 8787:8787 \
+  -v Path/to/your/dataset:/home/rstudio/project \
+  amanukyan1385/rstudio-voltron:main
+```
+
+4.  Access RStudio:\
+    <http://localhost:8787>
+    -   Username: `rstudio`
+    -   Password: `yourpassword` \# you can change your own password
+
+You can also use Docker Desktop GUI if you prefer volume mounting.
+
+------------------------------------------------------------------------
+
+## Datasets
+
+Download the complete dataset bundle used in this notebook:
+
+[**Download all datasets (ZIP)**](#0) **- including datasets for other markdown**
+
+------------------------------------------------------------------------
+
+### Original Dataset Sources
+
+-   **Visium – Mouse Brain**
+    -   [Sagittal Anterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0)
+    -   [Sagittal Posterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-posterior-1-standard-1-1-0)
+-   **scRNA-seq Reference – Allen Brain**
+    -   [Publication](https://www.nature.com/articles/nn.4216)
+    -   [Download RDS](https://www.dropbox.com/s/cuowvm4vrf65pvq/allen_cortex.rds?dl=1)
+
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
-  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
-  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a> <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+
 </nav>

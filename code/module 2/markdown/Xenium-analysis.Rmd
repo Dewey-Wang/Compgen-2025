@@ -41,6 +41,9 @@ We perform a full analysis including: data filtering, disk-based
 representation for large-scale handling, clustering, marker analysis,
 and hotspot detection.
 
+> If you want to reproduce the experiment: 👉 [Click here to the Docker
+> and the data setup instructions](#environment--dataset-setup)
+
 ## Xenium Analysis – Cell-Level Spatial Transcriptomics
 
 Compared to spot-based methods (e.g., Visium), Xenium captures
@@ -315,6 +318,59 @@ analysis of breast cancer tissue, including:
 These steps help us understand **cellular organization, interactions,
 and functional zones** — essential for cancer biology, immunology, and
 tissue profiling.
+
+------------------------------------------------------------------------
+
+# Environment & Dataset Setup {#environment--dataset-setup}
+
+## Run RStudio in Docker
+
+Use a pre-built Docker image with VoltRon and all dependencies
+pre-installed.
+
+1.  Make sure [Docker
+    Desktop](https://www.docker.com/products/docker-desktop) is
+    installed.
+
+2.  Pull the image:
+
+``` bash
+docker pull amanukyan1385/rstudio-voltron:main
+```
+
+3.  Start the container:
+
+``` bash
+docker run --rm -ti \
+  -e PASSWORD=yourpassword \
+  -p 8787:8787 \
+  -v Path/to/your/dataset:/home/rstudio/project \
+  amanukyan1385/rstudio-voltron:main
+```
+
+4.  Access RStudio:\
+    <http://localhost:8787>
+    -   Username: `rstudio`
+    -   Password: `yourpassword` \# you can change your own password
+
+You can also use Docker Desktop GUI if you prefer volume mounting.
+
+------------------------------------------------------------------------
+
+## Datasets
+
+Download the complete dataset bundle used in this notebook:
+
+[**Download all datasets (ZIP)**](#0) **- including datasets for other
+markdown**
+
+------------------------------------------------------------------------
+
+### Original Dataset Sources
+
+-   **Xenium – Breast Cancer**
+    -   [Preview
+        Dataset](https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast)
 
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
 

@@ -384,6 +384,10 @@ and <strong>expression hotspots</strong>.</p>
 <p>We perform a full analysis including: data filtering, disk-based
 representation for large-scale handling, clustering, marker analysis,
 and hotspot detection.</p>
+<blockquote>
+<p>If you want to reproduce the experiment: 👉 <a href="#environment--dataset-setup">Click here to the Docker and the data
+setup instructions</a></p>
+</blockquote>
 <div id="xenium-analysis-cell-level-spatial-transcriptomics" class="section level2">
 <h2>Xenium Analysis – Cell-Level Spatial Transcriptomics</h2>
 <p>Compared to spot-based methods (e.g., Visium), Xenium captures
@@ -625,12 +629,64 @@ analysis of breast cancer tissue, including:</p>
 <p>These steps help us understand <strong>cellular organization,
 interactions, and functional zones</strong> — essential for cancer
 biology, immunology, and tissue profiling.</p>
+<hr />
+</div>
+<div id="environment--dataset-setup" class="section level1">
+<h1>Environment &amp; Dataset Setup</h1>
+<div id="run-rstudio-in-docker" class="section level2">
+<h2>Run RStudio in Docker</h2>
+<p>Use a pre-built Docker image with VoltRon and all dependencies
+pre-installed.</p>
+<ol style="list-style-type: decimal">
+<li><p>Make sure <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>
+is installed.</p></li>
+<li><p>Pull the image:</p></li>
+</ol>
+<pre class="bash"><code>docker pull amanukyan1385/rstudio-voltron:main</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Start the container:</li>
+</ol>
+<pre class="bash"><code>docker run --rm -ti \
+  -e PASSWORD=yourpassword \
+  -p 8787:8787 \
+  -v Path/to/your/dataset:/home/rstudio/project \
+  amanukyan1385/rstudio-voltron:main</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Access RStudio:<br />
+<a href="http://localhost:8787" class="uri">http://localhost:8787</a>
+<ul>
+<li>Username: <code>rstudio</code></li>
+<li>Password: <code>yourpassword</code> # you can change your own
+password</li>
+</ul></li>
+</ol>
+<p>You can also use Docker Desktop GUI if you prefer volume
+mounting.</p>
+<hr />
+</div>
+<div id="datasets" class="section level2">
+<h2>Datasets</h2>
+<p>Download the complete dataset bundle used in this notebook:</p>
+<p><a href="#id_0"><strong>Download all datasets (ZIP)</strong></a>
+<strong>- including datasets for other markdown</strong></p>
+<hr />
+<div id="original-dataset-sources" class="section level3">
+<h3>Original Dataset Sources</h3>
+<ul>
+<li><strong>Xenium – Breast Cancer</strong>
+<ul>
+<li><a href="https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast">Preview
+Dataset</a></li>
+</ul></li>
+</ul>
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
 <p><a href="../index.html" style="margin-right: 20px; text-decoration: none;">
 ← Back to Note</a>
 <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
 View on GitHub</a></p>
 </nav>
+</div>
+</div>
 </div>
 
 

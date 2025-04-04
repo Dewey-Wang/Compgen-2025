@@ -1,18 +1,24 @@
 ---
-title: "Xenium Analysis with Image Registration"
+title: "Spatial Transcriptomics – Image Registration and Multiomics Integration"
 author: "Ding Yang Wang"
 date: "2025-04-04"
 output:
   html_document: default
   pdf_document: default
 output_dir: ../../docs/module2
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
-  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
-  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
-</nav>
 
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;">
+← Back to Note</a>
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+
+</nav>
 
 ```{=html}
 <style>
@@ -27,12 +33,286 @@ output_dir: ../../docs/module2
 
 # Description
 
-This R Markdown document performs a comprehensive spatial transcriptomics analysis using the **VoltRon** package.
+This R Markdown document demonstrates how to: - Perform **image
+registration** to align transcriptomic and histological data. -
+Integrate **cell-level and molecule-level spatial transcriptomics**
+(Xenium). - Combine **tissue morphology** from H&E with **molecular
+insights** to study spatial infection patterns in COVID-19 lungs.
 
-The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+We will use: - Xenium breast cancer dataset with accompanying H&E
+image. - A Xenium COVID-19 lung dataset with annotated hyaline membrane
+regions and SARS-CoV-2 viral RNAs (`S2_N`, `S2_orf1ab`).
 
+> If you want to reproduce the experiment: 👉 [Click here to the Docker
+> and the data setup instructions](#environment--dataset-setup)
+
+## Description of the Files
+
+-   `Xen_R1`: Processed Xenium object of breast cancer section (cells).
+-   `Xen_R1_image`: Corresponding H&E image.
+-   `vr2_merged_acute1`: COVID-19 Xenium dataset with both **cells** and
+    **molecules** (`Xenium` and `Xenium_mol`).
+-   `acutecase1_membrane.geojson`: Annotated hyaline membrane regions.
+-   `acutecase1_heimage.jpg`: H&E image of lung tissue.
+
+```{r setup, include=FALSE}
+options(java.parameters = "-Xmx8g")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+# Load Required Libraries
+
+```{r load-libraries, message=FALSE}
+library(VoltRon)
+library(dplyr)
+library(Seurat)
+library(ComplexHeatmap)
+```
+
+------------------------------------------------------------------------
+
+# Image Registration – Xenium Breast Cancer Dataset
+
+## Why Image Registration?
+
+Spatial omics technologies capture molecular and histological views
+independently. **Image registration** allows us to align: -
+**Transcriptomic data (Xenium DAPI)** and - **Morphological data (H&E
+images)**
+
+This enables **morphology-guided cell analysis**, e.g., identifying
+tumor boundaries or immune cell infiltration zones.
+
+## Import Data
+
+\\{r} Xen_R1 \<- loadVoltRon("../data/ondisk/Xen_R1/") \\\
+
+## Register with H&E
+
+\\{r} Xen_R1_image \<-
+importImageData("../data/BreastCancer/Xenium_R1/Xenium_FFPE_Human_Breast_Cancer_Rep1_he_image_highres.tif",
+sample_name = "HEimage", channel_names = "H&E", tile.size = 100)
+Xen_R1_image_disk \<- saveVoltRon(Xen_R1_image, format = "HDF5VoltRon",
+output = "../data/ondisk/Xen_R1_image/", replace = TRUE)
+Xen_R1_image_disk \<- loadVoltRon("../data/ondisk/Xen_R1_image/") \\\
+
+### Perform Registration
+
+\\{r} xen_reg \<- registerSpatialData(object_list = list(Xen_R1,
+Xen_R1_image_disk)) Xenium_reg \<- xen_reg\$registered_spat[[2]]
+vrImages(Xen_R1[["Assay1"]], channel = "H&E") \<- vrImages(Xenium_reg,
+name = "main_reg", channel = "H&E") vrSpatialPlot(Xen_R1, group.by =
+"Clusters", channel = "H&E") \\\
+
+------------------------------------------------------------------------
+
+# Multi-omics Integration – COVID-19 Lung
+
+## Biological Background
+
+COVID-19 lungs contain viral RNAs (`S2_N`, `S2_orf1ab`), some inside
+cells, some in **hyaline membrane** regions (mucosal damage zones). We
+analyze: - **Cell types**: Immune and structural cells. - **Molecules**:
+Viral RNA transcripts.
+
+## Import Xenium Object
+
+\\{r} vr2_merged_acute1 \<- readRDS(file =
+"../data/COVID19/acutecase1_annotated.rds")
+SampleMetadata(vr2_merged_acute1) \\\
+
+## Visualize Cells & Molecules
+
+\\{r} \# Cells vrSpatialPlot(vr2_merged_acute1, assay = "Xenium",
+group.by = "CellType", plot.segments = TRUE)
+
+# Molecules
+
+vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by =
+"gene", group.ids = c("S2_N", "S2_orf1ab"), n.tile = 500) \\\
+
+### Insight
+
+Molecules often lie **outside cells**, particularly in damaged zones,
+making tissue morphology crucial for interpretation.
+
+------------------------------------------------------------------------
+
+# H&E Alignment with ROI
+
+## Import & Register H&E Image
+
+\\{r} imgdata \<-
+importImageData("../data/COVID19/acutecase1_heimage.jpg", tile.size =
+10, segments = "../data/COVID19/acutecase1_membrane.geojson",
+sample_name = "acute case 1 (HE)", channel_names = "H&E") imgdata \<-
+flipCoordinates(imgdata, assay = "ROIAnnotation") imgdata \<-
+modulateImage(imgdata, brightness = 300) xen_reg \<-
+registerSpatialData(object_list = list(vr2_merged_acute1, imgdata)) \\\
+
+## Transfer Image and ROI
+
+\\{r} imgdata_reg \<- xen_reg\$registered_spat[[2]]
+vrImages(vr2_merged_acute1[["Assay7"]], name = "main", channel = "H&E")
+\<- vrImages(imgdata_reg, assay = "Assay1", name = "main_reg")
+vrImages(vr2_merged_acute1[["Assay8"]], name = "main", channel = "H&E")
+\<- vrImages(imgdata_reg, assay = "Assay1", name = "main_reg")
+
+# Add ROI Assay
+
+vr2_merged_acute1 \<- addAssay(vr2_merged_acute1, assay =
+imgdata_reg[["Assay2"]], metadata = Metadata(imgdata_reg, assay =
+"ROIAnnotation"), assay_name = "ROIAnnotation", sample = "acute case 1",
+layer = "Section1") vrMainSpatial(vr2_merged_acute1[["Assay9"]]) \<-
+"main_reg" vr2_merged_acute1\$Region \<- "Hyaline Membrane" \\\
+
+------------------------------------------------------------------------
+
+# Transfer ROI to Molecule Data
+
+To assess whether molecules are enriched in hyaline membrane zones.
+
+\\{r} vr2_merged_acute1 \<- transferData(object = vr2_merged_acute1,
+from = "Assay9", to = "Assay8", features = "Region") \\\
+
+## Summary of Molecule Counts
+
+\\{r} s2_summary_hyaline \<- Metadata(vr2_merged_acute1, assay =
+"Xenium_mol") %\>% filter(gene %in% c("S2_N", "S2_orf1ab"), Region ==
+"Hyaline Membrane") %\>% summarise(S2_N = sum(gene == "S2_N"), S2_orf1ab
+= sum(gene == "S2_orf1ab"), ratio = sum(gene == "S2_N")/sum(gene ==
+"S2_orf1ab")) %\>% as.matrix() s2_summary_hyaline \\\
+
+🧠 **Interpretation**: `S2_N / S2_orf1ab` ratio informs us about **viral
+replication**. A higher ratio indicates more **active replication**.
+
+------------------------------------------------------------------------
+
+# Interactive Visualization
+
+Convert to AnnData/Zarr for `vitessce` or `rolv` visualization.
+
+\\{r} as.AnnData(vr2_merged_acute1, assay = "Assay7", file =
+"../data/ondisk/COVID19/vr2_merged_acute1_annotated_registered.zarr",
+flip_coordinates = TRUE, create.ometiff = TRUE, name = "main", channel =
+"H&E") \\\
+
+------------------------------------------------------------------------
+
+# Region-Based Comparison
+
+Using interactive annotation, define **infected zones** and compare with
+hyaline membranes.
+
+\\{r} \# Manually annotate infected zones vr2_merged_acute1 \<-
+annotateSpatialData(vr2_merged_acute1, assay = "Xenium_mol", label =
+"Region2", use.image = TRUE, channel = "H&E", annotation_assay =
+"InfectedAnnotation")
+
+# Compare abundance
+
+s2_summary_infected \<- Metadata(vr2_merged_acute1, assay =
+"Xenium_mol") %\>% filter(gene %in% c("S2_N", "S2_orf1ab"), Region2 ==
+"Infected") %\>% summarise(S2_N = sum(gene == "S2_N"), S2_orf1ab =
+sum(gene == "S2_orf1ab"), ratio = sum(gene == "S2_N")/sum(gene ==
+"S2_orf1ab")) %\>% as.matrix()
+
+rbind(s2_summary_infected, s2_summary_hyaline) \\\
+
+------------------------------------------------------------------------
+
+# Hotspot Analysis
+
+Identify **regions of high local molecule enrichment** using spatial
+graph statistics.
+
+\\{r} vr2_merged_acute1 \<- getSpatialNeighbors(vr2_merged_acute1, assay
+= "Xenium_mol", group.by = "gene", group.ids = c("S2_N", "S2_orf1ab"),
+method = "radius", radius = 50)
+
+vr2_merged_acute1 \<- getHotSpotAnalysis(vr2_merged_acute1, assay =
+"Xenium_mol", features = "gene", graph.type = "radius") \\\
+
+------------------------------------------------------------------------
+
+# Summary
+
+This pipeline illustrates how **integrating multiple spatial data
+types** can enhance biological insight:
+
+-   **Image registration** aligns cells and morphology.
+-   **ROI annotation** enables pathology-informed molecular analysis.
+-   **Multi-layer visualization** reveals complex infection patterns.
+-   **Ratio analysis** and **hotspot detection** highlight viral
+    activity and tissue damage zones.
+
+Together, they provide a powerful framework for spatial biology and
+disease pathology studies.
+
+------------------------------------------------------------------------
+
+# Environment & Dataset Setup {#environment--dataset-setup}
+
+## Run RStudio in Docker
+
+Use a pre-built Docker image with VoltRon and all dependencies
+pre-installed.
+
+1.  Make sure [Docker
+    Desktop](https://www.docker.com/products/docker-desktop) is
+    installed.
+
+2.  Pull the image:
+
+``` bash
+docker pull amanukyan1385/rstudio-voltron:main
+```
+
+3.  Start the container:
+
+``` bash
+docker run --rm -ti \
+  -e PASSWORD=yourpassword \
+  -p 8787:8787 \
+  -v Path/to/your/dataset:/home/rstudio/project \
+  amanukyan1385/rstudio-voltron:main
+```
+
+4.  Access RStudio:\
+    <http://localhost:8787>
+    -   Username: `rstudio`
+    -   Password: `yourpassword` \# you can change your own password
+
+You can also use Docker Desktop GUI if you prefer volume mounting.
+
+------------------------------------------------------------------------
+
+## Datasets
+
+Download the complete dataset bundle used in this notebook:
+
+[**Download all datasets (ZIP)**](#0) **- including datasets for other
+markdown**
+
+------------------------------------------------------------------------
+
+### Original Dataset Sources
+
+-   **Xenium – COVID-19 Lung**
+    -   [Annotated
+        RDS](https://bimsbstatic.mdc-berlin.de/landthaler/VoltRon/Multiomics/acutecase1_annotated.rds)
+-   **Visium CytAssist – Breast Cancer**
+    -   [Dataset](https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast)
+
+------------------------------------------------------------------------
 
 <nav style="background-color: #f8f9fa; padding: 10px; font-family: sans-serif; border-bottom: 1px solid #ddd;">
-  <a href="../index.html" style="margin-right: 20px; text-decoration: none;"> ← Back to Note</a>
-  <a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;"> View on GitHub</a>
+
+<a href="../index.html" style="margin-right: 20px; text-decoration: none;">
+← Back to Note</a>
+<a href="https://github.com/Dewey-Wang/Compgen-2025" target="_blank" style="text-decoration: none;">
+View on GitHub</a>
+
 </nav>
