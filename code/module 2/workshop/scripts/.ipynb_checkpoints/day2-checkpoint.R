@@ -51,7 +51,6 @@ head(selected_features, 20)
 # embedding
 MBrain_Sec <- getPCA(MBrain_Sec, features = selected_features, dims = 30)
 MBrain_Sec <- getUMAP(MBrain_Sec, dims = 1:30)
-saveRDS(MBrain_Sec, "MBrain_Sec_1.rds")
 vrEmbeddingNames(MBrain_Sec)
 
 # embedding visualization
@@ -89,7 +88,7 @@ if(!requireNamespace("Seurat"))
 library(Seurat)
 
 # import single cell data
-allen_reference <- readRDS("./project/code/module 2/workshop/data/Mouse Brain/scRNA Mouse Brain/allen_cortex_analyzed_subset.rds")
+allen_reference <- readRDS("../data/Mouse Brain/scRNA Mouse Brain/allen_cortex_analyzed_subset.rds")
 
 # visualize
 Idents(allen_reference) <- "subclass"
@@ -108,7 +107,7 @@ MBrain_Sec <- getDeconvolution(MBrain_Sec, sc.object = allen_reference,
                                sc.cluster = "subclass", max_cores = 2)
 
 # alternatively you can run the line below to get MBrain_Sec with deconvoluted spots
-MBrain_Sec <- readRDS("./project/code/module 2/workshop/data/Mouse Brain/MBrain_Sec_decon.rds")
+MBrain_Sec <- readRDS("../data/Mouse Brain/MBrain_Sec_decon.rds")
 
 # Visualize
 vrMainFeatureType(MBrain_Sec) <- "Decon"
@@ -124,7 +123,7 @@ vrMainFeatureType(MBrain_Sec) <- "Decon"
 MBrain_Sec <- normalizeData(MBrain_Sec, method = "CLR")
 
 # embedding visualization
-MBrain_Sec <- getUMAP(MBrain_Sec, data.type = "norm", umap.key = "umap_niche", overwrite = TRUE)
+MBrain_Sec <- getUMAP(MBrain_Sec, data.type = "norm", umap.key = "umap_niche")
 vrEmbeddingPlot(MBrain_Sec, embedding = "umap_niche", group.by = "Sample")
 
 ####
@@ -153,7 +152,7 @@ if(!requireNamespace("ComplexHeatmap"))
 library(ComplexHeatmap)
 vrHeatmapPlot(MBrain_Sec, features = vrFeatures(MBrain_Sec), group.by = "Niche_Clusters",
               show_row_names = T, show_heatmap_legend = T)
-saveRDS(MBrain_Sec, "MBrain_Sec_2.rds")
+
 ####
 # Xenium Analysis ####
 ####

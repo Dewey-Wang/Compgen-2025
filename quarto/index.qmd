@@ -58,7 +58,20 @@ In addition to the theoretical notes, I also worked on several hands-on projects
 
 ## Spatial Transcriptomics
 
--   Analyzed spatial transcriptomics data with spot deconvolution and niche clustering. Registered multimodal images (cell assays, molecular assays, H&E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions.
+-   Spatial Transcriptomics Analysis
+
+    -   Visium Analysis
+
+        -   The markdown is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+        -   [Code](https://github.com/Dewey-Wang/Compgen-2025/tree/main/code/module%202/Spatial-Transcriptomics.html)
+
+    -   Xenium Analysis
+
+        -   Xenium is a **cell-level spatial transcriptomics platform** that offers subcellular resolution. This allows us to examine not just spatial zones of gene expression but **individual cells and their microenvironments**. Here, we perform a full analysis including: data filtering, disk-based representation for large-scale handling, clustering, marker analysis, and hotspot detection.
+
+    -   Xenium Analysis with Image Registration
+
+        -   Registered multimodal images (cell assays, molecular assays, H&E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions.
 
 ## Breast Cancer Subtype Prediction
 

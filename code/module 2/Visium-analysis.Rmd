@@ -1,0 +1,205 @@
+---
+title: "Spatial Transcriptomics - Visium Analysis"
+author: "Ding Yang Wang"
+date: "2025-04-03"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{=html}
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
+```
+
+# Description
+
+This R Markdown document performs a comprehensive spatial transcriptomics analysis using the **VoltRon** package.
+
+The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+
+## Visium Analysis
+
+Visium is a **spot-level spatial transcriptomics technology**, where each spot captures gene expression from multiple cells. This creates a need for both **transcriptomic clustering** and **deconvolution** using reference single-cell datasets, so we can infer the actual cellular composition and spatial niches.
+
+```{r setup, include=FALSE}
+options(java.parameters = "-Xmx8g")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+# Load Required Libraries
+
+```{r load-libraries, message=FALSE}
+library(VoltRon)
+library(rhdf5)
+library(Seurat)
+library(patchwork)
+library(spacexr)
+library(ComplexHeatmap)
+```
+
+------------------------------------------------------------------------
+
+# Import Data
+
+In this step, we import the spatial gene expression data from the mouse brain, specifically two sections: **anterior** and **posterior**. These two datasets are merged to enable a **combined spatial analysis** across brain regions.
+
+```{r import-visium, eval = FALSE}
+# import Visium data
+Ant_Sec1 <- importVisium("./workshop/data/Mouse Brain/Sagittal_Anterior/Section1/",
+                         sample_name = "Anterior1")
+Pos_Sec1 <- importVisium("./workshop/data/Mouse Brain/Sagittal_Posterior/Section1/",
+                         sample_name = "Posterior1")
+
+# merge datasets
+MBrain_Sec <- merge(Ant_Sec1, Pos_Sec1)
+```
+
+------------------------------------------------------------------------
+
+# Omic Profile Clustering
+
+This section performs **unsupervised clustering** based on gene expression across spots. Since each spot contains multiple cells, we focus on: - **Normalization**: To remove technical variability and make gene expression comparable - **Feature selection**: Selecting top variable genes for meaningful comparisons - **Dimensionality reduction**: Using PCA and UMAP to visualize spot-level variation - **Clustering**: Identifying spot groups with similar transcriptomic profiles
+
+This step is foundational for downstream **deconvolution** and **niche clustering**.
+
+```{r visium-omic-clustering, eval = FALSE}
+MBrain_Sec <- normalizeData(MBrain_Sec)
+MBrain_Sec <- getFeatures(MBrain_Sec, n = 3000)
+selected_features <- getVariableFeatures(MBrain_Sec)
+
+MBrain_Sec <- getPCA(MBrain_Sec, features = selected_features, dims = 30)
+MBrain_Sec <- getUMAP(MBrain_Sec, dims = 1:30)
+p1 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap")
+
+MBrain_Sec <- getProfileNeighbors(MBrain_Sec, dims = 1:30, k = 10, method = "SNN")
+MBrain_Sec <- getClusters(MBrain_Sec, resolution = 0.5, label = "Clusters", graph = "SNN")
+p2 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Clusters") 
+
+p1 | p2
+```
+
+We visualize the UMAP results below — the first plot shows sample-wise distribution; the second shows clusters.\
+However, since each spot includes **multiple cells**, clustering alone is **not sufficient to determine cell types** — which is why we need deconvolution.
+
+::: center
+```{r, echo=FALSE, fig.width=10, fig.height=4}
+MBrain_Sec <- readRDS("../../../MBrain_Sec_1.rds")
+p1 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap")
+p2 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Clusters")
+
+# 組圖
+(p1 | p2)
+```
+:::
+
+------------------------------------------------------------------------
+
+# Spatial Visualization of Sections
+
+We map the same data back to **tissue coordinates**. Later, they will be used to assess whether clustering patterns align with spatial structure — a key insight in spatial omics.
+
+```{r spatial-raw, eval = FALSE, fig.width=10, fig.height=4}
+vrSpatialPlot(MBrain_Sec)
+```
+
+::: center
+```{r spatial-rendered, echo=FALSE}
+p3 <- vrSpatialPlot(MBrain_Sec)
+
+# 顯示 spatial plot
+p3
+```
+:::
+
+------------------------------------------------------------------------
+
+# Deconvolution
+
+Since each Visium spot includes a mixture of cell types, we use a **reference single-cell RNA-seq dataset** (in this case from the mouse cortex) to **deconvolute** the spots and estimate their cell-type composition.
+
+```{r, fig.align='center', fig.width=9, fig.height=4}
+# reference data visualization
+allen_reference <- readRDS("./workshop/data/Mouse Brain/scRNA Mouse Brain/allen_cortex_analyzed_subset.rds")
+Idents(allen_reference) <- "subclass"
+gsubclass <- DimPlot(allen_reference, reduction = "umap", label = T) + NoLegend()
+Idents(allen_reference) <- "class"
+gclass <- DimPlot(allen_reference, reduction = "umap", label = T) + NoLegend()
+gsubclass | gclass
+```
+
+This step allows us to **infer which cell types are present within each spot**, based on their transcriptional profile. Here, we are interesting in how the "L4", "L5 PT", "Oligo", "Vip" cells express on the spatail level and their relation.
+
+```{r, eval = FALSE}
+# Deconvolution
+MBrain_Sec <- getDeconvolution(MBrain_Sec, sc.object = allen_reference, sc.cluster = "subclass", max_cores = 2)
+vrMainFeatureType(MBrain_Sec) <- "Decon"
+vrSpatialFeaturePlot(MBrain_Sec, features = c("L4", "L5 PT", "Oligo", "Vip"), crop = TRUE, ncol = 2)
+```
+
+```{r, echo=FALSE}
+MBrain_Sec <- readRDS("../../../MBrain_Sec_2.rds")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}
+vrSpatialFeaturePlot(MBrain_Sec, features = c("L4", "L5 PT", "Oligo", "Vip"), crop = TRUE, ncol = 2)
+```
+
+------------------------------------------------------------------------
+
+# Dimensionality Reduction of Deconvolution Results
+
+Now that each spot contains a **cell type composition vector**, we normalize and reduce the dimensionality of this matrix — similar to how we handled gene expression. This allows us to **cluster spots based on their cell-type mixture**, revealing niche environments.
+
+```{r, eval = FALSE}
+MBrain_Sec <- normalizeData(MBrain_Sec, method = "CLR")
+MBrain_Sec <- getUMAP(MBrain_Sec, data.type = "norm", umap.key = "umap_niche")
+vrEmbeddingPlot(MBrain_Sec, embedding = "umap_niche", group.by = "Sample")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.width=5, fig.height=4}
+vrEmbeddingPlot(MBrain_Sec, embedding = "umap_niche", group.by = "Sample")
+```
+
+------------------------------------------------------------------------
+
+# Niche Clustering
+
+We perform clustering based on **normalized deconvolution profiles**, to identify **spatial niches** — groups of spots with similar cellular environments.
+
+```{r niche-deconvolution, eval = FALSE}
+MBrain_Sec <- getProfileNeighbors(MBrain_Sec, data.type = "norm", method = "SNN", graph.key = "SNN_niche")
+MBrain_Sec <- getClusters(MBrain_Sec, resolution = 0.4, graph = "SNN_niche", label = "Niche_Clusters")
+
+p1 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Sample")
+p2 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Niche_Clusters", label = TRUE)
+(p1 | p2) 
+```
+
+```{r, echo=FALSE, fig.align='center', fig.width=9, fig.height=4}
+p1 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Sample")
+p2 <- vrEmbeddingPlot(MBrain_Sec, embedding = "umap", group.by = "Niche_Clusters", label = TRUE)
+(p1 | p2) 
+```
+
+------------------------------------------------------------------------
+
+# Final Spatial Visualizations
+
+Here, we visualize how the **niche clusters** map back to tissue space, and use a **heatmap** to show which cell types dominate each cluster — a key insight into **spatial organization and microenvironment composition**.
+
+```{r, fig.align='center', fig.width=9, fig.height=8}
+vrSpatialPlot(MBrain_Sec, group.by = "Niche_Clusters", crop = TRUE, alpha = 1)
+```
+
+```{r, fig.align='center', fig.width=5, fig.height=4}
+vrHeatmapPlot(MBrain_Sec, features = vrFeatures(MBrain_Sec), group.by = "Niche_Clusters")
+```

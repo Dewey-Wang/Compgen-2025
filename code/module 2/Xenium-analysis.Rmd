@@ -1,0 +1,57 @@
+---
+title: "Spatial Transcriptomics - Xenium Analysis"
+author: "Ding Yang Wang"
+date: "2025-04-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Xenium is a **cell-level spatial transcriptomics platform** that offers subcellular resolution. This allows us to examine not just spatial zones of gene expression but **individual cells and their microenvironments**. Here, we perform a full analysis including: data filtering, disk-based representation for large-scale handling, clustering, marker analysis, and hotspot detection.
+
+
+In this step, we import the processed Xenium data from a **breast cancer tissue section**.  
+To reduce noise, we filter out **low-count detections** (e.g., low RNA molecule counts per cell).
+
+------------------------------------------------------------------------
+- **Xenium data (Breast Cancer)**: Filtering, disk-backed representation, clustering, marker analysis, cell type annotation, and spatial-aware clustering with hotspot detection
+
+## Xenium Analysis
+
+### Data Import & Filtering
+
+\\{r import-xenium} Xen_R1 \<- importXenium("../data/BreastCancer/Xenium_R1/outs/", sample_name = "XeniumR1", overwrite_resolution = TRUE, resolution_level = 3) Xen_R1 \<- subset(Xen_R1, Count \> 5) \\}
+
+### On-Disk Representation
+
+\\{r xenium-disk} library(HDF5Array) library(ImageArray) library(BPCells)
+
+Xen_R1_ondisk \<- saveVoltRon(Xen_R1, format = "HDF5VoltRon", output = "../data/ondisk/Xen_R1", replace = TRUE) Xen_R1_ondisk \<- loadVoltRon("../data/ondisk/Xen_R1/") \\}
+
+### Clustering & Visualization
+
+\\{r xenium-clustering} Xen_R1_ondisk \<- normalizeData(Xen_R1_ondisk, sizefactor = 1000) Xen_R1_ondisk \<- getPCA(Xen_R1_ondisk, dims = 20, overwrite = TRUE) Xen_R1_ondisk \<- getUMAP(Xen_R1_ondisk, dims = 1:20) Xen_R1_ondisk \<- getProfileNeighbors(Xen_R1_ondisk, dims = 1:20, method = "SNN") Xen_R1_ondisk \<- getClusters(Xen_R1_ondisk, resolution = 1.3, label = "Clusters", graph = "SNN")
+
+vrEmbeddingPlot(Xen_R1_ondisk, group.by = "Clusters", embedding = "umap", pt.size = 0.4, label = TRUE) vrSpatialPlot(Xen_R1_ondisk, group.by = "Clusters", pt.size = 0.18) \\}
+
+### Marker Analysis & Annotation
+
+\\{r xenium-marker-annotation} Xen_R1$Clusters <- Xen_R1_ondisk$Clusters Xen_R1_seu \<- VoltRon::as.Seurat(Xen_R1, cell.assay = "Xenium", type = "image") Xen_R1_seu \<- NormalizeData(Xen_R1_seu, scale.factor = 1000) markers \<- FindAllMarkers(Xen_R1_seu)
+
+annotations \<- read.table("../data/BreastCancer/Xenium_R1/annotation.txt")[,1] levels(factor(Xen_R1_ondisk$Clusters)) <- annotations
+Xen_R1_ondisk$CellType \<- as.character(factor(Xen_R1_ondisk\$Clusters))
+
+vrSpatialPlot(Xen_R1_ondisk, group.by = "CellType", pt.size = 0.18) vrEmbeddingPlot(Xen_R1_ondisk, group.by = "CellType", embedding = "umap", pt.size = 0.4, label = TRUE) \\}
+
+### Spatial & Niche Clustering
+
+\\{r xenium-niche} Xen_R1_ondisk \<- getSpatialNeighbors(Xen_R1_ondisk, radius = 30, method = "radius") Xen_R1_ondisk \<- getNicheAssay(Xen_R1_ondisk, label = "CellType", graph.type = "radius") Xen_R1_ondisk \<- normalizeData(Xen_R1_ondisk, method = "CLR") Xen_R1_ondisk \<- getClusters(Xen_R1_ondisk, nclus = 9, method = "kmeans", label = "niche_clusters")
+
+vrSpatialPlot(Xen_R1_ondisk, group.by = "niche_clusters", alpha = 1) vrHeatmapPlot(Xen_R1_ondisk, features = vrFeatures(Xen_R1_ondisk), group.by = "niche_clusters") \\}
+
+### Hotspot Analysis
+
+\\{r xenium-hotspot} Xen_R1_ondisk \<- getSpatialNeighbors(Xen_R1_ondisk, method = "radius", radius = 15, graph.key = "radius_hot") vrMainFeatureType(Xen_R1_ondisk) \<- "RNA"
+
+vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR", alpha = 1, background.color = "black", n.tile = 300) Xen_R1_ondisk \<- getHotSpotAnalysis(Xen_R1_ondisk, features = "PGR", graph.type = "radius_hot", alpha.value = 0.001) vrSpatialFeaturePlot(Xen_R1_ondisk, features = "PGR_hotspot_stat", alpha = 1, background.color = "black", n.tile = 400) vrSpatialPlot(Xen_R1_ondisk, group.by = "PGR_hotspot_flag", alpha = 1, background.color = "black", n.tile = 400) \\}

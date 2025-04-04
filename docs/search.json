@@ -403,7 +403,7 @@
     "href": "index.html#spatial-transcriptomics",
     "title": "Welcome to Genomic Insights",
     "section": "Spatial Transcriptomics",
-    "text": "Spatial Transcriptomics\n\nAnalyzed spatial transcriptomics data with spot deconvolution and niche clustering. Registered multimodal images (cell assays, molecular assays, H&E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions."
+    "text": "Spatial Transcriptomics\n\nSpatial Transcriptomics Analysis\n\nVisium Analysis\n\nThe markdown is using 10X Visium data (Mouse Brain) and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.\nCode\n\nXenium Analysis\n\nXenium is a cell-level spatial transcriptomics platform that offers subcellular resolution. This allows us to examine not just spatial zones of gene expression but individual cells and their microenvironments. Here, we perform a full analysis including: data filtering, disk-based representation for large-scale handling, clustering, marker analysis, and hotspot detection.\n\nXenium Analysis with Image Registration\n\nRegistered multimodal images (cell assays, molecular assays, H&E, ROI) to integrate spatial and morphological features. Studied spatially resolved gene expression and microenvironment interactions."
   },
   {
     "objectID": "index.html#breast-cancer-subtype-prediction",
