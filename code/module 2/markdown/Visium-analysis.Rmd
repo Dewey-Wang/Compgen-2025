@@ -43,7 +43,7 @@ See Next - Xenium Analysis</a>
 
 This R Markdown document performs a comprehensive spatial transcriptomics analysis using the **VoltRon** package.
 
-The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and integration with single-cell data for deconvolution and cell type inference.
+The pipeline is using **10X Visium data (Mouse Brain)** and covers normalization, dimensionality reduction, clustering, visualization, and spot deconvolution using single-cell RNA-seq reference for cell type inference.
 
 > If you want to reproduce the experiment: 👉 [Click here to the Docker and the data setup instructions](#environment--dataset-setup)
 
