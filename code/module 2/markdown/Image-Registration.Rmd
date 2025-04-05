@@ -180,7 +180,7 @@ vr2_merged_acute1 <- readRDS(file = "../workshop/data/COVID19/acutecase1_annotat
 SampleMetadata(vr2_merged_acute1)
 ```
 
-## Visualize Cells & Molecules
+## Visualize Cells & Molecules {#explain}
 
 Xenium captures not only transcripts within cells but also those outside
 the cells. They use DAPI staining to mark the boundary and calculate the
@@ -200,8 +200,16 @@ p3 <- vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by = "gene", 
 (p1 | p2 | p3)
 ```
 
-> 💬 *Explanation:* Molecules often lie **outside cells**, particularly
-> in damaged zones, making tissue morphology crucial for interpretation.
+> 💬 *Explanation:* Xenium can capture all transcripts with in the
+> slides. Molecules often lie **outside cells**, particularly in damaged
+> zones, making tissue morphology crucial for interpretation.
+>
+> Extra Notes: The expression of S2_N and S2_orf1ab genes are done by
+> 10X company. Also, we don't know the expression here. I think they
+> capture those gene with some threshold and everything above the
+> threshold they will count as a dot in in image. That's why we do not
+> discuss the expression for S2_N and S2_orf1ab genes but discuss the
+> counts of them!
 
 ------------------------------------------------------------------------
 
@@ -210,7 +218,8 @@ p3 <- vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by = "gene", 
 ## Import & Register H&E Image
 
 We load an H&E image annotated by a pathologist for **hyaline
-membranes**. These are regions of epithelial damage.
+membranes**. These are regions of epithelial damage. With this, we could
+study how hyaline membrane affects COVID-19 activity.
 
 After registration, we register the image and its annotations to our
 main dataset.
@@ -267,6 +276,10 @@ p2 <- vrSpatialPlot(vr2_merged_acute1, assay = "ROIAnnotation",
 (p1 | p2)
 ```
 
+> 💬 *Explanation:* Here, can see the images are overlapping. But we
+> still don't know how many S2_N and S2_orf1ab are there within hyaline
+> membrane. Therefore, we need to do the following steps.
+
 ------------------------------------------------------------------------
 
 # Transfer ROI to Molecule Data
@@ -301,13 +314,28 @@ s2_summary_hyaline <- readRDS("./RDS/s2_summary_hyaline.rds")
 s2_summary_hyaline
 ```
 
-> 🧠 **Interpretation**: `S2_N / S2_orf1ab` ratio informs us about **viral replication**. A higher ratio indicates more **active replication**.
+> 🧠 **Interpretation**: `S2_N / S2_orf1ab` ratio informs us about
+> **viral replication**. A higher ratio indicates more **active
+> replication**. So from this observation, we can say the viral is
+> growing within the hyaline membrane.
+>
+> If you wonder why we use ratio instead of expression, see the
+> *Explanation section* in [here](#explain).
 
 ------------------------------------------------------------------------
 
 # Interactive Visualization
 
-Convert to AnnData/Zarr for `vitessce` or `rolv` visualization.
+After knowing the viral is growing within the hyaline membrane, we want
+to explore more about the Xenium dataset. The annotation step doesn't
+show here but bascially just annotate the cells base on their gene
+expression.
+
+Here, we have a cell type called "H.I. Cells", which means highly
+infected cells.
+
+We also curious about whether there is a region have lots of "H.I.
+Cells" and is COVID-19 highly active in the region or not.
 
 ```{r, eval = FALSE}
 ## Use can use Rstduio locally, You can use this function.
@@ -321,18 +349,24 @@ as.AnnData(vr2_merged_acute1, assay = "Assay7", file = "../workshop/data/ondisk/
 
 ![](images/integrate.png)
 
+> 🧠 **Interpretation**: We could see there indeed has a region that is
+> full of "H.I. Cells". As we zoom in, we could see there just like a
+> battle zone of the cells. So now we curious about what's the
+> `S2_N / S2_orf1ab` ratio.
+
 ------------------------------------------------------------------------
 
 # Region-Based Comparison
 
-Using interactive annotation, define **infected zones** and compare with
-hyaline membranes.
+Before calculating the `S2_N / S2_orf1ab` ratio, we need to mark down
+this region. Here, we used an interactive annotation interface to define
+**infected zones.** You can see the video as a demo.
 
 ```{r, eval = FALSE}
 # Manually annotate infected zones
 vr2_merged_acute1 <- annotateSpatialData(vr2_merged_acute1, assay = "Xenium_mol", label = "Region2", 
                                          use.image = TRUE, channel = "H&E", annotation_assay = "InfectedAnnotation")
-# The functionwill give you GUI interface. I use GIF for demo here
+# The functionwill give you GUI interface. I use video for demo here
 ```
 
 ::: center
@@ -349,6 +383,9 @@ Your browser does not support the video tag.
 
 ## Integrate with other layers
 
+Here, we integrated the infected region with "S2_N", "S2_orf1ab" image
+and hyaline membrane image.
+
 ```{r, echo=FALSE}
 vr2_merged_acute1 <- readRDS("./RDS/vr2_merged_acute1_3.rds")
 ```
@@ -361,6 +398,9 @@ vrSpatialPlot(vr2_merged_acute1, assay = "Xenium_mol", group.by = "gene",
   addSpatialLayer(vr2_merged_acute1, assay = "InfectedAnnotation", group.by = "Region2", alpha = 0.8, 
                   colors = list(`Infected` = "yellow"))
 ```
+
+Now, we can compare the `S2_N / S2_orf1ab` ratio of infected region with
+hyaline membrane region.
 
 ```{r, eval = FALSE}
 # Compare abundance
@@ -383,6 +423,13 @@ s2_summary_hyaline <- readRDS("./RDS/s2_summary_hyaline.rds")
 rbind(s2_summary_infected, s2_summary_hyaline)
 ```
 
+> 🧠 **Interpretation**: We could see the infected region has higher
+> `S2_N / S2_orf1ab` ratio than hyaline membrane region. But how
+> significant it is?
+
+Here, we do the fish test to see how significant the infected region is
+higher than hyaline membrane region.
+
 ```{r}
 # check all abundances
 S2_table <- matrix(c(s2_summary_hyaline[,1:2], 
@@ -393,12 +440,15 @@ S2_table <- matrix(c(s2_summary_hyaline[,1:2],
 fisher.test(S2_table, alternative = "two.sided")
 ```
 
+> 🧠 **Interpretation**: With p-value 2.2e-16, we could confidently say
+> the infected region has higher ratio than hyaline membrane region.
+
 ------------------------------------------------------------------------
 
 # Hotspot Analysis
 
-Identify **regions of high local molecule enrichment** using spatial
-graph statistics.
+Using a **spatial graph**, we locate **clusters of high local
+expression** (i.e., hotspots) of *S2_N* and *ORF1ab*.
 
 ```{r, eval = FALSE}
 vr2_merged_acute1 <- getSpatialNeighbors(vr2_merged_acute1, assay = "Xenium_mol", 
